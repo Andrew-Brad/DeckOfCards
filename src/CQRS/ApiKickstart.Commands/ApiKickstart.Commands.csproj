@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AB.Extensions" Version="2.1.0" />
+    <PackageReference Include="MediatR" Version="4.1.0" />
+    <PackageReference Include="Sieve" Version="2.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\ApiKickstart.Domain\ApiKickstart.Domain.csproj" />
+    <ProjectReference Include="..\ApiKickstart.CQRS\ApiKickstart.CQRS.csproj" />
+  </ItemGroup>
+
+</Project>

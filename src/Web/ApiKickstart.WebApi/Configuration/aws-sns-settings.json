@@ -1,0 +1,8 @@
+﻿{
+  "AwsSns": {
+    "TopicArn": "Topic Arn from AWS",
+    "AccessKeyId": "Secret!",
+    "SecretKey": "Secret!",
+    "Region": "us-east-2"
+  }
+}
