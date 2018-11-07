@@ -11,7 +11,7 @@
     <Folder Include="Middleware\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Ardalis.SmartEnum" Version="1.0.3" />
     <PackageReference Include="AutoMapper" Version="7.0.0" />
@@ -27,7 +27,7 @@
     <PackageReference Include="StructureMap.AspNetCore" Version="1.4.0" />
 
     <PackageReference Include="AB.Extensions" Version="2.1.0" />
-    
+
     <!--Serilog-->
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
@@ -47,22 +47,22 @@
     <PackageReference Include="NSwag.AspNetCore" Version="11.17.9" />
 
 
-    
+
   </ItemGroup>
-  
+
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
     <!--<DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />-->
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\..\CQRS\ApiKickstart.CommandHandlers\ApiKickstart.CommandHandlers\ApiKickstart.CommandHandlers.csproj" />
     <ProjectReference Include="..\..\CQRS\ApiKickstart.Commands\ApiKickstart.Commands.csproj" />
     <ProjectReference Include="..\..\CQRS\ApiKickstart.CQRS\ApiKickstart.CQRS.csproj" />
     <ProjectReference Include="..\..\CQRS\ApiKickstart.Queries\ApiKickstart.Queries.csproj" />
     <ProjectReference Include="..\..\CQRS\ApiKickstart.QueryHandlers\ApiKickstart.QueryHandlers.csproj" />
-    <ProjectReference Include="..\..\Domain\ApiKickstart.DataModel\ApiKickstart.DataModel\ApiKickstart.DataModel.csproj" />
     <ProjectReference Include="..\..\Domain\ApiKickstart.Domain\ApiKickstart.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ApiKickstart.DataModel\ApiKickstart.DataModel.csproj" />
   </ItemGroup>
 
 </Project>

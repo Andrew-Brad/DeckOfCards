@@ -20,8 +20,8 @@
     <ProjectReference Include="..\..\src\CQRS\ApiKickstart.CQRS\ApiKickstart.CQRS.csproj" />
     <ProjectReference Include="..\..\src\CQRS\ApiKickstart.Queries\ApiKickstart.Queries.csproj" />
     <ProjectReference Include="..\..\src\CQRS\ApiKickstart.QueryHandlers\ApiKickstart.QueryHandlers.csproj" />
-    <ProjectReference Include="..\..\src\Domain\ApiKickstart.DataModel\ApiKickstart.DataModel\ApiKickstart.DataModel.csproj" />
     <ProjectReference Include="..\..\src\Domain\ApiKickstart.Domain\ApiKickstart.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\ApiKickstart.DataModel\ApiKickstart.DataModel.csproj" />
     <ProjectReference Include="..\..\src\Web\ApiKickstart.WebApi\ApiKickstart.WebApi.csproj" />
   </ItemGroup>
 

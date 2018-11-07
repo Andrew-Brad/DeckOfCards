@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\ApiKickstart.DataModel\ApiKickstart.DataModel\ApiKickstart.DataModel.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ApiKickstart.DataModel\ApiKickstart.DataModel.csproj" />
     <ProjectReference Include="..\ApiKickstart.Queries\ApiKickstart.Queries.csproj" />
   </ItemGroup>
 

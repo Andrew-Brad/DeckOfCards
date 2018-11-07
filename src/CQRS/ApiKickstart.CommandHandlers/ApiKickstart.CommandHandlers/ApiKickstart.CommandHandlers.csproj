@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Domain\ApiKickstart.DataModel\ApiKickstart.DataModel\ApiKickstart.DataModel.csproj" />
     <ProjectReference Include="..\..\..\Domain\ApiKickstart.DomainEvents\ApiKickstart.DomainEvents.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\ApiKickstart.DataModel\ApiKickstart.DataModel.csproj" />
     <ProjectReference Include="..\..\ApiKickstart.Commands\ApiKickstart.Commands.csproj" />
     <ProjectReference Include="..\..\ApiKickstart.Queries\ApiKickstart.Queries.csproj" />
     <ProjectReference Include="..\..\ApiKickstart.QueryHandlers\ApiKickstart.QueryHandlers.csproj" />
