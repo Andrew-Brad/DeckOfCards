@@ -9,4 +9,9 @@
     <PackageReference Include="Ardalis.SmartEnum" Version="1.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+    <Folder Include="Entities\" />
+  </ItemGroup>
+
 </Project>
