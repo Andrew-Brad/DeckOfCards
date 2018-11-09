@@ -6,13 +6,14 @@
 
   <ItemGroup>
     <PackageReference Include="AB.Extensions" Version="2.1.0" />
+    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.3" />
     <PackageReference Include="MediatR" Version="4.1.0" />
     <PackageReference Include="Sieve" Version="2.1.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\DeckOfCards.Domain\DeckOfCards.Domain.csproj" />
-    <ProjectReference Include="..\ApiKickstart.CQRS\DeckOfCards.CQRS.csproj" />
+    <ProjectReference Include="..\DeckOfCards.CQRS\DeckOfCards.CQRS.csproj" />
   </ItemGroup>
 
 </Project>

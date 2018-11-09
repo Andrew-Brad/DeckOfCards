@@ -20,9 +20,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\DeckOfCards.DomainEvents\DeckOfCards.DomainEvents.csproj" />
     <ProjectReference Include="..\..\Infrastructure\DeckOfCards.DataModel\DeckOfCards.Persistence.csproj" />
-    <ProjectReference Include="..\ApiKickstart.Commands\DeckOfCards.Commands.csproj" />
-    <ProjectReference Include="..\ApiKickstart.Queries\DeckOfCards.Queries.csproj" />
-    <ProjectReference Include="..\ApiKickstart.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
+    <ProjectReference Include="..\DeckOfCards.Commands\DeckOfCards.Commands.csproj" />
+    <ProjectReference Include="..\DeckOfCards.Queries\DeckOfCards.Queries.csproj" />
+    <ProjectReference Include="..\DeckOfCards.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CQRS\ApiKickstart.Commands\DeckOfCards.Commands.csproj" />
-    <ProjectReference Include="..\..\src\CQRS\ApiKickstart.CQRS\DeckOfCards.CQRS.csproj" />
-    <ProjectReference Include="..\..\src\CQRS\ApiKickstart.Queries\DeckOfCards.Queries.csproj" />
-    <ProjectReference Include="..\..\src\CQRS\ApiKickstart.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.Commands\DeckOfCards.Commands.csproj" />
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.CQRS\DeckOfCards.CQRS.csproj" />
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.Queries\DeckOfCards.Queries.csproj" />
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
     <ProjectReference Include="..\..\src\Domain\DeckOfCards.Domain\DeckOfCards.Domain.csproj" />
     <ProjectReference Include="..\..\src\Infrastructure\DeckOfCards.DataModel\DeckOfCards.Persistence.csproj" />
     <ProjectReference Include="..\..\src\Web\DeckOfCards.WebApi\DeckOfCards.WebApi.csproj" />

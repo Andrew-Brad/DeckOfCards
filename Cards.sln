@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.CQRS", "src\CQRS\ApiKickstart.CQRS\DeckOfCards.CQRS.csproj", "{687BD3F8-7536-411D-B8A6-0402B61A8491}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.CQRS", "src\CQRS\DeckOfCards.CQRS\DeckOfCards.CQRS.csproj", "{687BD3F8-7536-411D-B8A6-0402B61A8491}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{218D4F54-D7AE-4EDE-94DE-46B656B3A1E4}"
 EndProject
@@ -23,19 +23,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commands", "Commands", "{CE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queries", "Queries", "{D7AC5A9A-3B0E-45B1-AE5D-AC9EA7259F6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Commands", "src\CQRS\ApiKickstart.Commands\DeckOfCards.Commands.csproj", "{A541649F-3B80-44C5-A71C-FFC437D6E6C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Commands", "src\CQRS\DeckOfCards.Commands\DeckOfCards.Commands.csproj", "{A541649F-3B80-44C5-A71C-FFC437D6E6C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Queries", "src\CQRS\ApiKickstart.Queries\DeckOfCards.Queries.csproj", "{A7BA9255-6D38-4D7B-ACEF-6BCAAA41877C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Queries", "src\CQRS\DeckOfCards.Queries\DeckOfCards.Queries.csproj", "{A7BA9255-6D38-4D7B-ACEF-6BCAAA41877C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.WebApi", "src\Web\DeckOfCards.WebApi\DeckOfCards.WebApi.csproj", "{51F5887C-46A3-4FFC-8E9E-1370645CEA35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{E29A1224-1AA8-4A82-9496-2B2379538BA1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.QueryHandlers", "src\CQRS\ApiKickstart.QueryHandlers\DeckOfCards.QueryHandlers.csproj", "{6D7FACC9-2084-4E39-8748-C76A3D78506A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.QueryHandlers", "src\CQRS\DeckOfCards.QueryHandlers\DeckOfCards.QueryHandlers.csproj", "{6D7FACC9-2084-4E39-8748-C76A3D78506A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Test", "test\Api.Kickstart.Test\DeckOfCards.Test.csproj", "{861846A9-2BA2-4BC6-A824-11F247AA59C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.CommandHandlers", "src\CQRS\ApiKickstart.CommandHandlers\DeckOfCards.CommandHandlers.csproj", "{C0C4E557-71E4-485C-ABE7-2A68A5718976}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.CommandHandlers", "src\CQRS\DeckOfCards.CommandHandlers\DeckOfCards.CommandHandlers.csproj", "{C0C4E557-71E4-485C-ABE7-2A68A5718976}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Messaging.Console", "test\Api.Kickstart.Messaging.Console\DeckOfCards.Messaging.Console.csproj", "{0BBDBEEE-33AE-4D07-AEDB-42D53D682DF5}"
 EndProject

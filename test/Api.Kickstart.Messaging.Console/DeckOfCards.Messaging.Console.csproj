@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CQRS\ApiKickstart.Queries\DeckOfCards.Queries.csproj" />
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.Queries\DeckOfCards.Queries.csproj" />
   </ItemGroup>
 
 </Project>

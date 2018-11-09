@@ -56,11 +56,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CQRS\ApiKickstart.CommandHandlers\DeckOfCards.CommandHandlers.csproj" />
-    <ProjectReference Include="..\..\CQRS\ApiKickstart.Commands\DeckOfCards.Commands.csproj" />
-    <ProjectReference Include="..\..\CQRS\ApiKickstart.CQRS\DeckOfCards.CQRS.csproj" />
-    <ProjectReference Include="..\..\CQRS\ApiKickstart.Queries\DeckOfCards.Queries.csproj" />
-    <ProjectReference Include="..\..\CQRS\ApiKickstart.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
+    <ProjectReference Include="..\..\CQRS\DeckOfCards.CommandHandlers\DeckOfCards.CommandHandlers.csproj" />
+    <ProjectReference Include="..\..\CQRS\DeckOfCards.Commands\DeckOfCards.Commands.csproj" />
+    <ProjectReference Include="..\..\CQRS\DeckOfCards.CQRS\DeckOfCards.CQRS.csproj" />
+    <ProjectReference Include="..\..\CQRS\DeckOfCards.Queries\DeckOfCards.Queries.csproj" />
+    <ProjectReference Include="..\..\CQRS\DeckOfCards.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
     <ProjectReference Include="..\..\Domain\DeckOfCards.Domain\DeckOfCards.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\DeckOfCards.DataModel\DeckOfCards.Persistence.csproj" />
   </ItemGroup>

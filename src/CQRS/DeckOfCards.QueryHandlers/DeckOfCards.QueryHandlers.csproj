@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\DeckOfCards.DataModel\DeckOfCards.Persistence.csproj" />
-    <ProjectReference Include="..\ApiKickstart.Queries\DeckOfCards.Queries.csproj" />
+    <ProjectReference Include="..\DeckOfCards.Queries\DeckOfCards.Queries.csproj" />
   </ItemGroup>
 
 </Project>
