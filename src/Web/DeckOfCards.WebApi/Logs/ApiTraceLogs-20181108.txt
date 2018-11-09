@@ -2302,3 +2302,387 @@
 2018-11-08 21:51:11.573 -06:00 [Debug] Connection id ""0HLI5UQAO4VO0"" stopped.
 2018-11-08 21:51:11.573 -06:00 [Debug] Connection id ""0HLI5UQAO4VO2"" stopped.
 2018-11-08 21:51:11.573 -06:00 [Debug] Connection id ""0HLI5UQAO4VO3"" stopped.
+2018-11-08 21:58:16.259 -06:00 [Verbose] Configuring Polly policies...
+2018-11-08 21:58:16.280 -06:00 [Verbose] Polly configuration and registration complete.
+2018-11-08 21:58:16.281 -06:00 [Debug] Beginning DI registration of RavenDB DocumentStore...
+2018-11-08 21:58:16.310 -06:00 [Debug] Beginning DI registration of AWS SNS objects...
+2018-11-08 21:58:16.563 -06:00 [Debug] Hosting starting
+2018-11-08 21:58:16.637 -06:00 [Information] User profile is available. Using '"C:\Users\Andrew\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-08 21:58:16.688 -06:00 [Debug] Compatibility switch "AllowInputFormatterExceptionMessages" in type "MvcJsonOptions" is using compatibility value True for version Version_2_1
+2018-11-08 21:58:16.713 -06:00 [Debug] Compatibility switch "AllowCombiningAuthorizeFilters" in type "MvcOptions" is using compatibility value True for version Version_2_1
+2018-11-08 21:58:16.714 -06:00 [Debug] Compatibility switch "AllowBindingHeaderValuesToNonStringModelTypes" in type "MvcOptions" is using compatibility value True for version Version_2_1
+2018-11-08 21:58:16.714 -06:00 [Debug] Compatibility switch "AllowValidatingTopLevelNodes" in type "MvcOptions" is using compatibility value True for version Version_2_1
+2018-11-08 21:58:16.714 -06:00 [Debug] Compatibility switch "InputFormatterExceptionPolicy" in type "MvcOptions" is using compatibility value MalformedInputExceptions for version Version_2_1
+2018-11-08 21:58:16.714 -06:00 [Debug] Compatibility switch "SuppressBindingUndefinedValueToEnumType" in type "MvcOptions" is using compatibility value True for version Version_2_1
+2018-11-08 21:58:16.765 -06:00 [Debug] Compatibility switch "AllowAreas" in type "RazorPagesOptions" is using compatibility value True for version Version_2_1
+2018-11-08 21:58:16.766 -06:00 [Debug] Compatibility switch "AllowMappingHeadRequestsToGetHandler" in type "RazorPagesOptions" is using compatibility value True for version Version_2_1
+2018-11-08 21:58:16.824 -06:00 [Debug] Compatibility switch "SuppressTempDataAttributePrefix" in type "MvcViewOptions" is using compatibility value True for version Version_2_1
+2018-11-08 21:58:16.865 -06:00 [Debug] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider", "Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexTypeModelBinderProvider"]
+2018-11-08 21:58:16.939 -06:00 [Debug] Reading data from file '"C:\Users\Andrew\AppData\Local\ASP.NET\DataProtection-Keys\key-b04a7878-72bb-4967-8646-1695d74e44e1.xml"'.
+2018-11-08 21:58:16.940 -06:00 [Debug] Reading data from file '"C:\Users\Andrew\AppData\Local\ASP.NET\DataProtection-Keys\key-beedd6d6-a30a-4849-8c0a-bc6de36e6a5f.xml"'.
+2018-11-08 21:58:16.942 -06:00 [Debug] Found key {b04a7878-72bb-4967-8646-1695d74e44e1}.
+2018-11-08 21:58:16.944 -06:00 [Debug] Found key {beedd6d6-a30a-4849-8c0a-bc6de36e6a5f}.
+2018-11-08 21:58:16.950 -06:00 [Debug] Considering key {b04a7878-72bb-4967-8646-1695d74e44e1} with expiration date 2019-01-13 17:30:57Z as default key.
+2018-11-08 21:58:16.958 -06:00 [Debug] Forwarded activator type request from "Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" to "Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60"
+2018-11-08 21:58:16.961 -06:00 [Debug] Decrypting secret element using Windows DPAPI.
+2018-11-08 21:58:16.962 -06:00 [Debug] Forwarded activator type request from "Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" to "Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60"
+2018-11-08 21:58:16.967 -06:00 [Debug] Opening CNG algorithm '"AES"' from provider 'null' with chaining mode CBC.
+2018-11-08 21:58:16.971 -06:00 [Debug] Opening CNG algorithm '"SHA256"' from provider 'null' with HMAC.
+2018-11-08 21:58:16.978 -06:00 [Debug] Using key {b04a7878-72bb-4967-8646-1695d74e44e1} as the default key.
+2018-11-08 21:58:16.979 -06:00 [Debug] Key ring with default key {b04a7878-72bb-4967-8646-1695d74e44e1} was loaded during application startup.
+2018-11-08 21:58:16.984 -06:00 [Debug] Configure method entered.
+2018-11-08 21:58:17.002 -06:00 [Verbose] Beginning DI registration for Swagger...
+2018-11-08 21:58:17.008 -06:00 [Verbose] Swagger configuration complete.
+2018-11-08 21:58:17.008 -06:00 [Information] Startup initialization completed for "Development".
+2018-11-08 21:58:17.079 -06:00 [Debug] Using development certificate: "CN=localhost" (Thumbprint: "F46950DFBCCFDEFF3311225DB5DD9AF2F953F685")
+2018-11-08 21:58:17.095 -06:00 [Debug] Hosting started
+2018-11-08 21:58:17.096 -06:00 [Debug] Loaded hosting startup assembly "DeckOfCards.WebApi"
+2018-11-08 21:58:17.888 -06:00 [Debug] Connection id ""0HLI5UUAG7O8V"" started.
+2018-11-08 21:58:18.016 -06:00 [Information] Request starting HTTP/1.1 GET https://localhost:5004/api/v1/cards/templates?rank=king&suit=hearts  
+2018-11-08 21:58:18.187 -06:00 [Debug] Request successfully matched the route with name 'null' and template '"api/v{version:apiVersion}/Cards/templates"'.
+2018-11-08 21:58:18.214 -06:00 [Debug] No actions matched the current request. Route values: ["version=1"]
+2018-11-08 21:58:18.216 -06:00 [Debug] Request did not match any routes.
+2018-11-08 21:58:18.228 -06:00 [Debug] The request path "" does not match the path filter
+2018-11-08 21:58:18.284 -06:00 [Information] Route matched with "{action = \"GetCardByRankAndSuit\", controller = \"Cards\"}". Executing action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)"
+2018-11-08 21:58:18.285 -06:00 [Debug] Execution plan of "authorization" filters (in the following order): ["None"]
+2018-11-08 21:58:18.286 -06:00 [Debug] Execution plan of "resource" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2018-11-08 21:58:18.287 -06:00 [Debug] Execution plan of "action" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:18.287 -06:00 [Debug] Execution plan of "exception" filters (in the following order): ["None"]
+2018-11-08 21:58:18.288 -06:00 [Debug] Execution plan of "result" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:18.295 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.297 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.333 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:18.336 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' using the name '""' in request data ...
+2018-11-08 21:58:18.347 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"' using the name '"Rank"' in request data ...
+2018-11-08 21:58:18.349 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"'.
+2018-11-08 21:58:18.350 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"' using the name '"Suit"' in request data ...
+2018-11-08 21:58:18.351 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"'.
+2018-11-08 21:58:18.351 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:18.352 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:18.352 -06:00 [Debug] Attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:18.373 -06:00 [Debug] Done attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:18.373 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:18.374 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:18.376 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:18.379 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:18.384 -06:00 [Information] Executing action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" with arguments (["DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"]) - Validation state: Valid
+2018-11-08 21:58:18.601 -06:00 [Verbose] "DeckOfCards.QueryResults.CardTemplateQueryResult" has completed. null returned.
+2018-11-08 21:58:18.608 -06:00 [Information] Executed action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 222.1738ms.
+2018-11-08 21:58:18.610 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:18.617 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:18.617 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:18.618 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:18.622 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.622 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.624 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:18.627 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:18.629 -06:00 [Verbose] Before executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:18.637 -06:00 [Debug] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter"]
+2018-11-08 21:58:18.644 -06:00 [Debug] Attempting to select an output formatter based on Accept header '["application/xml"]'.
+2018-11-08 21:58:18.653 -06:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter"' and content type '"application/xml"' to write the response.
+2018-11-08 21:58:18.653 -06:00 [Information] Executing ObjectResult, writing value of type '"DeckOfCards.WebApi.Response.ApiResponse`1[[DeckOfCards.WebApi.Views.GetCardTemplateView, DeckOfCards.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2018-11-08 21:58:18.702 -06:00 [Verbose] After executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:18.702 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:18.702 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:18.702 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.703 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.704 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.705 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.707 -06:00 [Information] Executed action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" in 418.1701ms
+2018-11-08 21:58:18.712 -06:00 [Information] HTTP "GET" "/api/v1/cards/templates" responded 200 in 691.7972 ms
+2018-11-08 21:58:18.716 -06:00 [Debug] Connection id ""0HLI5UUAG7O8V"" completed keep alive response.
+2018-11-08 21:58:18.721 -06:00 [Information] Request finished in 709.1832ms 200 application/xml; charset=utf-8
+2018-11-08 21:58:18.833 -06:00 [Debug] Connection id ""0HLI5UUAG7O90"" started.
+2018-11-08 21:58:18.834 -06:00 [Information] Request starting HTTP/1.1 GET https://localhost:5004/api/v1/cards/templates?rank=king&suit=hearts  
+2018-11-08 21:58:18.834 -06:00 [Debug] Request successfully matched the route with name 'null' and template '"api/v{version:apiVersion}/Cards/templates"'.
+2018-11-08 21:58:18.837 -06:00 [Information] Route matched with "{action = \"GetCardByRankAndSuit\", controller = \"Cards\"}". Executing action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)"
+2018-11-08 21:58:18.837 -06:00 [Debug] Execution plan of "authorization" filters (in the following order): ["None"]
+2018-11-08 21:58:18.837 -06:00 [Debug] Execution plan of "resource" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2018-11-08 21:58:18.838 -06:00 [Debug] Execution plan of "action" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:18.838 -06:00 [Debug] Execution plan of "exception" filters (in the following order): ["None"]
+2018-11-08 21:58:18.838 -06:00 [Debug] Execution plan of "result" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:18.838 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.838 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.838 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:18.838 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' using the name '""' in request data ...
+2018-11-08 21:58:18.838 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"' using the name '"Rank"' in request data ...
+2018-11-08 21:58:18.838 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"'.
+2018-11-08 21:58:18.838 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"' using the name '"Suit"' in request data ...
+2018-11-08 21:58:18.838 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"'.
+2018-11-08 21:58:18.838 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:18.839 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:18.839 -06:00 [Debug] Attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:18.839 -06:00 [Debug] Done attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:18.840 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:18.840 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:18.840 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:18.840 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:18.840 -06:00 [Information] Executing action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" with arguments (["DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"]) - Validation state: Valid
+2018-11-08 21:58:18.954 -06:00 [Verbose] "DeckOfCards.QueryResults.CardTemplateQueryResult" has completed. null returned.
+2018-11-08 21:58:18.954 -06:00 [Information] Executed action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 113.7591ms.
+2018-11-08 21:58:18.954 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:18.954 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:18.954 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:18.954 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:18.954 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.954 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.955 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:18.955 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:18.955 -06:00 [Verbose] Before executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:18.955 -06:00 [Debug] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter"]
+2018-11-08 21:58:18.955 -06:00 [Debug] Attempting to select an output formatter based on Accept header '["application/octet-stream"]'.
+2018-11-08 21:58:18.955 -06:00 [Debug] Could not find an output formatter based on content negotiation. Accepted types were (["application/octet-stream"])
+2018-11-08 21:58:18.955 -06:00 [Warning] No output formatter was found for content type '"application/octet-stream"' to write the response.
+2018-11-08 21:58:18.956 -06:00 [Warning] No output formatter was found for content type '"application/octet-stream"' to write the response.
+2018-11-08 21:58:18.956 -06:00 [Verbose] After executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:18.956 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:18.956 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:18.956 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.956 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.956 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.956 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:18.956 -06:00 [Information] Executed action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" in 118.2768ms
+2018-11-08 21:58:18.956 -06:00 [Information] HTTP "GET" "/api/v1/cards/templates" responded 406 in 121.7267 ms
+2018-11-08 21:58:18.958 -06:00 [Debug] Connection id ""0HLI5UUAG7O90"" completed keep alive response.
+2018-11-08 21:58:18.958 -06:00 [Information] Request finished in 123.4408ms 406 
+2018-11-08 21:58:19.081 -06:00 [Debug] Connection id ""0HLI5UUAG7O91"" started.
+2018-11-08 21:58:19.083 -06:00 [Information] Request starting HTTP/1.1 GET https://localhost:5004/api/v1/cards/templates?rank=king&suit=hearts  
+2018-11-08 21:58:19.083 -06:00 [Debug] Request successfully matched the route with name 'null' and template '"api/v{version:apiVersion}/Cards/templates"'.
+2018-11-08 21:58:19.083 -06:00 [Information] Route matched with "{action = \"GetCardByRankAndSuit\", controller = \"Cards\"}". Executing action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)"
+2018-11-08 21:58:19.083 -06:00 [Debug] Execution plan of "authorization" filters (in the following order): ["None"]
+2018-11-08 21:58:19.083 -06:00 [Debug] Execution plan of "resource" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2018-11-08 21:58:19.083 -06:00 [Debug] Execution plan of "action" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:19.083 -06:00 [Debug] Execution plan of "exception" filters (in the following order): ["None"]
+2018-11-08 21:58:19.083 -06:00 [Debug] Execution plan of "result" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:19.084 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.084 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.084 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:19.084 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' using the name '""' in request data ...
+2018-11-08 21:58:19.084 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"' using the name '"Rank"' in request data ...
+2018-11-08 21:58:19.084 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"'.
+2018-11-08 21:58:19.084 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"' using the name '"Suit"' in request data ...
+2018-11-08 21:58:19.084 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"'.
+2018-11-08 21:58:19.084 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.084 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.084 -06:00 [Debug] Attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:19.084 -06:00 [Debug] Done attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.084 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.084 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.084 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.084 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.085 -06:00 [Information] Executing action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" with arguments (["DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"]) - Validation state: Valid
+2018-11-08 21:58:19.197 -06:00 [Verbose] "DeckOfCards.QueryResults.CardTemplateQueryResult" has completed. null returned.
+2018-11-08 21:58:19.197 -06:00 [Information] Executed action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 112.5836ms.
+2018-11-08 21:58:19.197 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.197 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.197 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.197 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.198 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.198 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.198 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.198 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.198 -06:00 [Verbose] Before executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:19.198 -06:00 [Debug] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter"]
+2018-11-08 21:58:19.198 -06:00 [Debug] No information found on request to perform content negotiation.
+2018-11-08 21:58:19.198 -06:00 [Debug] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2018-11-08 21:58:19.199 -06:00 [Debug] Attempting to select the first formatter in the output formatters list which can write the result.
+2018-11-08 21:58:19.199 -06:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2018-11-08 21:58:19.199 -06:00 [Information] Executing ObjectResult, writing value of type '"DeckOfCards.WebApi.Response.ApiResponse`1[[DeckOfCards.WebApi.Views.GetCardTemplateView, DeckOfCards.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2018-11-08 21:58:19.205 -06:00 [Verbose] After executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:19.206 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.206 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.206 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.206 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.206 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.206 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.206 -06:00 [Information] Executed action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" in 122.5703ms
+2018-11-08 21:58:19.206 -06:00 [Information] HTTP "GET" "/api/v1/cards/templates" responded 200 in 123.2837 ms
+2018-11-08 21:58:19.206 -06:00 [Debug] Connection id ""0HLI5UUAG7O91"" completed keep alive response.
+2018-11-08 21:58:19.206 -06:00 [Information] Request finished in 123.6458ms 200 application/json; charset=utf-8
+2018-11-08 21:58:19.311 -06:00 [Debug] Connection id ""0HLI5UUAG7O92"" started.
+2018-11-08 21:58:19.312 -06:00 [Information] Request starting HTTP/1.1 GET https://localhost:5004/api/v1/cards/templates?rank=king&suit=hearts  
+2018-11-08 21:58:19.312 -06:00 [Debug] Request successfully matched the route with name 'null' and template '"api/v{version:apiVersion}/Cards/templates"'.
+2018-11-08 21:58:19.312 -06:00 [Information] Route matched with "{action = \"GetCardByRankAndSuit\", controller = \"Cards\"}". Executing action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)"
+2018-11-08 21:58:19.312 -06:00 [Debug] Execution plan of "authorization" filters (in the following order): ["None"]
+2018-11-08 21:58:19.312 -06:00 [Debug] Execution plan of "resource" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2018-11-08 21:58:19.312 -06:00 [Debug] Execution plan of "action" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:19.312 -06:00 [Debug] Execution plan of "exception" filters (in the following order): ["None"]
+2018-11-08 21:58:19.312 -06:00 [Debug] Execution plan of "result" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:19.312 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.312 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.313 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:19.313 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' using the name '""' in request data ...
+2018-11-08 21:58:19.313 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"' using the name '"Rank"' in request data ...
+2018-11-08 21:58:19.313 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"'.
+2018-11-08 21:58:19.313 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"' using the name '"Suit"' in request data ...
+2018-11-08 21:58:19.313 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"'.
+2018-11-08 21:58:19.313 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.313 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.313 -06:00 [Debug] Attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:19.313 -06:00 [Debug] Done attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.313 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.313 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.313 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.313 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.314 -06:00 [Information] Executing action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" with arguments (["DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"]) - Validation state: Valid
+2018-11-08 21:58:19.429 -06:00 [Verbose] "DeckOfCards.QueryResults.CardTemplateQueryResult" has completed. null returned.
+2018-11-08 21:58:19.429 -06:00 [Information] Executed action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 115.6641ms.
+2018-11-08 21:58:19.429 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.429 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.429 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.430 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.430 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.430 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.430 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.430 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.430 -06:00 [Verbose] Before executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:19.430 -06:00 [Debug] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter"]
+2018-11-08 21:58:19.430 -06:00 [Debug] No information found on request to perform content negotiation.
+2018-11-08 21:58:19.430 -06:00 [Debug] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2018-11-08 21:58:19.430 -06:00 [Debug] Attempting to select the first formatter in the output formatters list which can write the result.
+2018-11-08 21:58:19.430 -06:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2018-11-08 21:58:19.430 -06:00 [Information] Executing ObjectResult, writing value of type '"DeckOfCards.WebApi.Response.ApiResponse`1[[DeckOfCards.WebApi.Views.GetCardTemplateView, DeckOfCards.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2018-11-08 21:58:19.431 -06:00 [Verbose] After executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:19.431 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.431 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.431 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.431 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.431 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.431 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.431 -06:00 [Information] Executed action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" in 118.5788ms
+2018-11-08 21:58:19.431 -06:00 [Information] HTTP "GET" "/api/v1/cards/templates" responded 200 in 119.147 ms
+2018-11-08 21:58:19.431 -06:00 [Debug] Connection id ""0HLI5UUAG7O92"" completed keep alive response.
+2018-11-08 21:58:19.431 -06:00 [Information] Request finished in 119.3675ms 200 application/json; charset=utf-8
+2018-11-08 21:58:19.672 -06:00 [Debug] Connection id ""0HLI5UUAG7O93"" started.
+2018-11-08 21:58:19.673 -06:00 [Information] Request starting HTTP/1.1 GET https://localhost:5004/api/v1/cards/templates?rank=king&suit=hearts  
+2018-11-08 21:58:19.673 -06:00 [Debug] Request successfully matched the route with name 'null' and template '"api/v{version:apiVersion}/Cards/templates"'.
+2018-11-08 21:58:19.674 -06:00 [Information] Route matched with "{action = \"GetCardByRankAndSuit\", controller = \"Cards\"}". Executing action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)"
+2018-11-08 21:58:19.674 -06:00 [Debug] Execution plan of "authorization" filters (in the following order): ["None"]
+2018-11-08 21:58:19.674 -06:00 [Debug] Execution plan of "resource" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2018-11-08 21:58:19.674 -06:00 [Debug] Execution plan of "action" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:19.674 -06:00 [Debug] Execution plan of "exception" filters (in the following order): ["None"]
+2018-11-08 21:58:19.674 -06:00 [Debug] Execution plan of "result" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:19.674 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.674 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.675 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:19.675 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' using the name '""' in request data ...
+2018-11-08 21:58:19.675 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"' using the name '"Rank"' in request data ...
+2018-11-08 21:58:19.675 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"'.
+2018-11-08 21:58:19.675 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"' using the name '"Suit"' in request data ...
+2018-11-08 21:58:19.675 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"'.
+2018-11-08 21:58:19.675 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.675 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.675 -06:00 [Debug] Attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:19.675 -06:00 [Debug] Done attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:19.675 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.675 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.676 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.676 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.676 -06:00 [Information] Executing action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" with arguments (["DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"]) - Validation state: Valid
+2018-11-08 21:58:19.775 -06:00 [Verbose] "DeckOfCards.QueryResults.CardTemplateQueryResult" has completed. CardTemplate { Id: "b3c27b47-6ada-4f8f-906d-9c6fcfbd6e5b", CardName: "Unit test runtime value: King (13) of Hearts (3)", Rank: RanksEnumeration { Name: "King", Value: 13 }, Suit: SuitsEnumeration { Name: "Hearts", Value: 3 } } returned.
+2018-11-08 21:58:19.776 -06:00 [Information] Executed action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 100.6987ms.
+2018-11-08 21:58:19.776 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.776 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.777 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.777 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:19.777 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.777 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.777 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.777 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.777 -06:00 [Verbose] Before executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:19.777 -06:00 [Debug] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter"]
+2018-11-08 21:58:19.778 -06:00 [Debug] Attempting to select an output formatter based on Accept header '["application/json"]'.
+2018-11-08 21:58:19.778 -06:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2018-11-08 21:58:19.778 -06:00 [Information] Executing ObjectResult, writing value of type '"DeckOfCards.WebApi.Response.ApiResponse`1[[DeckOfCards.WebApi.Views.GetCardTemplateView, DeckOfCards.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2018-11-08 21:58:19.778 -06:00 [Verbose] After executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:19.778 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:19.778 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:19.778 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.778 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.778 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.778 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:19.779 -06:00 [Information] Executed action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuit (DeckOfCards.WebApi)" in 104.2001ms
+2018-11-08 21:58:19.779 -06:00 [Information] HTTP "GET" "/api/v1/cards/templates" responded 200 in 105.2463 ms
+2018-11-08 21:58:19.779 -06:00 [Debug] Connection id ""0HLI5UUAG7O93"" completed keep alive response.
+2018-11-08 21:58:19.779 -06:00 [Information] Request finished in 105.5075ms 200 application/json; charset=utf-8
+2018-11-08 21:58:20.000 -06:00 [Information] Request starting HTTP/1.1 GET https://localhost:5004/api/v1/cards/templates/hearts/king  
+2018-11-08 21:58:20.001 -06:00 [Debug] Request successfully matched the route with name 'null' and template '"api/v{version:apiVersion}/Cards/templates/{suit}/{rank}"'.
+2018-11-08 21:58:20.001 -06:00 [Debug] No actions matched the current request. Route values: ["version=1", "suit=hearts", "rank=king"]
+2018-11-08 21:58:20.001 -06:00 [Debug] Request did not match any routes.
+2018-11-08 21:58:20.001 -06:00 [Debug] The request path "" does not match the path filter
+2018-11-08 21:58:20.003 -06:00 [Information] Route matched with "{action = \"GetCardByRankAndSuitRoute\", controller = \"Cards\"}". Executing action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuitRoute (DeckOfCards.WebApi)"
+2018-11-08 21:58:20.004 -06:00 [Debug] Execution plan of "authorization" filters (in the following order): ["None"]
+2018-11-08 21:58:20.004 -06:00 [Debug] Execution plan of "resource" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2018-11-08 21:58:20.004 -06:00 [Debug] Execution plan of "action" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:20.004 -06:00 [Debug] Execution plan of "exception" filters (in the following order): ["None"]
+2018-11-08 21:58:20.004 -06:00 [Debug] Execution plan of "result" filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter", "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute (Order: 0)", "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute (Order: 0)"]
+2018-11-08 21:58:20.004 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:20.005 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:20.005 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:20.006 -06:00 [Debug] Attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' using the name '""' in request data ...
+2018-11-08 21:58:20.006 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"' using the name '"Rank"' in request data ...
+2018-11-08 21:58:20.006 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Rank"' of type '"System.String"'.
+2018-11-08 21:58:20.006 -06:00 [Debug] Attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"' using the name '"Suit"' in request data ...
+2018-11-08 21:58:20.006 -06:00 [Debug] Done attempting to bind property '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"."Suit"' of type '"System.String"'.
+2018-11-08 21:58:20.007 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:20.007 -06:00 [Debug] Done attempting to bind parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:20.007 -06:00 [Debug] Attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"' ...
+2018-11-08 21:58:20.007 -06:00 [Debug] Done attempting to validate the bound parameter '"model"' of type '"DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"'.
+2018-11-08 21:58:20.007 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:20.007 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuting" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:20.007 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:20.007 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:20.007 -06:00 [Information] Executing action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuitRoute (DeckOfCards.WebApi)" with arguments (["DeckOfCards.WebApi.ViewModels.GetCardTemplateViewModel"]) - Validation state: Valid
+2018-11-08 21:58:20.096 -06:00 [Verbose] "DeckOfCards.QueryResults.CardTemplateQueryResult" has completed. CardTemplate { Id: "b3c27b47-6ada-4f8f-906d-9c6fcfbd6e5b", CardName: "Unit test runtime value: King (13) of Hearts (3)", Rank: RanksEnumeration { Name: "King", Value: 13 }, Suit: SuitsEnumeration { Name: "Hearts", Value: 3 } } returned.
+2018-11-08 21:58:20.097 -06:00 [Information] Executed action method "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuitRoute (DeckOfCards.WebApi)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 89.7636ms.
+2018-11-08 21:58:20.098 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:20.098 -06:00 [Verbose] "Action Filter": After executing "OnActionExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:20.098 -06:00 [Verbose] "Action Filter": Before executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:20.099 -06:00 [Verbose] "Action Filter": After executing "OnActionExecuted" on filter "Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter".
+2018-11-08 21:58:20.099 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:20.099 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuting" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:20.100 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:20.100 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:20.100 -06:00 [Verbose] Before executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:20.101 -06:00 [Debug] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter", "Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter"]
+2018-11-08 21:58:20.101 -06:00 [Debug] Attempting to select an output formatter based on Accept header '["application/json"]'.
+2018-11-08 21:58:20.102 -06:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2018-11-08 21:58:20.102 -06:00 [Information] Executing ObjectResult, writing value of type '"DeckOfCards.WebApi.Response.ApiResponse`1[[DeckOfCards.WebApi.Views.GetCardTemplateView, DeckOfCards.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2018-11-08 21:58:20.102 -06:00 [Verbose] After executing action result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2018-11-08 21:58:20.102 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "DeckOfCards.WebApi.Filters.PreValidatedModelAttribute".
+2018-11-08 21:58:20.102 -06:00 [Verbose] "Result Filter": After executing "OnResultExecutionAsync" on filter "Microsoft.AspNetCore.Mvc.ReportApiVersionsAttribute".
+2018-11-08 21:58:20.102 -06:00 [Verbose] "Result Filter": Before executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:20.103 -06:00 [Verbose] "Result Filter": After executing "OnResultExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:20.103 -06:00 [Verbose] "Resource Filter": Before executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:20.103 -06:00 [Verbose] "Resource Filter": After executing "OnResourceExecuted" on filter "Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter".
+2018-11-08 21:58:20.103 -06:00 [Information] Executed action "DeckOfCards.WebApi.Controllers.CardsController.GetCardByRankAndSuitRoute (DeckOfCards.WebApi)" in 98.5631ms
+2018-11-08 21:58:20.103 -06:00 [Information] HTTP "GET" "/api/v1/cards/templates/hearts/king" responded 200 in 102.353 ms
+2018-11-08 21:58:20.103 -06:00 [Debug] Connection id ""0HLI5UUAG7O93"" completed keep alive response.
+2018-11-08 21:58:20.103 -06:00 [Information] Request finished in 102.6356ms 200 application/json; charset=utf-8
+2018-11-08 21:58:20.158 -06:00 [Debug] Connection id ""0HLI5UUAG7O94"" started.
+2018-11-08 21:58:20.159 -06:00 [Information] Request starting HTTP/1.1 GET https://localhost:5004/api/widgets  
+2018-11-08 21:58:20.159 -06:00 [Debug] Request did not match any routes.
+2018-11-08 21:58:20.159 -06:00 [Debug] The request path "" does not match the path filter
+2018-11-08 21:58:20.165 -06:00 [Debug] Request did not match any routes.
+2018-11-08 21:58:20.165 -06:00 [Information] HTTP "GET" "/api/widgets" responded 404 in 5.8345 ms
+2018-11-08 21:58:20.165 -06:00 [Debug] Connection id ""0HLI5UUAG7O94"" completed keep alive response.
+2018-11-08 21:58:20.165 -06:00 [Information] Request finished in 6.142ms 404 
+2018-11-08 21:58:20.170 -06:00 [Debug] Hosting shutdown
+2018-11-08 21:58:20.193 -06:00 [Debug] Connection id ""0HLI5UUAG7O92"" disconnecting.
+2018-11-08 21:58:20.193 -06:00 [Debug] Connection id ""0HLI5UUAG7O93"" disconnecting.
+2018-11-08 21:58:20.193 -06:00 [Debug] Connection id ""0HLI5UUAG7O94"" disconnecting.
+2018-11-08 21:58:20.193 -06:00 [Debug] Connection id ""0HLI5UUAG7O91"" disconnecting.
+2018-11-08 21:58:20.193 -06:00 [Debug] Connection id ""0HLI5UUAG7O8V"" disconnecting.
+2018-11-08 21:58:20.193 -06:00 [Debug] Connection id ""0HLI5UUAG7O90"" disconnecting.
+2018-11-08 21:58:20.195 -06:00 [Debug] Connection id ""0HLI5UUAG7O93"" sending FIN.
+2018-11-08 21:58:20.195 -06:00 [Debug] Connection id ""0HLI5UUAG7O92"" sending FIN.
+2018-11-08 21:58:20.195 -06:00 [Debug] Connection id ""0HLI5UUAG7O94"" sending FIN.
+2018-11-08 21:58:20.195 -06:00 [Debug] Connection id ""0HLI5UUAG7O8V"" sending FIN.
+2018-11-08 21:58:20.195 -06:00 [Debug] Connection id ""0HLI5UUAG7O91"" sending FIN.
+2018-11-08 21:58:20.195 -06:00 [Debug] Connection id ""0HLI5UUAG7O90"" sending FIN.
+2018-11-08 21:58:20.202 -06:00 [Debug] Connection id ""0HLI5UUAG7O90"" stopped.
+2018-11-08 21:58:20.202 -06:00 [Debug] Connection id ""0HLI5UUAG7O93"" stopped.
+2018-11-08 21:58:20.202 -06:00 [Debug] Connection id ""0HLI5UUAG7O94"" stopped.
+2018-11-08 21:58:20.202 -06:00 [Debug] Connection id ""0HLI5UUAG7O91"" stopped.
+2018-11-08 21:58:20.202 -06:00 [Debug] Connection id ""0HLI5UUAG7O92"" stopped.
+2018-11-08 21:58:20.202 -06:00 [Debug] Connection id ""0HLI5UUAG7O8V"" stopped.
