@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.QueryHandlers",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Test", "test\Api.Kickstart.Test\DeckOfCards.Test.csproj", "{861846A9-2BA2-4BC6-A824-11F247AA59C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.CommandHandlers", "src\CQRS\ApiKickstart.CommandHandlers\ApiKickstart.CommandHandlers\DeckOfCards.CommandHandlers.csproj", "{C0C4E557-71E4-485C-ABE7-2A68A5718976}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.CommandHandlers", "src\CQRS\ApiKickstart.CommandHandlers\DeckOfCards.CommandHandlers.csproj", "{C0C4E557-71E4-485C-ABE7-2A68A5718976}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Messaging.Console", "test\Api.Kickstart.Messaging.Console\DeckOfCards.Messaging.Console.csproj", "{0BBDBEEE-33AE-4D07-AEDB-42D53D682DF5}"
 EndProject
