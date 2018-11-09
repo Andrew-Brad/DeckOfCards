@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B90B90
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{847BCABB-C806-49FD-A874-350536909AC5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Domain", "src\Domain\ApiKickstart.Domain\DeckOfCards.Domain.csproj", "{7AD93A4E-F49A-4175-BB89-AF6C338B7EA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Domain", "src\Domain\DeckOfCards.Domain\DeckOfCards.Domain.csproj", "{7AD93A4E-F49A-4175-BB89-AF6C338B7EA0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commands", "Commands", "{CEBC8FE7-8976-4EC9-A51B-705D53DCCC43}"
 EndProject
@@ -39,9 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.CommandHandlers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Messaging.Console", "test\Api.Kickstart.Messaging.Console\DeckOfCards.Messaging.Console.csproj", "{0BBDBEEE-33AE-4D07-AEDB-42D53D682DF5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.DomainEvents", "src\Domain\ApiKickstart.DomainEvents\DeckOfCards.DomainEvents.csproj", "{1A00BD58-13F1-4A06-BB84-E9F1F82A315C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.DomainEvents", "src\Domain\DeckOfCards.DomainEvents\DeckOfCards.DomainEvents.csproj", "{1A00BD58-13F1-4A06-BB84-E9F1F82A315C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.DataModel", "src\Infrastructure\ApiKickstart.DataModel\DeckOfCards.DataModel.csproj", "{5883029A-9EB5-44AF-A73A-FE266AEFDD26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.DataModel", "src\Infrastructure\DeckOfCards.DataModel\DeckOfCards.DataModel.csproj", "{5883029A-9EB5-44AF-A73A-FE266AEFDD26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{66ECEF4B-5085-468A-8442-C0EB39F2E08C}"
 EndProject

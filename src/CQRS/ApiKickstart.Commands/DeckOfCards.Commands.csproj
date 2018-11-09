@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\ApiKickstart.Domain\DeckOfCards.Domain.csproj" />
+    <ProjectReference Include="..\..\Domain\DeckOfCards.Domain\DeckOfCards.Domain.csproj" />
     <ProjectReference Include="..\ApiKickstart.CQRS\DeckOfCards.CQRS.csproj" />
   </ItemGroup>
 

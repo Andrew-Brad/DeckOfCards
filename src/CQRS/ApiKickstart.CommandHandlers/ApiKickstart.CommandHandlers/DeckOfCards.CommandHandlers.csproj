@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Domain\ApiKickstart.DomainEvents\DeckOfCards.DomainEvents.csproj" />
-    <ProjectReference Include="..\..\..\Infrastructure\ApiKickstart.DataModel\DeckOfCards.DataModel.csproj" />
+    <ProjectReference Include="..\..\..\Domain\DeckOfCards.DomainEvents\DeckOfCards.DomainEvents.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\DeckOfCards.DataModel\DeckOfCards.DataModel.csproj" />
     <ProjectReference Include="..\..\ApiKickstart.Commands\DeckOfCards.Commands.csproj" />
     <ProjectReference Include="..\..\ApiKickstart.Queries\DeckOfCards.Queries.csproj" />
     <ProjectReference Include="..\..\ApiKickstart.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />

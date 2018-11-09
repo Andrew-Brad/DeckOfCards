@@ -20,8 +20,8 @@
     <ProjectReference Include="..\..\src\CQRS\ApiKickstart.CQRS\DeckOfCards.CQRS.csproj" />
     <ProjectReference Include="..\..\src\CQRS\ApiKickstart.Queries\DeckOfCards.Queries.csproj" />
     <ProjectReference Include="..\..\src\CQRS\ApiKickstart.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
-    <ProjectReference Include="..\..\src\Domain\ApiKickstart.Domain\DeckOfCards.Domain.csproj" />
-    <ProjectReference Include="..\..\src\Infrastructure\ApiKickstart.DataModel\DeckOfCards.DataModel.csproj" />
+    <ProjectReference Include="..\..\src\Domain\DeckOfCards.Domain\DeckOfCards.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\DeckOfCards.DataModel\DeckOfCards.DataModel.csproj" />
     <ProjectReference Include="..\..\src\Web\DeckOfCards.WebApi\DeckOfCards.WebApi.csproj" />
   </ItemGroup>
 
