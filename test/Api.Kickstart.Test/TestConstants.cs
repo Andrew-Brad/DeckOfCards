@@ -6,7 +6,7 @@ namespace Api.Kickstart.Test
 {
     public static class TestConstants
     {
-        public const string NavigationPathDirectoryToApi = @"..\..\..\..\..\src\Web\ApiKickstart.WebApi";
+        public const string NavigationPathDirectoryToApi = @"..\..\..\..\..\src\Web\DeckOfCards.WebApi";
         public const string SharedServerCollection = "SharedServer";
         public const string DatabaseOutageServerCollection = "DatabaseOutageServer";
 
