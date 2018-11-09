@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Messaging.Conso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.DomainEvents", "src\Domain\DeckOfCards.DomainEvents\DeckOfCards.DomainEvents.csproj", "{1A00BD58-13F1-4A06-BB84-E9F1F82A315C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.DataModel", "src\Infrastructure\DeckOfCards.DataModel\DeckOfCards.DataModel.csproj", "{5883029A-9EB5-44AF-A73A-FE266AEFDD26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Persistence", "src\Infrastructure\DeckOfCards.DataModel\DeckOfCards.Persistence.csproj", "{5883029A-9EB5-44AF-A73A-FE266AEFDD26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{66ECEF4B-5085-468A-8442-C0EB39F2E08C}"
 EndProject
