@@ -1,7 +1,7 @@
-﻿using ApiKickstart.Queries;
+﻿using DeckOfCards.Queries;
 using AutoMapper;
 
-namespace ApiKickstart.QueryHandlers
+namespace DeckOfCards.QueryHandlers
 {
     /// <summary>
     /// This Automapper profile will be scanned by the IoC container and the maps will be auto-registered.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ApiKickstart.CQRS
+namespace DeckOfCards.CQRS
 {
     public interface IQueryResult
     {

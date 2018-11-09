@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 
 using AutoMapper;
 
-namespace ApiKickstart.WebApi
+namespace DeckOfCards.WebApi
 {
     public class Startup
     {

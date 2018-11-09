@@ -2,27 +2,27 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Api.Kickstart.Test.Fixtures;
-using static Api.Kickstart.Test.TestConstants;
+using DeckOfCards.Test.Fixtures;
+using static DeckOfCards.Test.TestConstants;
 using Moq;
 using Raven.Client.Documents;
 using Raven.Client.ServerWide.Operations;
 using Raven.Client.ServerWide;
 using Xunit;
 using Raven.Client.Exceptions;
-using ApiKickstart.Queries;
-using ApiKickstart.Domain;
-using ApiKickstart.QueryHandlers;
+using DeckOfCards.Queries;
+using DeckOfCards.Domain;
+using DeckOfCards.QueryHandlers;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Sieve.Services;
 using Microsoft.Extensions.Options;
 using Sieve.Models;
 using Polly.Registry;
-using ApiKickstart.CQRS;
+using DeckOfCards.CQRS;
 using Raven.Client.Documents.Session;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Kickstart.Test
 {
     [Collection(SharedServerCollection)]
     public class QueryHandlerOutageTests : IDisposable

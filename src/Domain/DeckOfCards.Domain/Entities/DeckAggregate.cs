@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AB.Extensions;
 
-namespace ApiKickstart.Domain
+namespace DeckOfCards.Domain
 {
     // https://lostechies.com/gabrielschenker/2015/05/25/ddd-the-aggregate/
     // Invariants are consistency rules that must be maintained whenever data changes, so they represent business rules.

@@ -1,6 +1,6 @@
-﻿using ApiKickstart.Domain;
+﻿using DeckOfCards.Domain;
 
-namespace ApiKickstart.QueryResults
+namespace DeckOfCards.QueryResults
 {
     public class WidgetByIdQueryResult : QueryResultBase
     {

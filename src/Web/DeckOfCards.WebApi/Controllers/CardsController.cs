@@ -3,21 +3,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using ApiKickstart.Domain;
-using ApiKickstart.Queries;
-using ApiKickstart.Commands;
-using ApiKickstart.QueryResults;
-using ApiKickstart.WebApi.Filters;
-using ApiKickstart.WebApi.Response;
-using ApiKickstart.WebApi.ViewModels;
-using ApiKickstart.WebApi.Views;
-using ApiKickstart.CommandResults;
-using ApiKickstart.CQRS;
+using DeckOfCards.Domain;
+using DeckOfCards.Queries;
+using DeckOfCards.Commands;
+using DeckOfCards.QueryResults;
+using DeckOfCards.WebApi.Filters;
+using DeckOfCards.WebApi.Response;
+using DeckOfCards.WebApi.ViewModels;
+using DeckOfCards.WebApi.Views;
+using DeckOfCards.CommandResults;
+using DeckOfCards.CQRS;
 using AutoMapper;
 using MediatR;
 using NSwag.Annotations;
 
-namespace ApiKickstart.WebApi.Controllers
+namespace DeckOfCards.WebApi.Controllers
 {
     /// <summary>
     /// "I want a controller to only be responsible for receiving an HTTP request, dispatching an HTTP response, and nothing in between." -Scott Allen

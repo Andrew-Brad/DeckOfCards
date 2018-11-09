@@ -1,7 +1,7 @@
-﻿using ApiKickstart.QueryResults;
+﻿using DeckOfCards.QueryResults;
 using MediatR;
 
-namespace ApiKickstart.Queries
+namespace DeckOfCards.Queries
 {
     public class WidgetByIdQuery : IQuery, IRequest<WidgetByIdQueryResult>
     {

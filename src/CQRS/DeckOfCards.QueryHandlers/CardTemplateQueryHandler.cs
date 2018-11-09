@@ -5,10 +5,10 @@ using System.Linq;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ApiKickstart.CQRS;
-using ApiKickstart.Domain;
-using ApiKickstart.QueryResults;
-using ApiKickstart.Queries;
+using DeckOfCards.CQRS;
+using DeckOfCards.Domain;
+using DeckOfCards.QueryResults;
+using DeckOfCards.Queries;
 using AB.Extensions;
 using AutoMapper;
 using MediatR;
@@ -19,7 +19,7 @@ using Polly.Registry;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
 
-namespace ApiKickstart.QueryHandlers
+namespace DeckOfCards.QueryHandlers
 {
     public class CardTemplateQueryHandler : IRequestHandler<CardTemplateQuery, CardTemplateQueryResult>
     {

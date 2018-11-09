@@ -2,7 +2,7 @@
 using System.Linq;
 
 // Attribution: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
-namespace ApiKickstart.Domain
+namespace DeckOfCards.Domain
 {
     public abstract class ValueObject
     {

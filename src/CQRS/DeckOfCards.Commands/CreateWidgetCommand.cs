@@ -1,10 +1,10 @@
 ﻿using System;
 using MediatR;
-using ApiKickstart.CommandResults;
-using ApiKickstart.CQRS;
-using ApiKickstart.Domain;
+using DeckOfCards.CommandResults;
+using DeckOfCards.CQRS;
+using DeckOfCards.Domain;
 
-namespace ApiKickstart.Commands
+namespace DeckOfCards.Commands
 {
     /// <summary>
     /// Represents a logical business command to create a new widget.

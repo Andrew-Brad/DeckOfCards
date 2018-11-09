@@ -5,9 +5,9 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using static Api.Kickstart.Test.TestConstants;
+using static DeckOfCards.Test.TestConstants;
 
-namespace Api.Kickstart.Test.Fixtures
+namespace DeckOfCards.Test.Fixtures
 {
     [CollectionDefinition("SharedServer")]
     public class SharedTestServerCollection : ICollectionFixture<IntegrationTestServerFixture>, ICollectionFixture<FakeDataFixture>
@@ -27,7 +27,7 @@ namespace Api.Kickstart.Test.Fixtures
             string unitTestDirectory = Directory.GetCurrentDirectory();
             string pathToContentRoot = Path.GetFullPath(Path.Combine(unitTestDirectory, NavigationPathDirectoryToApi));
 
-            var webHostBuilder = ApiKickstart.WebApi.Program.CreateWebHostBuilder(null);
+            var webHostBuilder = DeckOfCards.WebApi.Program.CreateWebHostBuilder(null);
 
             // Unit testing customizations/overrides:
             server = webHostBuilder

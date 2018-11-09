@@ -1,6 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 
-namespace ApiKickstart.Domain
+namespace DeckOfCards.Domain
 {
     /// <summary>
     /// These enumerations should be defined at design time, use terminology as defined and understood by the business, and not

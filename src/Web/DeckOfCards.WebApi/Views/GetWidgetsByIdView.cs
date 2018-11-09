@@ -1,9 +1,9 @@
-﻿using ApiKickstart.CQRS;
-using ApiKickstart.Domain;
+﻿using DeckOfCards.CQRS;
+using DeckOfCards.Domain;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace ApiKickstart.WebApi.Views
+namespace DeckOfCards.WebApi.Views
 {
     /// <summary>
     /// The View represents the clients view of the data.  Response model contract.

@@ -8,11 +8,11 @@ using System.Threading;
 using Amazon.SimpleNotificationService;
 using Microsoft.Extensions.Configuration;
 using Amazon.SimpleNotificationService.Model;
-using ApiKickstart.DomainEvents;
+using DeckOfCards.DomainEvents;
 using Polly.Registry;
-using ApiKickstart.CQRS;
+using DeckOfCards.CQRS;
 
-namespace ApiKickstart.QueryHandlers
+namespace DeckOfCards.QueryHandlers
 {
     public class WidgetDeprecatedAwsSnsNotificationHandler : INotificationHandler<WidgetDeprecatedV1Event>
     {

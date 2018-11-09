@@ -1,8 +1,8 @@
-﻿using ApiKickstart.CQRS;
+﻿using DeckOfCards.CQRS;
 using MediatR;
 using System;
 
-namespace ApiKickstart.DomainEvents
+namespace DeckOfCards.DomainEvents
 {
     /// <summary>
     /// todo: notes - one required constructor - a V2 Event should be able to construct from a V1 event etc...

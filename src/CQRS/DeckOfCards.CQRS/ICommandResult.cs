@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ApiKickstart.CQRS
+namespace DeckOfCards.CQRS
 {
     /// <summary>
     /// Marker interface for object that are the result of a command.

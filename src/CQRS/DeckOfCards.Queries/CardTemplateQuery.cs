@@ -1,9 +1,9 @@
-﻿using ApiKickstart.Domain;
-using ApiKickstart.QueryResults;
+﻿using DeckOfCards.Domain;
+using DeckOfCards.QueryResults;
 using MediatR;
 using Sieve.Models;
 
-namespace ApiKickstart.Queries
+namespace DeckOfCards.Queries
 {
     public class CardTemplateQuery : IQuery, IRequest<CardTemplateQueryResult>
     {

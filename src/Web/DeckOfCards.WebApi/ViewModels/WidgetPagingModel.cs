@@ -1,6 +1,6 @@
 ﻿using Sieve.Models;
 
-namespace ApiKickstart.WebApi.ViewModels
+namespace DeckOfCards.WebApi.ViewModels
 {
     public class WidgetPagingViewModel : SieveModel
     {

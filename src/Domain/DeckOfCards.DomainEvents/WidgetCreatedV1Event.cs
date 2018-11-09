@@ -1,4 +1,4 @@
-﻿namespace ApiKickstart.DomainEvents
+﻿namespace DeckOfCards.DomainEvents
 {
     public class WidgetCreatedV1Event : EventBase
     {

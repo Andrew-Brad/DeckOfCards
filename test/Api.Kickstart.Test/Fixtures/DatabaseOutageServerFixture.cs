@@ -8,9 +8,9 @@ using Moq;
 using Raven.Client.Documents;
 using Raven.Client.Exceptions;
 using Xunit;
-using static Api.Kickstart.Test.TestConstants;
+using static DeckOfCards.Test.TestConstants;
 
-namespace Api.Kickstart.Test.Fixtures
+namespace DeckOfCards.Test.Fixtures
 {
     [CollectionDefinition(DatabaseOutageServerCollection)]
     public class DatabaseOutageServerFixtureCollection : ICollectionFixture<DatabaseOutageServerFixture>, ICollectionFixture<FakeDataFixture>
@@ -31,7 +31,7 @@ namespace Api.Kickstart.Test.Fixtures
             string unitTestDirectory = Directory.GetCurrentDirectory();
             string pathToContentRoot = Path.GetFullPath(Path.Combine(unitTestDirectory, NavigationPathDirectoryToApi));
 
-            var webHostBuilder = ApiKickstart.WebApi.Program.CreateWebHostBuilder(null);
+            var webHostBuilder = DeckOfCards.WebApi.Program.CreateWebHostBuilder(null);
 
             // Unit testing customizations/overrides:
             server = webHostBuilder

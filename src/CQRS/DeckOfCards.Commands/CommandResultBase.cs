@@ -1,6 +1,6 @@
-﻿using ApiKickstart.CQRS;
+﻿using DeckOfCards.CQRS;
 
-namespace ApiKickstart.CommandResults
+namespace DeckOfCards.CommandResults
 {
     public class CommandResultBase : ICommandResult
     {

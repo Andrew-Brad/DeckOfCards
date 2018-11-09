@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace ApiKickstart.CommandResults
+namespace DeckOfCards.CommandResults
 {
     public class DeprecateWidgetCommandResult : CommandResultBase
     {

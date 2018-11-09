@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Api.Kickstart.Test.Fixtures;
-using static Api.Kickstart.Test.TestConstants;
-using static Api.Kickstart.Test.TestExtensions;
+using DeckOfCards.Test.Fixtures;
+using static DeckOfCards.Test.TestConstants;
+using static DeckOfCards.Test.TestExtensions;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using Raven.Client.Documents;
 using Raven.Client.ServerWide.Operations;
 using Raven.Client.ServerWide;
-using ApiKickstart.Domain;
+using DeckOfCards.Domain;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Test
 {
     [Collection(SharedServerCollection)]
     public class CardTemplateQueryTests : IDisposable

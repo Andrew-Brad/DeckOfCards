@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ApiKickstart.WebApi.Mappings
+namespace DeckOfCards.WebApi.Mappings
 {
     /// <summary>
     /// This Automapper profile will be scanned by the IoC container and the maps will be auto-registered.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ApiKickstart.Domain
+namespace DeckOfCards.Domain
 {
     public class PlayerCard
     {

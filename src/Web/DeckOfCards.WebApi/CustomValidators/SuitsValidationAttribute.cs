@@ -1,9 +1,9 @@
-﻿using ApiKickstart.Domain;
+﻿using DeckOfCards.Domain;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace ApiKickstart.Commands.CustomValidators
+namespace DeckOfCards.Commands.CustomValidators
 {
     public class SuitsValidationAttribute : ValidationAttribute//, IClientModelValidator
     {

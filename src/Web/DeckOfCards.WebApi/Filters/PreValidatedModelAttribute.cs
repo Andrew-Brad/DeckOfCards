@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
-namespace ApiKickstart.WebApi.Filters
+namespace DeckOfCards.WebApi.Filters
 {
     /// <summary>
     /// This attribute marks that the controller is guaranteed to be given a validated model.  If MVC ModelState is invalid, a 400 is returned

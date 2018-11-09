@@ -1,9 +1,9 @@
-﻿using ApiKickstart.CommandResults;
-using ApiKickstart.QueryResults;
-using ApiKickstart.WebApi.Views;
+﻿using DeckOfCards.CommandResults;
+using DeckOfCards.QueryResults;
+using DeckOfCards.WebApi.Views;
 using AutoMapper;
 
-namespace ApiKickstart.WebApi.View
+namespace DeckOfCards.WebApi.View
 {
     /// <summary>
     /// This Automapper profile will be scanned by the IoC container and the maps will be auto-registered.

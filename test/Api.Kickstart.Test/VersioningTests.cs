@@ -2,11 +2,11 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
-using Api.Kickstart.Test.Fixtures;
-using static Api.Kickstart.Test.TestConstants;
+using DeckOfCards.Test.Fixtures;
+using static DeckOfCards.Test.TestConstants;
 using Xunit;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Test
 {
     [Collection(SharedServerCollection)]
     public class VersioningTests

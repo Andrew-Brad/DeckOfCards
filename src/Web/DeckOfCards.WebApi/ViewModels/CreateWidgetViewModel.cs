@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ApiKickstart.Commands.CustomValidators;
+using DeckOfCards.Commands.CustomValidators;
 
-namespace ApiKickstart.WebApi.ViewModels
+namespace DeckOfCards.WebApi.ViewModels
 {
     /// <summary>
     /// Represents a logical business command to create a new widget.

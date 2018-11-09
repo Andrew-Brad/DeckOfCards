@@ -9,7 +9,7 @@ using Serilog.Sinks.PostgreSQL;
 using NpgsqlTypes;
 using StructureMap.AspNetCore;
 
-namespace ApiKickstart.WebApi
+namespace DeckOfCards.WebApi
 {
     public class Program
     {

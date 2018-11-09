@@ -1,8 +1,8 @@
-﻿using ApiKickstart.CommandResults;
-using ApiKickstart.CQRS;
+﻿using DeckOfCards.CommandResults;
+using DeckOfCards.CQRS;
 using MediatR;
 
-namespace ApiKickstart.Commands
+namespace DeckOfCards.Commands
 {
     public class DeprecateWidgetCommand : ICommand, IRequest<DeprecateWidgetCommandResult>
     {

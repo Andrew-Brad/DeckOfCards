@@ -1,4 +1,4 @@
-﻿namespace ApiKickstart.Queries
+﻿namespace DeckOfCards.Queries
 {
     /// <summary>
     /// A paged query is able to returns its resulting objects with standard paging metadata - page number and the contained results per page.

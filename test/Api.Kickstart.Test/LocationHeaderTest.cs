@@ -3,10 +3,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
 using Xunit;
-using static Api.Kickstart.Test.TestConstants;
-using Api.Kickstart.Test.Fixtures;
+using static DeckOfCards.Test.TestConstants;
+using DeckOfCards.Test.Fixtures;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Kickstart.Test
 {
     [Collection(SharedServerCollection)]
     public class LocationHeaderTest// : IClassFixture<SharedTestServerFixture>

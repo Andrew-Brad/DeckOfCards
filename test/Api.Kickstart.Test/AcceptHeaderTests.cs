@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Api.Kickstart.Test.Fixtures;
-using static Api.Kickstart.Test.TestConstants;
+using DeckOfCards.Test.Fixtures;
+using static DeckOfCards.Test.TestConstants;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using Raven.Client.Documents;
 using Raven.Client.ServerWide.Operations;
 using Raven.Client.ServerWide;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Test
 {
     [Collection(SharedServerCollection)]
     public class AcceptHeaderTests

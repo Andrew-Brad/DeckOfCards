@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiKickstart.Queries
+namespace DeckOfCards.Queries
 {
     /// <summary>
     /// Markey interface for queries.

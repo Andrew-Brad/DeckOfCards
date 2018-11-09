@@ -1,18 +1,18 @@
-﻿using ApiKickstart.QueryResults;
-using ApiKickstart.Queries;
+﻿using DeckOfCards.QueryResults;
+using DeckOfCards.Queries;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-using ApiKickstart.CQRS;
+using DeckOfCards.CQRS;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using AutoMapper;
 using Raven.Client.Documents;
-using ApiKickstart.Domain;
+using DeckOfCards.Domain;
 
-namespace ApiKickstart.QueryHandlers
+namespace DeckOfCards.QueryHandlers
 {
     public class WidgetByIdQueryHandler : IRequestHandler<WidgetByIdQuery, WidgetByIdQueryResult>
     {

@@ -1,8 +1,8 @@
-﻿using ApiKickstart.CQRS;
-using ApiKickstart.Domain;
+﻿using DeckOfCards.CQRS;
+using DeckOfCards.Domain;
 using System;
 
-namespace ApiKickstart.CommandResults
+namespace DeckOfCards.CommandResults
 {
     public class CreateWidgetCommandResult : CommandResultBase
     {

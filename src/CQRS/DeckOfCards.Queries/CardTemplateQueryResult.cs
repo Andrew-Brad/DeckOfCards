@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using ApiKickstart.CQRS;
-using ApiKickstart.Domain;
+using DeckOfCards.CQRS;
+using DeckOfCards.Domain;
 using AB.Extensions;
 
-namespace ApiKickstart.QueryResults
+namespace DeckOfCards.QueryResults
 {
     public class CardTemplateQueryResult : QueryResultBase, IQueryResult//IPagedQueryResult
     {

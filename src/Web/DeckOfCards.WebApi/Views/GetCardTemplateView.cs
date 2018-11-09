@@ -1,8 +1,8 @@
 ﻿using AB.Extensions;
-using ApiKickstart.Domain;
+using DeckOfCards.Domain;
 using System.Collections.Generic;
 
-namespace ApiKickstart.WebApi.Views
+namespace DeckOfCards.WebApi.Views
 {
     /// <summary>
     /// The View represents the clients view of the data.  Response model contract.

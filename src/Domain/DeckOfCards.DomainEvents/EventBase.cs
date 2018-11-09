@@ -1,8 +1,8 @@
-﻿using ApiKickstart.CQRS;
+﻿using DeckOfCards.CQRS;
 using MediatR;
 using System;
 
-namespace ApiKickstart.DomainEvents
+namespace DeckOfCards.DomainEvents
 {
     public abstract class EventBase : IEvent, INotification
     {

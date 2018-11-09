@@ -2,16 +2,16 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using ApiKickstart.Commands;
-using ApiKickstart.CommandResults;
-using ApiKickstart.Domain;
+using DeckOfCards.Commands;
+using DeckOfCards.CommandResults;
+using DeckOfCards.Domain;
 using MediatR;
 using Polly;
 using AutoMapper;
 using Polly.Registry;
 using Raven.Client.Documents;
 
-namespace ApiKickstart.QueryHandlers
+namespace DeckOfCards.QueryHandlers
 {
     public class CreateWidgetCommandHandler : IRequestHandler<CreateWidgetCommand, CreateWidgetCommandResult>
     {

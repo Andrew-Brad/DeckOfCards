@@ -18,10 +18,10 @@ using Sieve.Services;
 using Amazon.SimpleNotificationService.Model;
 using Raven.Client.Documents;
 using Newtonsoft.Json;
-using ApiKickstart.DataModel.JsonContractResolvers;
+using DeckOfCards.DataModel.JsonContractResolvers;
 using System.Net.Sockets;
 
-namespace ApiKickstart.WebApi
+namespace DeckOfCards.WebApi
 {
     public static class StartupExtensions
     {

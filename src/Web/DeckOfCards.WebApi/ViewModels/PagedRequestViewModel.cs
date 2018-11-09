@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiKickstart.WebApi.ViewModels
+namespace DeckOfCards.WebApi.ViewModels
 {
     //public class PagedRequestViewModel // belongs in Middleware repo?  or MVC extensions?
     //{

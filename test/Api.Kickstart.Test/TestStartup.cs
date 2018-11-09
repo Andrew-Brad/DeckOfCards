@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ApiKickstart.WebApi;
+using DeckOfCards.WebApi;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Test
 {
     /// <summary>
     /// This class currently isn't used (conflicts with runtime IoC DLL scanning), but is

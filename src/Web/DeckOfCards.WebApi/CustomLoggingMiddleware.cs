@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace ApiKickstart.WebApi
+namespace DeckOfCards.WebApi
 {
     //TODO: move to separate Nuget package?
     public class CustomLoggingMiddleware

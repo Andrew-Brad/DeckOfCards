@@ -1,8 +1,8 @@
 ﻿using AB.Extensions;
-using ApiKickstart.WebApi.Views;
+using DeckOfCards.WebApi.Views;
 using System;
 
-namespace ApiKickstart.WebApi.Response
+namespace DeckOfCards.WebApi.Response
 {
     public class ApiResponse<T> where T : class  //more on generic constraints @ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/constraints-on-type-parameters
     {

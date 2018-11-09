@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using ApiKickstart.CommandResults;
-using ApiKickstart.CQRS;
+using DeckOfCards.CommandResults;
+using DeckOfCards.CQRS;
 using MediatR;
 
-namespace ApiKickstart.WebApi.ViewModels
+namespace DeckOfCards.WebApi.ViewModels
 {
     public class DeprecateWidgetViewModel
     {

@@ -1,11 +1,11 @@
 ﻿using System;
-using ApiKickstart.CQRS;
+using DeckOfCards.CQRS;
 using Microsoft.AspNetCore.Mvc;
-using ApiKickstart.Queries;
+using DeckOfCards.Queries;
 using AutoMapper;
-using ApiKickstart.WebApi.Views;
+using DeckOfCards.WebApi.Views;
 
-namespace ApiKickstart.WebApi.Response
+namespace DeckOfCards.WebApi.Response
 {
     public static class ControllerExtensions
     {

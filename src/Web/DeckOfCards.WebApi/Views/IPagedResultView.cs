@@ -1,6 +1,6 @@
 ﻿using AB.Extensions;
 
-namespace ApiKickstart.WebApi.Views
+namespace DeckOfCards.WebApi.Views
 {
     public interface IPagedResultView
     {

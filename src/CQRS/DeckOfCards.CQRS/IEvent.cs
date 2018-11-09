@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ApiKickstart.CQRS
+namespace DeckOfCards.CQRS
 {
     /// <summary>
     /// Events are in the past tense, and immutable. They are point in time "facts" about 

@@ -1,7 +1,7 @@
 ﻿using AB.Extensions;
-using ApiKickstart.CQRS;
+using DeckOfCards.CQRS;
 
-namespace ApiKickstart.QueryResults
+namespace DeckOfCards.QueryResults
 {
     public class QueryResultBase : IQueryResult
     {

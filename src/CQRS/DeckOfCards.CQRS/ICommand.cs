@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiKickstart.CQRS
+namespace DeckOfCards.CQRS
 {
     /// <summary>
     /// Marker interface for commands.

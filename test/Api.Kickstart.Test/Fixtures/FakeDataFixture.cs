@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ApiKickstart.Domain;
+using DeckOfCards.Domain;
 using Bogus;
 using Xunit;
 
-namespace Api.Kickstart.Test.Fixtures
+namespace DeckOfCards.Test.Fixtures
 {
     [CollectionDefinition("FakeData")]
     public class FakeDataCollection : ICollectionFixture<FakeDataFixture>

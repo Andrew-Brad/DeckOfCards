@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Test
 {
     public static class TestConstants
     {

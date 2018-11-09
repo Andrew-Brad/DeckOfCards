@@ -1,10 +1,10 @@
 ﻿using System;
-using ApiKickstart.Domain;
+using DeckOfCards.Domain;
 using Ardalis.SmartEnum;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ApiKickstart.DataModel.JsonContractResolvers
+namespace DeckOfCards.DataModel.JsonContractResolvers
 {
     // https://www.newtonsoft.com/json/help/html/N_Newtonsoft_Json_Converters.htm
     public class SuitsEnumerationConverter : JsonConverter<SmartEnum<SuitsEnumeration, ushort>>

@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using ApiKickstart.Commands;
-using ApiKickstart.CommandResults;
+using DeckOfCards.Commands;
+using DeckOfCards.CommandResults;
 using System.Threading;
-using ApiKickstart.DomainEvents;
+using DeckOfCards.DomainEvents;
 using AutoMapper;
 
-namespace ApiKickstart.QueryHandlers
+namespace DeckOfCards.QueryHandlers
 {
     public class DeprecateWidgetCommandHandler : IRequestHandler<DeprecateWidgetCommand, DeprecateWidgetCommandResult>
     {

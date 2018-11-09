@@ -1,9 +1,9 @@
-﻿using ApiKickstart.Commands.CustomValidators;
-using ApiKickstart.Domain;
+﻿using DeckOfCards.Commands.CustomValidators;
+using DeckOfCards.Domain;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace ApiKickstart.WebApi.ViewModels
+namespace DeckOfCards.WebApi.ViewModels
 {
     /// <summary>
     /// Input model for HTTP request contracts.  Sorting, filtering, and paging resides in a separate library 

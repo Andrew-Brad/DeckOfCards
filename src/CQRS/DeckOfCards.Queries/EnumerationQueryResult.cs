@@ -1,8 +1,8 @@
-﻿using ApiKickstart.QueryResults;
+﻿using DeckOfCards.QueryResults;
 using System.Collections.Generic;
 using Ardalis.SmartEnum;
 
-namespace ApiKickstart.Queries
+namespace DeckOfCards.Queries
 {
     public class EnumerationQueryResult<TEnum,TValue> : QueryResultBase where TEnum : SmartEnum<TEnum,TValue>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiKickstart.Domain
+namespace DeckOfCards.Domain
 {
     public class CardTemplate
     {

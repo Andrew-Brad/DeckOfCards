@@ -1,10 +1,10 @@
-﻿using ApiKickstart.Commands;
-using ApiKickstart.Domain;
-using ApiKickstart.Queries;
+﻿using DeckOfCards.Commands;
+using DeckOfCards.Domain;
+using DeckOfCards.Queries;
 using AutoMapper;
 using Sieve.Models;
 
-namespace ApiKickstart.WebApi.ViewModels
+namespace DeckOfCards.WebApi.ViewModels
 {
     /// <summary>
     /// This Automapper profile will be scanned by the IoC container and the maps will be auto-registered.
