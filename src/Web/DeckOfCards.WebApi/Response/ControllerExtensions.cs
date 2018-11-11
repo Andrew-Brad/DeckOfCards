@@ -51,9 +51,9 @@ namespace DeckOfCards.WebApi.Response
         }
 
         // this is a good starting point but will need further refactoring for more betterness
-        public static IActionResult ReturnCreatedCommandResult<TView, TCommand>(this ControllerBase controller, TCommand commandResult, IMapper mapper, string redirectActionName, IQuery redirectQuery)
+        public static IActionResult ReturnCreatedCommandResult<TView, TCommandResult>(this ControllerBase controller, TCommandResult commandResult, IMapper mapper, string redirectActionName, IQuery redirectQuery)
             where TView : class
-            where TCommand : class, ICommandResult
+            where TCommandResult : class, ICommandResult
         {
             var viewModel = mapper.Map<TView>(commandResult); //todo clean up this random reference
             var responseObject = ApiResponse.ApiResponseFactory<TView>(viewModel);

@@ -7,9 +7,9 @@ namespace DeckOfCards.Domain
     /// These singular templates are the starting point for constructing decks of cards, as they can have global metadata attached
     /// to them, such as descriptions and suit/rank attributes that are immutable.
     /// </summary>
-    public class CardTemplate
+    public class CardTemplate : IEquatable<CardTemplate>
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        //public string Id { get; set; } = Guid.NewGuid().ToString();
         public string CardName { get; set; }
         //public string Description { get; set; }
         public RanksEnumeration Rank { get; set; }
@@ -23,7 +23,7 @@ namespace DeckOfCards.Domain
                 //Id = Guid.NewGuid().ToString(),
                 Rank = rank ?? RanksEnumeration.Ace,
                 Suit = suit ?? SuitsEnumeration.Spades,
-                // card name controlled at runtime
+                // card name/metadata controlled at runtime
             };
         }
 
@@ -33,5 +33,10 @@ namespace DeckOfCards.Domain
         }
 
         public bool IsFaceCard() => false;
+
+        public bool Equals(CardTemplate other)
+        {
+            return (this.Rank == other.Rank && this.Suit == other.Suit);
+        }
     }
 }
