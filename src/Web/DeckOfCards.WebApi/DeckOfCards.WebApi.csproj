@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AB.Middleware.HttpRequestSummaryLogging" Version="2.0.0" />
     <PackageReference Include="Ardalis.SmartEnum" Version="1.0.3" />
     <PackageReference Include="AutoMapper" Version="7.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />

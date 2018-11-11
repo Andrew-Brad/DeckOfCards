@@ -8,8 +8,8 @@ using MediatR;
 using AB.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
-
 using AutoMapper;
+using AB.Middleware.HttpRequestLogging;
 
 namespace DeckOfCards.WebApi
 {
@@ -18,18 +18,22 @@ namespace DeckOfCards.WebApi
         #region Provided By Asp.Net DI
         private readonly ILogger<Startup> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IHostingEnvironment _environment;
         #endregion
 
-        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration, ILogger<Startup> logger, IHostingEnvironment hostingEnvironment)
         {
             _configuration = configuration;
             _logger = logger;
+            _environment = hostingEnvironment;
         }
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            _logger.LogDebug("ConfigureServices method entered.");
+
             //Https
             //services.AddHsts(x => x.IncludeSubDomains = true);
             //services.AddHttpsRedirection(options =>
@@ -81,14 +85,14 @@ namespace DeckOfCards.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IApplicationLifetime appLifetime, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IApplicationLifetime appLifetime)
         {
             _logger.LogDebug("Configure method entered.");
 
             // order matters with UseMiddleware()!
-            app.UseMiddleware<CustomLoggingMiddleware>();
+            app.UseMiddleware<HttpRequestSummaryLoggingMiddleware>();
 
-            if (env.IsDevelopment())
+            if (_environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -103,7 +107,7 @@ namespace DeckOfCards.WebApi
             // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.) (NOTE: Doesn't work with versioning...https://github.com/NSwag/NSwag/issues/655)
             app.AddCustomSwagger();
 
-            _logger.LogInformation("Startup initialization completed for {environment}.", env.EnvironmentName);
+            _logger.LogInformation("Startup initialization completed for {environment}.", _environment.EnvironmentName);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Hosting;
 using DeckOfCards.WebApi;
 
 namespace DeckOfCards.Test
@@ -12,7 +13,8 @@ namespace DeckOfCards.Test
     /// </summary>
     public class TestStartup : Startup
     {
-        public TestStartup(IConfiguration configuration, ILogger<Startup> logger) : base(configuration, logger)
+        public TestStartup(IConfiguration configuration, ILogger<Startup> logger, IHostingEnvironment hostingEnvironment) 
+            : base(configuration, logger, hostingEnvironment)
         {
             
         }
