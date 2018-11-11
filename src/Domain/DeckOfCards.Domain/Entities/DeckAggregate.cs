@@ -9,7 +9,7 @@ namespace DeckOfCards.Domain
     // https://dotnetcodr.com/2015/06/29/various-topics-from-software-architecture-part-5-aggregate-roots/#more-6083
     public class DeckAggregate
     {
-        private List<PlayerCard> _cards; // list?  transactional boundaries around card operations
+        private List<PlayingCard> _cards; // list?  transactional boundaries around card operations
         // should the operations themselves be objects? Could help for an ES implementation...
 
         public Guid Id { get; private set; } = Guid.NewGuid();
@@ -20,10 +20,10 @@ namespace DeckOfCards.Domain
         /// <param name="cards"></param>
         public DeckAggregate(IList<CardTemplate> cards) // eventually, some deck creation options object
         {
-            _cards = new List<PlayerCard>();
+            _cards = new List<PlayingCard>();
             foreach (var card in cards)
             {
-                _cards.Add(new PlayerCard()
+                _cards.Add(new PlayingCard()
                 {
                     Template = card,
                     Id = Guid.NewGuid(),
