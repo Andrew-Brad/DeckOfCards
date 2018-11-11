@@ -53,7 +53,7 @@ namespace DeckOfCards.WebApi.Controllers
         }
 
         // GET api/v1/cards/templates/spades/ace
-        [HttpGet("templates/{suit}/{rank}")]
+        [HttpGet("templates/{rank}/{suit}")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.OK, typeof(ApiResponse<GetCardTemplateView>), Description = "Lookup a given card template. Templates represent the single logical card, not a specific instance which was created for use in a player's deck of cards.")]
         public async Task<IActionResult> GetCardByRankAndSuitRoute([FromRoute] GetCardTemplateViewModel model)
         {

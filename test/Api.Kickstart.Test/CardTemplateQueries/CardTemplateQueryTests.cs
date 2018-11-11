@@ -36,8 +36,8 @@ namespace DeckOfCards.Test
         {
             // Arrange
             await SeedCardTemplates();
-            const string expectedCardSuit = "hearts";
             const string expectedCardRank = "king";
+            const string expectedCardSuit = "hearts";
 
             // Act
             var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/cards/templates?rank={expectedCardRank}&suit={expectedCardSuit}");
@@ -55,11 +55,11 @@ namespace DeckOfCards.Test
         {
             // Arrange
             await SeedCardTemplates();
-            const string expectedCardSuit = "hearts";
             const string expectedCardRank = "king";
+            const string expectedCardSuit = "hearts";
 
             // Act
-            var response = await _sharedTestServerFixture.HttpClient.GetAsync("/api/v1/cards/templates/hearts/king");
+            var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/cards/templates/{expectedCardRank}/{expectedCardSuit}");
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
@@ -67,6 +67,25 @@ namespace DeckOfCards.Test
             Assert.Equal(expectedCardRank, responseObject["result"]["rank"].ToString(), ignoreCase: true);
             Assert.Equal(expectedCardSuit, responseObject["result"]["suit"].ToString(), ignoreCase: true);
             Assert.True(responseObject["result"]["cardName"].ToString().Length > 3);
+        }
+
+        [Fact]
+        public async Task Get_Card_Template_Invalid_Returns_Well_Formatted_400()
+        {
+            // Arrange
+            await SeedCardTemplates();
+            const string expectedCardRank = "king";
+            const string expectedCardSuit = "junk";
+
+            // Act
+            var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/cards/templates/{expectedCardSuit}/{expectedCardRank}");
+
+            // Assert
+            Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+            //JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
+            //Assert.Equal(expectedCardRank, responseObject["result"]["rank"].ToString(), ignoreCase: true);
+            //Assert.Equal(expectedCardSuit, responseObject["result"]["suit"].ToString(), ignoreCase: true);
+            //Assert.True(responseObject["result"]["cardName"].ToString().Length > 3);
         }
 
         //[Fact]

@@ -11,6 +11,7 @@ namespace DeckOfCards.Domain
     public class PlayingCard
     {
         public Guid Id { get; set; }
+        //public DateTimeOffset CreationDate { get; set; }
         public CardTemplate Template { get; set; }
     }
 }

@@ -2,10 +2,14 @@
 
 namespace DeckOfCards.Domain
 {
+    /// <summary>
+    /// A <see cref="CardTemplate"/> represents the single logical entity that is "the Ace of Spades".  Not "your" Ace, but "the" Ace.
+    /// These singular templates are the starting point for constructing decks of cards, as they can have global metadata attached
+    /// to them, such as descriptions and suit/rank attributes that are immutable.
+    /// </summary>
     public class CardTemplate
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
-        //public DateTimeOffset CreationDate { get; set; }
         public string CardName { get; set; }
         //public string Description { get; set; }
         public RanksEnumeration Rank { get; set; }
