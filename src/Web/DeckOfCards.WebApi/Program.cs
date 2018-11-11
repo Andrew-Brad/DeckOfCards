@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Serilog;
 using Microsoft.Extensions.Configuration;
 using AB.Extensions;
-using Serilog.Sinks.PostgreSQL;
-using NpgsqlTypes;
 using StructureMap.AspNetCore;
 
 namespace DeckOfCards.WebApi
@@ -15,19 +13,32 @@ namespace DeckOfCards.WebApi
     {
         public static void Main(string[] args)
         {
-            IWebHost host = CreateWebHostBuilder(args)
-                .Build();
-            host.Run();
+            try
+            {
+                Log.Information("Starting web host");
+                IWebHostBuilder hostBuilder = CreateWebHostBuilder(args);
+                IWebHost host = hostBuilder.Build();
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Host terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
-        /* Customized WebHostBuilder for big boy projects
+        /* 
+         * Customized WebHostBuilder for big boy projects
          * For reference: https://joonasw.net/view/aspnet-core-2-configuration-changes)
          * EF Core will use reflection to pick up a method that returns IWebHostBuilder
          */
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return new WebHostBuilder()
-                .UseKestrel(x => x.AddServerHeader = false)//more stuff for kestrel options and HTTPS: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.1&tabs=aspnetcore2x#endpoint-configuration
+                .UseKestrel(x => x.AddServerHeader = false) // more stuff for kestrel options and HTTPS: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.1&tabs=aspnetcore2x#endpoint-configuration
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
@@ -46,17 +57,12 @@ namespace DeckOfCards.WebApi
                         if (appAssembly != null) config.AddUserSecrets(appAssembly, optional: true);//at this stage, user secrets will override previous keys for sections already added (i.e. JSON files)
                     }
 
-                    //if (args != null)
-                    //{
-                    //    config.AddCommandLine(args);
-                    //}
+                    if (args != null) config.AddCommandLine(args);
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
-                    //logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                     //https://nblumhardt.com/2017/08/use-serilog/
                     Log.Logger = ConfigureSerilog(hostingContext.Configuration, hostingContext.HostingEnvironment).CreateLogger();
-
                 })
                 .UseIISIntegration()
                 .UseDefaultServiceProvider((context, options) =>

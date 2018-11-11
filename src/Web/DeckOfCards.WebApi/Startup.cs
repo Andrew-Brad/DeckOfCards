@@ -75,6 +75,7 @@ namespace DeckOfCards.WebApi
 
             // StructureMap DI:
             var iocContainer = services.BuildStructureMapContainer();
+
             // Finally, make sure we return an IServiceProvider. This makes ASP.NET use the StructureMap container to resolve its services.
             return iocContainer.GetInstance<IServiceProvider>();
         }
@@ -84,11 +85,7 @@ namespace DeckOfCards.WebApi
         {
             _logger.LogDebug("Configure method entered.");
 
-
-            //Still needed?
-            // Ensure any buffered events are sent at shutdown
-            appLifetime.ApplicationStopped.Register(Serilog.Log.CloseAndFlush);
-
+            // order matters with UseMiddleware()!
             app.UseMiddleware<CustomLoggingMiddleware>();
 
             if (env.IsDevelopment())
