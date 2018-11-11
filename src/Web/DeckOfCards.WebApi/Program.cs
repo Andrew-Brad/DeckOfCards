@@ -11,7 +11,7 @@ namespace DeckOfCards.WebApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
             try
             {
@@ -19,10 +19,12 @@ namespace DeckOfCards.WebApi
                 IWebHostBuilder hostBuilder = CreateWebHostBuilder(args);
                 IWebHost host = hostBuilder.Build();
                 host.Run();
+                return 0;
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "Host terminated unexpectedly");
+                return 1;
             }
             finally
             {

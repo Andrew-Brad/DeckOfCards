@@ -13,7 +13,7 @@ namespace DeckOfCards.Test
     /// </summary>
     public class TestStartup : Startup
     {
-        public TestStartup(IConfiguration configuration, ILogger<Startup> logger, IHostingEnvironment hostingEnvironment) 
+        public TestStartup(IConfiguration configuration, ILogger<TestStartup> logger, IHostingEnvironment hostingEnvironment) 
             : base(configuration, logger, hostingEnvironment)
         {
             
