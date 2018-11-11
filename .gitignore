@@ -286,5 +286,5 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-/src/Web/ApiKickstart.WebApi/Logs
+/src/Web/DeckOfCards.WebApi/Logs
 
