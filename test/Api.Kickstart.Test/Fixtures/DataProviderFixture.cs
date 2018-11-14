@@ -8,19 +8,19 @@ using Xunit;
 namespace DeckOfCards.Test.Fixtures
 {
     [CollectionDefinition("FakeData")]
-    public class FakeDataCollection : ICollectionFixture<FakeDataFixture>
+    public class DataProviderCollection : ICollectionFixture<DataProviderFixture>
     {
         // This class has no code, and is never created. 
         // Its purpose is simply to be the place to apply [CollectionDefinition] and all the ICollectionFixture<> interfaces.
     }
 
-    public class FakeDataFixture : IDisposable //can also use IAsyncLifetime
+    public class DataProviderFixture : IDisposable //can also use IAsyncLifetime
     {
         public readonly Faker<CardTemplate> ValidCardProvider;
         public readonly Faker<CardTemplate> InvalidCardProvider;
         public readonly List<CardTemplate> SourceCardProvider;
 
-        public FakeDataFixture()
+        public DataProviderFixture()
         {
             // Generate Fake data for this test suite
 

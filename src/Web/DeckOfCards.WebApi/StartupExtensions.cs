@@ -173,7 +173,14 @@ namespace DeckOfCards.WebApi
             IConfiguration config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
             ILogger logger = services.BuildServiceProvider().GetRequiredService<ILogger<Startup>>();
             //Aws:
-            logger.LogDebug("Beginning DI registration of RavenDB DocumentStore...");            
+            logger.LogDebug("Beginning DI registration of RavenDB DocumentStore...");
+            DocumentStore store = InitializeRavenDbDocumentStore(config);
+            services.AddSingleton<IDocumentStore>(store);
+            return services;
+        }
+
+        public static DocumentStore InitializeRavenDbDocumentStore(IConfiguration config)
+        {
             DocumentStore store = new DocumentStore()
             {
                 Urls = config.GetSection("RavenDb:Urls").Get<string[]>(),
@@ -181,12 +188,11 @@ namespace DeckOfCards.WebApi
             };
 
             store.Conventions.CustomizeJsonSerializer = CustomizeRavenSerializer;
-            //string snsTopicArn = config["AwsSns:TopicArn"];
+
             // All customizations need to be set before DocumentStore.Initialize() is called.
             // https://ravendb.net/docs/article-page/4.0/csharp/client-api/configuration/conventions
             store.Initialize();
-            services.AddSingleton<IDocumentStore>(store);
-            return services;
+            return store;
         }
 
         /// <summary>

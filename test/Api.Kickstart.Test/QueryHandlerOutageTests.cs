@@ -28,10 +28,10 @@ namespace DeckOfCards.Kickstart.Test
     public class QueryHandlerOutageTests : IDisposable
     {
         private IntegrationTestServerFixture _serverFixture;
-        private FakeDataFixture _fakeDataFixture;
+        private DataProviderFixture _fakeDataFixture;
 
         // Constructor runs once per unit test
-        public QueryHandlerOutageTests(IntegrationTestServerFixture fixture, FakeDataFixture fakeDataFixture)
+        public QueryHandlerOutageTests(IntegrationTestServerFixture fixture, DataProviderFixture fakeDataFixture)
         {
             this._serverFixture = fixture;
             this._fakeDataFixture = fakeDataFixture;

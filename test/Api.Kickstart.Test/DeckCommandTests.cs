@@ -14,26 +14,29 @@ using Raven.Client.Documents;
 using Raven.Client.ServerWide.Operations;
 using Raven.Client.ServerWide;
 using DeckOfCards.Domain;
+using Microsoft.Extensions.Configuration;
 
 namespace DeckOfCards.Test
 {
     [Collection(SharedServerCollection)]
-    public class DeckCommandTests : IDisposable
+    public class DeckCommandTests : IDisposable, IClassFixture<DatabaseConsistentStateFixture>
     {
         private IntegrationTestServerFixture _sharedTestServerFixture;
-        private FakeDataFixture _fakeDataFixture;
+        private DataProviderFixture _fakeDataFixture;
+        private DatabaseConsistentStateFixture _db;
 
         /// <summary>
         /// The test suite constructor is visible to XUnit and runs once per test.
         /// </summary>
         /// <param name="fixture"></param>
         /// <param name="fakeDataFixture"></param>
-        public DeckCommandTests(IntegrationTestServerFixture fixture, FakeDataFixture fakeDataFixture)
+        public DeckCommandTests(IntegrationTestServerFixture fixture, DataProviderFixture fakeDataFixture, DatabaseConsistentStateFixture db)
         {
             this._sharedTestServerFixture = fixture;
             this._fakeDataFixture = fakeDataFixture;
+            this._db = db;
 
-            CreateDatabase();
+            _db.InitializeFreshDatabase(_sharedTestServerFixture.server.Services.GetRequiredService<IConfiguration>());
         }
 
         [Fact]
@@ -43,7 +46,7 @@ namespace DeckOfCards.Test
             await SeedCardTemplates();
 
             // Act
-            var response = await _sharedTestServerFixture.HttpClient.PostAsync($"/api/v1/decks",null);
+            var response = await _sharedTestServerFixture.HttpClient.PostAsync($"/api/v1/decks", null);
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
@@ -71,50 +74,47 @@ namespace DeckOfCards.Test
 
         private async Task SeedCardTemplates()
         {
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
+            var docStore = _db.Datastore; //serviceScope.ServiceProvider.GetService<IDocumentStore>();
+            using (var session = docStore.OpenAsyncSession())
             {
-                var docStore = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                using (var session = docStore.OpenAsyncSession())
+                foreach (var cardTemplate in _fakeDataFixture.SourceCardProvider)
                 {
-                    foreach (var cardTemplate in _fakeDataFixture.SourceCardProvider)
-                    {
-                        await session.StoreAsync(cardTemplate);
-                    }
-                    await session.SaveChangesAsync();
+                    await session.StoreAsync(cardTemplate);
                 }
+                await session.SaveChangesAsync();
             }
         }
 
-        private void CreateDatabase()
-        {
-            DeleteDatabase();
-            // Fresh database:
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
-            {
-                var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                if (_sharedTestServerFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
-                {
-                    store.Maintenance.Server.Send(new CreateDatabaseOperation(new DatabaseRecord("Cards")));
-                }
-            }
-        }
+        //private void CreateDatabase()
+        //{
+        //    DeleteDatabase();
+        //    // Fresh database:
+        //    using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
+        //    {
+        //        var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
+        //        if (_sharedTestServerFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
+        //        {
+        //            store.Maintenance.Server.Send(new CreateDatabaseOperation(new DatabaseRecord("Cards")));
+        //        }
+        //    }
+        //}
 
-        private void DeleteDatabase()
-        {
-            // Remove everything from database:
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
-            {
-                var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                if (_sharedTestServerFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
-                {
-                    store.Maintenance.Server.Send(new DeleteDatabasesOperation("Cards", hardDelete: true));
-                }
-            }
-        }
+        //private void DeleteDatabase()
+        //{
+        //    // Remove everything from database:
+        //    using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
+        //    {
+        //        var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
+        //        if (_sharedTestServerFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
+        //        {
+        //            store.Maintenance.Server.Send(new DeleteDatabasesOperation("Cards", hardDelete: true));
+        //        }
+        //    }
+        //}
 
         public void Dispose() // disposed once per test run (along with constructor)
         {
-            DeleteDatabase();
+            //DeleteDatabase();            
         }
     }
 }

@@ -9,8 +9,8 @@ using static DeckOfCards.Test.TestConstants;
 
 namespace DeckOfCards.Test.Fixtures
 {
-    [CollectionDefinition("SharedServer")]
-    public class SharedTestServerCollection : ICollectionFixture<IntegrationTestServerFixture>, ICollectionFixture<FakeDataFixture>
+    [CollectionDefinition(SharedServerCollection)]
+    public class SharedTestServerCollection : ICollectionFixture<IntegrationTestServerFixture>, ICollectionFixture<DataProviderFixture>
     {
         // This class has no code, and is never created. 
         //Its purpose is simply to be the place to apply [CollectionDefinition] and all the ICollectionFixture<> interfaces.

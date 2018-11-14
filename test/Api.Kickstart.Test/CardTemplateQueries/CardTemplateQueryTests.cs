@@ -21,9 +21,9 @@ namespace DeckOfCards.Test
     public class CardTemplateQueryTests : IDisposable
     {
         private IntegrationTestServerFixture _sharedTestServerFixture;
-        private FakeDataFixture _fakeDataFixture;
+        private DataProviderFixture _fakeDataFixture;
 
-        public CardTemplateQueryTests(IntegrationTestServerFixture fixture, FakeDataFixture fakeDataFixture)// runs once per unit test
+        public CardTemplateQueryTests(IntegrationTestServerFixture fixture, DataProviderFixture fakeDataFixture)// runs once per unit test
         {
             this._sharedTestServerFixture = fixture;
             this._fakeDataFixture = fakeDataFixture;
