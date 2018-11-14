@@ -14,28 +14,46 @@ using Raven.Client.Documents;
 using Raven.Client.ServerWide.Operations;
 using Raven.Client.ServerWide;
 using DeckOfCards.Domain;
+using Microsoft.Extensions.Configuration;
 
 namespace DeckOfCards.Test
 {
     [Collection(SharedServerCollection)]
-    public class CardTemplateQueryTests : IDisposable
+    public class CardTemplateQueryTests : IAsyncLifetime, IClassFixture<DatabaseConsistentStateFixture>
     {
         private IntegrationTestServerFixture _sharedTestServerFixture;
         private DataProviderFixture _fakeDataFixture;
+        private DatabaseConsistentStateFixture _db;
 
-        public CardTemplateQueryTests(IntegrationTestServerFixture fixture, DataProviderFixture fakeDataFixture)// runs once per unit test
+        /// <summary>
+        /// The test suite constructor is visible to XUnit and runs once per test.
+        /// </summary>
+        /// <param name="fixture"></param>
+        /// <param name="fakeDataFixture"></param>
+        public CardTemplateQueryTests(IntegrationTestServerFixture fixture, DataProviderFixture fakeDataFixture, DatabaseConsistentStateFixture db)
         {
             this._sharedTestServerFixture = fixture;
             this._fakeDataFixture = fakeDataFixture;
+            this._db = db;
+        }
 
-            CreateDatabase();
+        public async Task InitializeAsync()
+        {
+            _db.InitializeFreshDatabase(_sharedTestServerFixture.server.Services.GetRequiredService<IConfiguration>());
+
+            // Seed the traditional 52 card deck templates
+            await _fakeDataFixture.SeedCardTemplates(_db.Datastore);
+        }
+
+        public async Task DisposeAsync()
+        {
+            await Task.CompletedTask;
         }
 
         [Fact]
         public async Task Get_Card_Template_Returns_200()
         {
             // Arrange
-            await SeedCardTemplates();
             const string expectedCardRank = "king";
             const string expectedCardSuit = "hearts";
 
@@ -54,7 +72,6 @@ namespace DeckOfCards.Test
         public async Task Get_Card_Template_Alternate_Url_Returns_200()
         {
             // Arrange
-            await SeedCardTemplates();
             const string expectedCardRank = "king";
             const string expectedCardSuit = "hearts";
 
@@ -73,7 +90,6 @@ namespace DeckOfCards.Test
         public async Task Get_Card_Template_Invalid_Returns_Well_Formatted_400()
         {
             // Arrange
-            await SeedCardTemplates();
             const string expectedCardRank = "king";
             const string expectedCardSuit = "junk";
 
@@ -239,69 +255,5 @@ namespace DeckOfCards.Test
         //    // Assert
         //    Assert.Equal(System.Net.HttpStatusCode.Accepted, response.StatusCode);
         //}
-
-        private async Task SeedCardTemplates()
-        {
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
-            {
-                var docStore = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                using (var session = docStore.OpenAsyncSession())
-                {
-                    foreach (var cardTemplate in _fakeDataFixture.CardTemplates)
-                    {
-                        await session.StoreAsync(cardTemplate);
-                    }
-                    await session.SaveChangesAsync();
-                }
-            }
-        }
-
-        private async Task MakeValidCards(int count)
-        {
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
-            {
-                var docStore = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                using (var session = docStore.OpenAsyncSession())
-                {
-                    foreach (var item in _fakeDataFixture.ValidCardProvider.Generate(count))
-                    {
-                        //await session.StoreAsync(item, item.Id.ToString());
-                    }
-                    await session.SaveChangesAsync();
-                }
-            }
-        }
-
-        private void CreateDatabase()
-        {
-            DeleteDatabase();
-            // Fresh database:
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
-            {
-                var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                if (_sharedTestServerFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
-                {
-                    store.Maintenance.Server.Send(new CreateDatabaseOperation(new DatabaseRecord("Cards")));
-                }
-            }
-        }
-
-        private void DeleteDatabase()
-        {
-            // Remove everything from database:
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
-            {
-                var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                if (_sharedTestServerFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
-                {
-                    store.Maintenance.Server.Send(new DeleteDatabasesOperation("Cards", hardDelete: true));
-                }
-            }
-        }
-
-        public void Dispose() // disposed once per test run (along with constructor)
-        {
-            DeleteDatabase();
-        }
     }
 }
