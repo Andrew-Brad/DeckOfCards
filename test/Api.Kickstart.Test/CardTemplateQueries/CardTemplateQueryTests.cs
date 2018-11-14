@@ -247,7 +247,7 @@ namespace DeckOfCards.Test
                 var docStore = serviceScope.ServiceProvider.GetService<IDocumentStore>();
                 using (var session = docStore.OpenAsyncSession())
                 {
-                    foreach (var cardTemplate in _fakeDataFixture.SourceCardProvider)
+                    foreach (var cardTemplate in _fakeDataFixture.CardTemplates)
                     {
                         await session.StoreAsync(cardTemplate);
                     }
