@@ -17,7 +17,7 @@ namespace DeckOfCards.Test
     [Collection(SharedServerCollection)]
     public class DeckCommandTests : IAsyncLifetime, IClassFixture<DatabaseConsistentStateFixture>
     {
-        private IntegrationTestServerFixture _sharedTestServerFixture;
+        private IntegrationTestServerFixture _integrationTestServerFixture;
         private DataProviderFixture _fakeDataFixture;
         private DatabaseConsistentStateFixture _db;
 
@@ -28,14 +28,14 @@ namespace DeckOfCards.Test
         /// <param name="fakeDataFixture"></param>
         public DeckCommandTests(IntegrationTestServerFixture fixture, DataProviderFixture fakeDataFixture, DatabaseConsistentStateFixture db)
         {
-            this._sharedTestServerFixture = fixture;
+            this._integrationTestServerFixture = fixture;
             this._fakeDataFixture = fakeDataFixture;
             this._db = db;
         }
 
         public async Task InitializeAsync()
         {
-            _db.InitializeFreshDatabase(_sharedTestServerFixture.server.Services.GetRequiredService<IConfiguration>());
+            _db.InitializeFreshDatabase(_integrationTestServerFixture.server.Services.GetRequiredService<IConfiguration>());
 
             // Seed the traditional 52 card deck templates
             await _fakeDataFixture.SeedCardTemplates(_db.Datastore);
@@ -52,7 +52,7 @@ namespace DeckOfCards.Test
             // Arrange
 
             // Act
-            var response = await _sharedTestServerFixture.HttpClient.PostAsync($"/api/v1/decks", null);
+            var response = await _integrationTestServerFixture.HttpClient.PostAsync($"/api/v1/decks", null);
 
             // Assert
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);

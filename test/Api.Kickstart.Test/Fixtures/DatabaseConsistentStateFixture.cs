@@ -52,11 +52,8 @@ namespace DeckOfCards.Test.Fixtures
         // this should also have the option of using a TestStartup (or config) to override going out to the network to spool up a DB
         public void InitializeFreshDatabase(IConfiguration config)
         {
-            if (Datastore != null)
-            {
-                // Remove everything from database:
-                Datastore.Maintenance.Server.Send(new DeleteDatabasesOperation(Datastore.Database, hardDelete: true));
-            }
+            // Remove everything from database:
+            Datastore?.Maintenance.Server.Send(new DeleteDatabasesOperation(Datastore.Database, hardDelete: true));
             Datastore = StartupExtensions.InitializeRavenDbDocumentStore(config);
             Datastore.Maintenance.Server.Send(new CreateDatabaseOperation(new DatabaseRecord(config["RavenDb:Database"])));
         }

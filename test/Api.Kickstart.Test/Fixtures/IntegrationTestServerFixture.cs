@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ namespace DeckOfCards.Test.Fixtures
     public class SharedTestServerCollection : ICollectionFixture<IntegrationTestServerFixture>, ICollectionFixture<DataProviderFixture>
     {
         // This class has no code, and is never created. 
-        //Its purpose is simply to be the place to apply [CollectionDefinition] and all the ICollectionFixture<> interfaces.
+        // Its purpose is simply to be the place to apply [CollectionDefinition] and all the ICollectionFixture<> interfaces.
     }
 
     public class IntegrationTestServerFixture : IAsyncLifetime
@@ -34,6 +36,16 @@ namespace DeckOfCards.Test.Fixtures
                 .UseEnvironment("Development")
                 .UseContentRoot(pathToContentRoot)
                 .UseUrls(HostingUri.ToString())
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    // Call other providers here and call AddCommandLine last.
+                    var tempConfig = new List<KeyValuePair<string, string>>()
+                        {
+                            new KeyValuePair<string, string>("RavenDb:Database",Guid.NewGuid().ToString()),                           
+                        };
+                    config.AddInMemoryCollection(tempConfig);
+                })
+                //.UseStartup<TestStartup>()
                 .Build();
 
             server.Start();
