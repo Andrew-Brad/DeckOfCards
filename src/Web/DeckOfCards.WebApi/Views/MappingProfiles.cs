@@ -31,7 +31,8 @@ namespace DeckOfCards.WebApi.View
                         Suit = y.Template.Suit.Name,
                         Rank = y.Template.Rank.Name,
                         Id = y.Id.ToString(),
-                        Name = y.Template.CardName
+                        Name = y.Template.CardName,
+                        ImageUrl = y.Template.ImageUrl
                     }).ToList());
 
             CreateMap<PlayingCard, NewDeckView.CardDto>();

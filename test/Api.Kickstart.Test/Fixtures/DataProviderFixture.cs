@@ -29,24 +29,23 @@ namespace DeckOfCards.Test.Fixtures
                 .CustomInstantiator(f => CardTemplate.NewCard(
                     f.PickRandomParam(RanksEnumeration.List.ToArray()), 
                     f.PickRandomParam(SuitsEnumeration.List.ToArray())
-                    ));
+                    ))
+                .RuleFor(o => o.ImageUrl, f => f.Image.Cats());
+
+            //.StrictMode(false) // can ensure all properties covered by rules
 
             CardTemplates = new List<CardTemplate>();
             foreach (var suit in SuitsEnumeration.List)
             {
                 foreach (var rank in RanksEnumeration.List)
                 {
-                    var sourceCard = CardTemplate.NewCard(rank, suit);
+                    var sourceCard = ValidCardProvider.Generate();
+                    sourceCard.Rank = rank;
+                    sourceCard.Suit = suit;
                     sourceCard.CardName = "Unit test runtime value: " + rank + " of " + suit;
                     CardTemplates.Add(sourceCard);
                 }
             }
-
-            //.StrictMode(false) // can ensure all properties covered by rules
-            //.RuleFor(o => o.Id, f => Guid.NewGuid().ToString())
-            //.RuleFor(o => o.Suit, f => f.PickRandomParam(SuitsEnumeration.List.ToArray()))
-            //.RuleFor(o => o.Rank, f => f.PickRandomParam(RanksEnumeration.List.ToArray()))
-            //.RuleFor(o => o.CardName, (f, o) => f.Name.Random.Words(1) + " #" + DateTime.Now.Ticks.ToString());
 
             InvalidCardProvider = new Faker<CardTemplate>()
                 .StrictMode(false) // can ensure all properties covered by rules

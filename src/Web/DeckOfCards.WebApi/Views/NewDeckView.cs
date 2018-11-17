@@ -13,6 +13,7 @@ namespace DeckOfCards.WebApi.Views
             public string Suit { get; set; }
             public string Rank { get; set; }
             public string Name { get; set; }
+            public string ImageUrl { get; set; }
         }
 
     }

@@ -9,11 +9,11 @@ namespace DeckOfCards.Domain
     /// </summary>
     public class CardTemplate : IEquatable<CardTemplate>
     {
-        //public string Id { get; set; } = Guid.NewGuid().ToString();
-        public string CardName { get; set; }
-        //public string Description { get; set; }
         public RanksEnumeration Rank { get; set; }
         public SuitsEnumeration Suit { get; set; }
+        public string CardName { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public static CardTemplate NewCard(RanksEnumeration rank, SuitsEnumeration suit)
         {
