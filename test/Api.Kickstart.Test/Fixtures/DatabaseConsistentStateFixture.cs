@@ -55,13 +55,13 @@ namespace DeckOfCards.Test.Fixtures
             // Remove everything from database:
             Datastore?.Maintenance.Server.Send(new DeleteDatabasesOperation(Datastore.Database, hardDelete: true));
             Datastore = StartupExtensions.InitializeRavenDbDocumentStore(config);
-            Datastore.Maintenance.Server.Send(new CreateDatabaseOperation(new DatabaseRecord(config["RavenDb:Database"])));
+            Datastore.Maintenance.Server.Send(new CreateDatabaseOperation(new DatabaseRecord(config[StartupExtensions.ConfigKeyRavenDbDatabase])));
         }
 
         public async Task DisposeAsync()
         {
             // Tear down database:
-            Datastore.Maintenance.Server.Send(new DeleteDatabasesOperation(Datastore.Database, hardDelete: true));
+            Datastore?.Maintenance.Server.Send(new DeleteDatabasesOperation(Datastore.Database, hardDelete: true));
             await Task.CompletedTask;
         }
 

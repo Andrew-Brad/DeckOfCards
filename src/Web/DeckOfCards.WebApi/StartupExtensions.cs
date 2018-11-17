@@ -63,7 +63,7 @@ namespace DeckOfCards.WebApi
                 {
                     s.GeneratorSettings.DefaultPropertyNameHandling = NJsonSchema.PropertyNameHandling.CamelCase;
                     s.GeneratorSettings.AddMissingPathParameters = true;//needed due to known issues with [HttpGet] attributes with default routes/controller route attributes
-                    s.GeneratorSettings.Title = $"Widgets Api - {env.EnvironmentName}";
+                    s.GeneratorSettings.Title = $"Cards Api - {env.EnvironmentName}";
                     s.GeneratorSettings.Description = "The Cards Api enables you to progammatically create and manage decks of cards.";
                 });
             }
@@ -180,12 +180,14 @@ namespace DeckOfCards.WebApi
             return services;
         }
 
+        public const string ConfigKeyRavenDbUrl = "RavenDb:Urls";
+        public const string ConfigKeyRavenDbDatabase = "RavenDb:Database";
         public static DocumentStore InitializeRavenDbDocumentStore(IConfiguration config)
         {
             DocumentStore store = new DocumentStore()
             {
-                Urls = config.GetSection("RavenDb:Urls").Get<string[]>(),
-                Database = config["RavenDb:Database"]
+                Urls = config.GetSection(ConfigKeyRavenDbUrl).Get<string[]>(),
+                Database = config[ConfigKeyRavenDbDatabase]
             };
 
             store.Conventions.CustomizeJsonSerializer = CustomizeRavenSerializer;
@@ -207,25 +209,6 @@ namespace DeckOfCards.WebApi
         {
             ravenJsonSerializer.Converters.Add(new SuitsEnumerationConverter());
             ravenJsonSerializer.Converters.Add(new RanksEnumerationConverter());
-        }
-
-        // from the docs
-        public class DocumentStoreHolder
-        {
-            private static Lazy<IDocumentStore> store = new Lazy<IDocumentStore>(CreateStore);
-
-            public static IDocumentStore Store => store.Value;
-
-            private static IDocumentStore CreateStore()
-            {
-                IDocumentStore store = new DocumentStore()
-                {
-                    Urls = new[] { "http://localhost:8080" },
-                    Database = "Cards"
-                }.Initialize();
-
-                return store;
-            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using DeckOfCards.WebApi;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,14 +39,14 @@ namespace DeckOfCards.Test.Fixtures
                 .UseUrls(HostingUri.ToString())
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    // Call other providers here and call AddCommandLine last.
-                    var tempConfig = new List<KeyValuePair<string, string>>()
+                    // Config overrides from any number of sources
+                    var unitTestingOverrides = new List<KeyValuePair<string, string>>()
                         {
-                            new KeyValuePair<string, string>("RavenDb:Database",Guid.NewGuid().ToString()),                           
+                            new KeyValuePair<string, string>(StartupExtensions.ConfigKeyRavenDbDatabase,Guid.NewGuid().ToString()),                           
                         };
-                    config.AddInMemoryCollection(tempConfig);
+                    config.AddInMemoryCollection(unitTestingOverrides);
                 })
-                //.UseStartup<TestStartup>()
+                //.UseStartup<TestStartup>() // Mediatr + Automapper are using GetType() and AppDomains, which won't work with this convention
                 .Build();
 
             server.Start();

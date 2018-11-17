@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using DeckOfCards.Test.Fixtures;
 using static DeckOfCards.Test.TestConstants;
 using static DeckOfCards.Test.TestExtensions;
 using Newtonsoft.Json.Linq;
 using Xunit;
-using Raven.Client.Documents;
-using Raven.Client.ServerWide.Operations;
-using Raven.Client.ServerWide;
 using DeckOfCards.Domain;
 using Microsoft.Extensions.Configuration;
 

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using DeckOfCards.Domain;
 using DeckOfCards.Queries;
 using DeckOfCards.Commands;
 using DeckOfCards.QueryResults;

@@ -6,8 +6,6 @@ using DeckOfCards.Test.Fixtures;
 using static DeckOfCards.Test.TestConstants;
 using Moq;
 using Raven.Client.Documents;
-using Raven.Client.ServerWide.Operations;
-using Raven.Client.ServerWide;
 using Xunit;
 using Raven.Client.Exceptions;
 using DeckOfCards.Queries;
@@ -21,21 +19,36 @@ using Sieve.Models;
 using Polly.Registry;
 using DeckOfCards.CQRS;
 using Raven.Client.Documents.Session;
+using Microsoft.Extensions.Configuration;
 
 namespace DeckOfCards.Kickstart.Test
 {
     [Collection(SharedServerCollection)]
-    public class QueryHandlerOutageTests : IDisposable
+    public class QueryHandlerOutageTests : IAsyncLifetime, IClassFixture<DatabaseConsistentStateFixture>
     {
-        private IntegrationTestServerFixture _serverFixture;
+        private IntegrationTestServerFixture _sharedTestServerFixture;
         private DataProviderFixture _fakeDataFixture;
+        private DatabaseConsistentStateFixture _db;
 
         // Constructor runs once per unit test
-        public QueryHandlerOutageTests(IntegrationTestServerFixture fixture, DataProviderFixture fakeDataFixture)
+        public QueryHandlerOutageTests(IntegrationTestServerFixture fixture, DataProviderFixture fakeDataFixture, DatabaseConsistentStateFixture db)
         {
-            this._serverFixture = fixture;
+            this._sharedTestServerFixture = fixture;
             this._fakeDataFixture = fakeDataFixture;
-            CreateDatabase();
+            this._db = db;
+        }
+
+        public async Task InitializeAsync()
+        {
+            _db.InitializeFreshDatabase(_sharedTestServerFixture.server.Services.GetRequiredService<IConfiguration>());
+
+            // Seed the traditional 52 card deck templates
+            await _fakeDataFixture.SeedCardTemplates(_db.Datastore);
+        }
+
+        public async Task DisposeAsync()
+        {
+            await Task.CompletedTask;
         }
 
         [Fact(Skip = "Unable to properly override DI to force the specific scenario.")]
@@ -63,13 +76,13 @@ namespace DeckOfCards.Kickstart.Test
 
 
             CardTemplateQueryHandler handler = new CardTemplateQueryHandler(
-                _serverFixture.server.Services.GetRequiredService<ILogger<CardTemplateQueryHandler>>(),
+                _sharedTestServerFixture.server.Services.GetRequiredService<ILogger<CardTemplateQueryHandler>>(),
                 docStoreExceptionMock.Object,
                 //_serverFixture.server.Services.GetRequiredService<IDocumentStore>(),
-                _serverFixture.server.Services.GetRequiredService<IMapper>(),
-                _serverFixture.server.Services.GetRequiredService<ISieveProcessor>(),
-                _serverFixture.server.Services.GetRequiredService<IOptions<SieveOptions>>(),
-                _serverFixture.server.Services.GetRequiredService<IReadOnlyPolicyRegistry<string>>()
+                _sharedTestServerFixture.server.Services.GetRequiredService<IMapper>(),
+                _sharedTestServerFixture.server.Services.GetRequiredService<ISieveProcessor>(),
+                _sharedTestServerFixture.server.Services.GetRequiredService<IOptions<SieveOptions>>(),
+                _sharedTestServerFixture.server.Services.GetRequiredService<IReadOnlyPolicyRegistry<string>>()
                 );
 
             // Act
@@ -78,39 +91,5 @@ namespace DeckOfCards.Kickstart.Test
             // Assert
             Assert.Equal(QueryResultStatus.ServiceUnavailable, queryResult.ResultStatus);
         }
-
-        // todo - this method is duplicated multiple times!
-        private void CreateDatabase()
-        {
-            DeleteDatabase();
-            // Fresh database:
-            using (var serviceScope = _serverFixture.server.Services.CreateScope())
-            {
-                var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                if (_serverFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
-                {
-                    store.Maintenance.Server.Send(new CreateDatabaseOperation(new DatabaseRecord("Cards")));
-                }
-            }
-        }
-
-        private void DeleteDatabase()
-        {
-            // Remove everything from database:
-            using (var serviceScope = _serverFixture.server.Services.CreateScope())
-            {
-                var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                if (_serverFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
-                {
-                    store.Maintenance.Server.Send(new DeleteDatabasesOperation("Cards", hardDelete: true));
-                }
-            }
-        }
-
-        public void Dispose() // disposed once per test run (along with constructor)
-        {
-            DeleteDatabase();
-        }
-
     }
 }
