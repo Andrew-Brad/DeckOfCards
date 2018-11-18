@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DeckOfCards.WebApi.ViewModels
 {
-    public class GetWidgetByIdViewModel
+    public class GetDeckByIdViewModel
     {
         [FromRoute]
         [StringLength(128, MinimumLength = 1, ErrorMessage = "An Id must be at least 1 character and less than 128.")]
-        public string WidgetId { get; set; }
+        public string DeckId { get; set; }
 
     }
 }

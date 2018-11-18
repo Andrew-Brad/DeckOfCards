@@ -13,5 +13,11 @@ namespace DeckOfCards.Domain
         public Guid Id { get; set; }
         //public DateTimeOffset CreationDate { get; set; }
         public CardTemplate Template { get; set; }
+
+        public PlayingCard(Guid id, CardTemplate template)
+        {
+            this.Id = id;
+            Template = template;
+        }
     }
 }

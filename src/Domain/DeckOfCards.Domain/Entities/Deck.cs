@@ -25,11 +25,7 @@ namespace DeckOfCards.Domain
             _cards = new List<PlayingCard>();
             foreach (var card in cards)
             {
-                _cards.Add(new PlayingCard()
-                {
-                    Template = card,
-                    Id = Guid.NewGuid(),
-                });
+                _cards.Add(new PlayingCard(Guid.NewGuid(), card));
             }
         }
 
@@ -58,6 +54,11 @@ namespace DeckOfCards.Domain
         public static Deck FromProfile()
         {
             throw new NotImplementedException();
+        }
+
+        public static Deck FromCards(IList<PlayingCard> cards)
+        {
+            return new Deck(cards.Select(x => x.Template).ToList());
         }
 
         /// <summary>

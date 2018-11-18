@@ -12,10 +12,9 @@ namespace DeckOfCards.Domain
         public RanksEnumeration Rank { get; set; }
         public SuitsEnumeration Suit { get; set; }
         public string CardName { get; set; }
-
         public string ImageUrl { get; set; }
 
-        public static CardTemplate NewCard(RanksEnumeration rank, SuitsEnumeration suit)
+        public static CardTemplate NewTemplate(RanksEnumeration rank, SuitsEnumeration suit)//, string cardName, Uri imageUrl)
         {
             return new CardTemplate()
             {

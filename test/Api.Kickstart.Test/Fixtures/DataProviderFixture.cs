@@ -9,7 +9,7 @@ using Raven.Client.Documents;
 
 namespace DeckOfCards.Test.Fixtures
 {
-    [CollectionDefinition("FakeData")]
+    [CollectionDefinition(TestConstants.DataProviderCollection)]
     public class DataProviderCollection : ICollectionFixture<DataProviderFixture>
     {
         // This class has no code, and is never created. 
@@ -21,13 +21,14 @@ namespace DeckOfCards.Test.Fixtures
         public readonly Faker<CardTemplate> ValidCardProvider;
         public readonly Faker<CardTemplate> InvalidCardProvider;
         public readonly List<CardTemplate> CardTemplates;
+        public readonly Deck Standard52CardDeck;
 
         public DataProviderFixture()
         {
             // Instantiate providers and necessary validation/mocking rules
             ValidCardProvider = new Faker<CardTemplate>()
-                .CustomInstantiator(f => CardTemplate.NewCard(
-                    f.PickRandomParam(RanksEnumeration.List.ToArray()), 
+                .CustomInstantiator(f => CardTemplate.NewTemplate(
+                    f.PickRandomParam(RanksEnumeration.List.ToArray()),
                     f.PickRandomParam(SuitsEnumeration.List.ToArray())
                     ))
                 .RuleFor(o => o.ImageUrl, f => f.Image.Cats());
@@ -46,6 +47,8 @@ namespace DeckOfCards.Test.Fixtures
                     CardTemplates.Add(sourceCard);
                 }
             }
+
+            Standard52CardDeck = Deck.Standard52CardDeck(CardTemplates);
 
             InvalidCardProvider = new Faker<CardTemplate>()
                 .StrictMode(false) // can ensure all properties covered by rules
@@ -67,6 +70,19 @@ namespace DeckOfCards.Test.Fixtures
                 {
                     await session.StoreAsync(cardTemplate);
                 }
+                await session.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Populate the datastore with a traditional 52 card deck.
+        /// </summary>
+        /// <returns></returns>
+        public async Task SeedValidDeck(IDocumentStore datastore)
+        {
+            using (var session = datastore.OpenAsyncSession())
+            {
+                await session.StoreAsync(Standard52CardDeck);
                 await session.SaveChangesAsync();
             }
         }

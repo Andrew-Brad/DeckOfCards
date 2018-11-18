@@ -22,11 +22,18 @@ namespace DeckOfCards.WebApi.View
                 .ForMember(dest => dest.Suit, opt => opt.MapFrom(src => src.Card.Suit.Name))
                 .ForMember(dest => dest.CardName, opt => opt.MapFrom(src => src.Card.CardName));
 
+            CreateMap<NewDeckOfCardsQueryResult, DeckByIdView>()
+                    .ForMember(dest => dest.Cards, opt => opt.MapFrom(src => src.Deck));
+
             CreateMap<NewDeckOfCardsCommandResult, NewDeckView>()
                 .ForMember(dest => dest.Cards, opt => opt.MapFrom(src => src.Deck));
-            CreateMap<Deck, List<NewDeckView.CardDto>>()
+
+
+
+
+            CreateMap<Deck, List<NewDeckView.CardViewDto>>()
                 .ProjectUsing(x => x.ShowCards()
-                    .Select<PlayingCard, NewDeckView.CardDto>(y => new NewDeckView.CardDto()
+                    .Select<PlayingCard, NewDeckView.CardViewDto>(y => new NewDeckView.CardViewDto()
                     {
                         Suit = y.Template.Suit.Name,
                         Rank = y.Template.Rank.Name,
@@ -35,12 +42,7 @@ namespace DeckOfCards.WebApi.View
                         ImageUrl = y.Template.ImageUrl
                     }).ToList());
 
-            CreateMap<PlayingCard, NewDeckView.CardDto>();
-
-
-            //CreateMap<CreateWidgetCommandResult, CreateWidgetView>();
-            //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Widget.Id));
-            //CreateMap<DeprecateWidgetCommandResult,DeprecateWidgetView>();
+            CreateMap<PlayingCard, NewDeckView.CardViewDto>();
         }
     }
 }
