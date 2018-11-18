@@ -72,6 +72,7 @@ namespace DeckOfCards.Test
 
             // Act
             var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/cards/templates/{expectedCardRank}/{expectedCardSuit}");
+            string responseString = await response.Content.ReadAsStringAsync();
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);

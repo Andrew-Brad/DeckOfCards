@@ -54,15 +54,13 @@ namespace DeckOfCards.QueryHandlers
                     {
                         using (var session = _docStore.OpenAsyncSession(new SessionOptions() { NoTracking = true }))
                         {
+                            session.Advanced.DocumentStore.AggressivelyCache();
                             QueryStatistics queryStats;
-                            // RavenDB needs these called out as variables - not pretty
-                            ushort val1 = query.Rank.Value;
-                            ushort val2 = query.Suit.Value;
                             var allDbWidgetsQuery = session.Query<CardTemplate>()
                                 .Statistics(out queryStats)
-                                .Where(x => x.Rank == val1 && x.Suit == val2);
+                                .Where(x => x.Rank == query.Rank.Value && x.Suit == query.Suit.Value);
+                            
                             //allDbWidgetsQuery = _sortFilterPagingProcessor.Apply(query.SortFilterPaging, allDbWidgetsQuery, null, false, false, true);
-
                             CardTemplate cardTemplate = await allDbWidgetsQuery.SingleAsync();
                             queryResult.Card = cardTemplate;
                             return totalCount = queryStats.TotalResults;
