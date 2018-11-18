@@ -49,6 +49,9 @@ namespace DeckOfCards.WebApi
             mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1); // required for certain features like [ApiController]
             //var jsonFormatter = mvcBuilder.
 
+            // In memory cache
+            services.AddMemoryCache();
+
             // Mediatr + handlers
             services.AddMediatR(typeof(Startup).Assembly);
 

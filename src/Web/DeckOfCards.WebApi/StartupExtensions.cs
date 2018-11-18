@@ -173,10 +173,11 @@ namespace DeckOfCards.WebApi
         public static IServiceCollection AddRavenDb(this IServiceCollection services)
         {
             IConfiguration config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-            ILogger logger = services.BuildServiceProvider().GetRequiredService<ILogger<Startup>>();
-            //Aws:
+            ILogger logger = services.BuildServiceProvider().GetRequiredService<ILogger<Startup>>();            
             logger.LogDebug("Beginning DI registration of RavenDB DocumentStore...");
             DocumentStore store = InitializeRavenDbDocumentStore(config);
+            
+            // "Because the document store is a heavyweight object, there should only be one instance created per application (singleton)."
             services.AddSingleton<IDocumentStore>(store);
             return services;
         }

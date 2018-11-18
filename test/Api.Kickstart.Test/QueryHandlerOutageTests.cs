@@ -20,6 +20,7 @@ using Polly.Registry;
 using DeckOfCards.CQRS;
 using Raven.Client.Documents.Session;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DeckOfCards.Kickstart.Test
 {
@@ -82,7 +83,8 @@ namespace DeckOfCards.Kickstart.Test
                 _sharedTestServerFixture.server.Services.GetRequiredService<IMapper>(),
                 _sharedTestServerFixture.server.Services.GetRequiredService<ISieveProcessor>(),
                 _sharedTestServerFixture.server.Services.GetRequiredService<IOptions<SieveOptions>>(),
-                _sharedTestServerFixture.server.Services.GetRequiredService<IReadOnlyPolicyRegistry<string>>()
+                _sharedTestServerFixture.server.Services.GetRequiredService<IReadOnlyPolicyRegistry<string>>(),
+                _sharedTestServerFixture.server.Services.GetRequiredService<IMemoryCache>()
                 );
 
             // Act

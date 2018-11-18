@@ -41,11 +41,13 @@ namespace DeckOfCards.QueryHandlers
                     {
                         using (var session = _db.OpenAsyncSession())
                         {
-                            // pull our Card Templates - this ultimately defines what 'standard' cards really are
+                            // get all Card Templates - this ultimately defines what 'standard' cards really are
+                            session.Advanced.DocumentStore.AggressivelyCache();
                             QueryStatistics queryStats;
-                            var allDbWidgetsQuery = session.Query<CardTemplate>()
+                            var allCardTemplatesQuery = session
+                                .Query<CardTemplate>()                                
                                 .Statistics(out queryStats);
-                            List<CardTemplate> cardTemplates = await allDbWidgetsQuery.ToListAsync();
+                            List<CardTemplate> cardTemplates = await allCardTemplatesQuery.ToListAsync();
 
                             // call into the Deck Aggregate to create us a deck entity object
                             var deck = Deck.Standard52CardDeck(cardTemplates);

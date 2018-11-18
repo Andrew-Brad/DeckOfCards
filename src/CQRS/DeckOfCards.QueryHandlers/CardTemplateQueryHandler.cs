@@ -18,6 +18,7 @@ using Polly;
 using Polly.Registry;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DeckOfCards.QueryHandlers
 {
@@ -29,9 +30,10 @@ namespace DeckOfCards.QueryHandlers
         private readonly ISieveProcessor _sortFilterPagingProcessor;
         private readonly IOptions<SieveOptions> _sortFilterPagingOptions;
         private readonly IReadOnlyPolicyRegistry<string> _policyRegistry;
+        private readonly IMemoryCache _memoryCache;
 
-        public CardTemplateQueryHandler(ILogger<CardTemplateQueryHandler> logger, IDocumentStore context, IMapper mapper, 
-            ISieveProcessor sieveProc, IOptions<SieveOptions> sortFilterPagingOptions, IReadOnlyPolicyRegistry<string> registry)
+        public CardTemplateQueryHandler(ILogger<CardTemplateQueryHandler> logger, IDocumentStore context, IMapper mapper,
+            ISieveProcessor sieveProc, IOptions<SieveOptions> sortFilterPagingOptions, IReadOnlyPolicyRegistry<string> registry, IMemoryCache memoryCache)
         {
             _logger = logger;
             _docStore = context;
@@ -39,6 +41,7 @@ namespace DeckOfCards.QueryHandlers
             _sortFilterPagingProcessor = sieveProc;
             _sortFilterPagingOptions = sortFilterPagingOptions;
             _policyRegistry = registry;
+            _memoryCache = memoryCache;
         }
 
         public async Task<CardTemplateQueryResult> Handle(CardTemplateQuery query, CancellationToken cancellationToken)
@@ -46,27 +49,29 @@ namespace DeckOfCards.QueryHandlers
             var queryResult = new CardTemplateQueryResult();
             try
             {
-                int totalCount = 0;
                 var policy = _policyRegistry.Get<IAsyncPolicy<int>>("DbQuery");
                 var policyResult = await policy
                     //.ExecuteAndCaptureAsync(StubMethod)
                     .ExecuteAndCaptureAsync(async () =>
                     {
-                        using (var session = _docStore.OpenAsyncSession(new SessionOptions() { NoTracking = true }))
-                        {
-                            session.Advanced.DocumentStore.AggressivelyCache();
-                            QueryStatistics queryStats;
-                            var allDbWidgetsQuery = session.Query<CardTemplate>()
-                                .Statistics(out queryStats)
-                                .Where(x => x.Rank == query.Rank.Value && x.Suit == query.Suit.Value);
-                            
-                            //allDbWidgetsQuery = _sortFilterPagingProcessor.Apply(query.SortFilterPaging, allDbWidgetsQuery, null, false, false, true);
-                            CardTemplate cardTemplate = await allDbWidgetsQuery.SingleAsync();
-                            queryResult.Card = cardTemplate;
-                            return totalCount = queryStats.TotalResults;
-                        }
-                    })
-                    ;
+                        CardTemplate cardTemplate = await _memoryCache.GetOrCreateAsync<CardTemplate>($"{query.Rank.Name}-{query.Suit.Name}",async entry =>
+                            {
+                                entry.AbsoluteExpiration = new DateTimeOffset(DateTime.UtcNow.AddMinutes(5));
+                                using (var session = _docStore.OpenAsyncSession(new SessionOptions() { NoTracking = true }))
+                                {
+                                    QueryStatistics queryStats;
+                                    var allDbWidgetsQuery = session.Query<CardTemplate>()
+                                        .Statistics(out queryStats)
+                                        .Where(x => x.Rank == query.Rank.Value && x.Suit == query.Suit.Value);
+
+                                    //allDbWidgetsQuery = _sortFilterPagingProcessor.Apply(query.SortFilterPaging, allDbWidgetsQuery, null, false, false, true);
+                                    CardTemplate dbTemplate = await allDbWidgetsQuery.SingleAsync();                                    
+                                    return dbTemplate;
+                                }
+                            });
+                        queryResult.Card = cardTemplate;
+                        return 1;
+                    });
                 //if (policyResult.Outcome == OutcomeType.Failure) return ServiceUnavailableCommandResult();
 
                 //queryResult.Paging = new PagingResponse((uint)query.SortFilterPaging.Page.Value,(uint) queryResult.Widgets.Count, (uint)totalWidgetCount);
@@ -76,7 +81,7 @@ namespace DeckOfCards.QueryHandlers
             }
             catch (Exception e)
             {
-                _logger.LogError(e,"Exception caught and logged.");
+                _logger.LogError(e, "Exception caught and logged.");
                 queryResult.ResultStatus = QueryResultStatus.CriticalError;
             }
             finally
