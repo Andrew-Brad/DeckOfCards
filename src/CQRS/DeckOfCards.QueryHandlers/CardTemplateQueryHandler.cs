@@ -54,22 +54,24 @@ namespace DeckOfCards.QueryHandlers
                     //.ExecuteAndCaptureAsync(StubMethod)
                     .ExecuteAndCaptureAsync(async () =>
                     {
-                        CardTemplate cardTemplate = await _memoryCache.GetOrCreateAsync<CardTemplate>($"{query.Rank.Name}-{query.Suit.Name}",async entry =>
+                        List<CardTemplate> cardTemplates = await _memoryCache.GetOrCreateAsync(@"List<CardTemplate>", async entry =>
                             {
                                 entry.AbsoluteExpiration = new DateTimeOffset(DateTime.UtcNow.AddMinutes(5));
                                 using (var session = _docStore.OpenAsyncSession(new SessionOptions() { NoTracking = true }))
                                 {
                                     QueryStatistics queryStats;
                                     var allDbWidgetsQuery = session.Query<CardTemplate>()
-                                        .Statistics(out queryStats)
-                                        .Where(x => x.Rank == query.Rank.Value && x.Suit == query.Suit.Value);
+                                        .Statistics(out queryStats);
 
                                     //allDbWidgetsQuery = _sortFilterPagingProcessor.Apply(query.SortFilterPaging, allDbWidgetsQuery, null, false, false, true);
-                                    CardTemplate dbTemplate = await allDbWidgetsQuery.SingleAsync();                                    
-                                    return dbTemplate;
+                                    List<CardTemplate> dbTemplates = await allDbWidgetsQuery.ToListAsync();
+                                    return dbTemplates;
                                 }
                             });
-                        queryResult.Card = cardTemplate;
+                        CardTemplate dbTemplate = cardTemplates.SingleOrDefault(x => 
+                            x.Rank == query.Rank.Value 
+                            && x.Suit == query.Suit.Value);
+                        queryResult.Card = dbTemplate;
                         return 1;
                     });
                 //if (policyResult.Outcome == OutcomeType.Failure) return ServiceUnavailableCommandResult();
