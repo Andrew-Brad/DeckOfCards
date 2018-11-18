@@ -21,6 +21,7 @@ using Newtonsoft.Json;
 using DeckOfCards.DataModel.JsonContractResolvers;
 using System.Net.Sockets;
 using DeckOfCards.Domain;
+using DeckOfCards.Persistence;
 
 namespace DeckOfCards.WebApi
 {
@@ -191,9 +192,7 @@ namespace DeckOfCards.WebApi
             };
 
             store.Conventions.CustomizeJsonSerializer = CustomizeRavenSerializer;
-            store.Conventions.RegisterAsyncIdConvention<CardTemplate>(
-                (dbname, card) =>
-                    Task.FromResult(string.Format("cards/{0}/{1}", card.Rank.Name, card.Suit)));
+            store.Conventions.RegisterAsyncIdConvention<CardTemplate>(IdConventions.CardTemplateIdStrategy);
             // All customizations need to be set before DocumentStore.Initialize() is called.
             // https://ravendb.net/docs/article-page/4.0/csharp/client-api/configuration/conventions
             store.Initialize();
