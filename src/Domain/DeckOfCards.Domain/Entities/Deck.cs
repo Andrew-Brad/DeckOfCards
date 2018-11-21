@@ -25,7 +25,7 @@ namespace DeckOfCards.Domain
             _cards = new List<PlayingCard>();
             foreach (var card in cards)
             {
-                _cards.Add(new PlayingCard(Guid.NewGuid(), card));
+                _cards.Add(new PlayingCard(Guid.NewGuid().ToString(), card));
             }
         }
 

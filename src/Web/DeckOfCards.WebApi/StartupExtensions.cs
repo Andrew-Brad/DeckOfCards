@@ -210,6 +210,7 @@ namespace DeckOfCards.WebApi
             ravenJsonSerializer.Converters.Add(new SuitsEnumerationConverter());
             ravenJsonSerializer.Converters.Add(new RanksEnumerationConverter());
             ravenJsonSerializer.Converters.Add(new DeckConverter());
+            ravenJsonSerializer.Converters.Add(new PlayingCardConverter()); 
         }
     }
 }

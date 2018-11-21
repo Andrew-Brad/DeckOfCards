@@ -9,8 +9,9 @@ namespace DeckOfCards.Domain
     /// </summary>
     public class CardTemplate : IEquatable<CardTemplate>
     {
-        public RanksEnumeration Rank { get; set; }
-        public SuitsEnumeration Suit { get; set; }
+        public string Id { get; private set; }
+        public RanksEnumeration Rank { get; private set; }
+        public SuitsEnumeration Suit { get; private set; }
         public string CardName { get; set; }
         public string ImageUrl { get; set; }
 
@@ -19,7 +20,7 @@ namespace DeckOfCards.Domain
             return new CardTemplate()
             {
                 //CreationDate = DateTime.UtcNow,
-                //Id = Guid.NewGuid().ToString(),
+                Id = rank.Name + " of " + suit.Name,
                 Rank = rank ?? RanksEnumeration.Ace,
                 Suit = suit ?? SuitsEnumeration.Spades,
                 // card name/metadata controlled at runtime

@@ -16,7 +16,7 @@ namespace DeckOfCards.DataModel.JsonContractResolvers
             Guid id = Guid.Parse(jObject["@metadata"]["@id"].Value<string>());
             IList<PlayingCard> ravenCards = jObject["Cards"]
                 .Children()
-                .Select(x => new PlayingCard(Guid.Parse(x["Id"].Value<string>()),
+                .Select(x => new PlayingCard(x["Id"].Value<string>(),
                     CardTemplate.NewTemplate(RanksEnumeration.FromValue(x["Rank"].Value<ushort>()),
                         SuitsEnumeration.FromValue(x["Suit"].Value<ushort>())))).ToList();
             var serializedDeck = Deck.FromCards(ravenCards);

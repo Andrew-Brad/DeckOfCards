@@ -40,11 +40,9 @@ namespace DeckOfCards.Test.Fixtures
             {
                 foreach (var rank in RanksEnumeration.List)
                 {
-                    var sourceCard = ValidCardProvider.Generate();
-                    sourceCard.Rank = rank;
-                    sourceCard.Suit = suit;
-                    sourceCard.CardName = "Unit test runtime value: " + rank + " of " + suit;
-                    CardTemplates.Add(sourceCard);
+                    var template = CardTemplate.NewTemplate(rank, suit);
+                    template.CardName = "Unit test runtime value: " + rank + " of " + suit;
+                    CardTemplates.Add(template);
                 }
             }
 
