@@ -15,7 +15,7 @@ namespace DeckOfCards.WebApi
         {
             try
             {
-                Log.Information("Starting web host");
+                Log.Information("Starting web host.");
                 IWebHostBuilder hostBuilder = CreateWebHostBuilder(args);
                 IWebHost host = hostBuilder.Build();
                 host.Run();
@@ -23,7 +23,7 @@ namespace DeckOfCards.WebApi
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                Log.Fatal(ex, "Host terminated unexpectedly.");
                 return 1;
             }
             finally
@@ -53,10 +53,11 @@ namespace DeckOfCards.WebApi
                         .AddUserSecrets("aspnet-ApiKickstart-9c9e22fb-27d7-4783-99d8-6d7253dbf01b")
                         .AddEnvironmentVariables();
 
+                    // Configuration keys are "last in wins"
                     if (env.IsDevelopment())
                     {
                         var appAssembly = System.Reflection.Assembly.Load(new System.Reflection.AssemblyName(env.ApplicationName));
-                        if (appAssembly != null) config.AddUserSecrets(appAssembly, optional: true);//at this stage, user secrets will override previous keys for sections already added (i.e. JSON files)
+                        if (appAssembly != null) config.AddUserSecrets(appAssembly, optional: true);
                     }
 
                     if (args != null) config.AddCommandLine(args);
@@ -86,27 +87,29 @@ namespace DeckOfCards.WebApi
                 .MinimumLevel.Override("System", config["Logging:MasterOverrides:Microsoft"].ToEnumTypeOf<Serilog.Events.LogEventLevel>())
                 .Enrich.FromLogContext()
                 //.Enrich.WithThreadId()
-                //Process enricher:
+                // Process enricher:
                 .Enrich.WithProcessId()
-                //Enviro enrichers:
+                // Enviro enrichers:
                 .Enrich.WithMachineName()
                 .Enrich.WithEnvironmentUserName()
 
-                //sinks:
+                // Configure sinks:
                 .WriteTo.Logger(lc => lc
-                    .WriteTo.LiterateConsole())//a pretty print version over the traditional Sinks.Console
+                    .WriteTo.Debug())
+                .WriteTo.Logger(lc => lc
+                    .WriteTo.LiterateConsole()) //a pretty print version over the traditional Sinks.Console
                 .WriteTo.Async(lc => lc
                     .RollingFile(env.ContentRootPath + "/" + config["Logging:Api:RollingFile:Folder"] + "/" + config["Logging:Api:RollingFile:FileName"],
                         config["Logging:Api:RollingFile:LogLevel"].ToEnumTypeOf<Serilog.Events.LogEventLevel>(),
                         fileSizeLimitBytes: long.Parse(config["Logging:Api:RollingFile:FileSizeLimitBytes"]),
                         retainedFileCountLimit: int.Parse(config["Logging:Api:RollingFile:RetainedFileCountLimit"]),
                         shared: true))
-                //can keep adding sinks - close parentheses per sink     
+                // can keep adding sinks - close parentheses per sink     
 
-                //todo: long term logging solution/sink for something like dynamo or elastic search for a uniform logging/data extraction solution
+                // todo: long term logging solution/sink for something like dynamo or elastic search for a uniform logging/data extraction solution
 
 
-                ;//end logger sink configuration
+                ; // end logger sink configuration
 
             if (bool.Parse(config["Logging:EnableSelfLog"]))
             {
