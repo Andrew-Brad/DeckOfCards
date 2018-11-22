@@ -15,8 +15,8 @@
   <ItemGroup>
     <PackageReference Include="AB.Middleware.HttpRequestSummaryLogging" Version="2.0.0" />
     <PackageReference Include="Ardalis.SmartEnum" Version="1.0.5" />
-    <PackageReference Include="AutoMapper" Version="7.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="AWSSDK.Core" Version="3.3.22.5" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.0.29" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />

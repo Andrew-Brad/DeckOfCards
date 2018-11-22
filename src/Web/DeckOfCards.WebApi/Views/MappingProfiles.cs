@@ -34,7 +34,7 @@ namespace DeckOfCards.WebApi.View
 
 
             CreateMap<Deck, List<NewDeckView.CardViewDto>>()
-                .ProjectUsing(x => x.ShowCards()
+                .ConvertUsing(x => x.ShowCards()
                     .Select<PlayingCard, NewDeckView.CardViewDto>(y => new NewDeckView.CardViewDto()
                     {
                         Suit = y.Template.Suit.Name,
