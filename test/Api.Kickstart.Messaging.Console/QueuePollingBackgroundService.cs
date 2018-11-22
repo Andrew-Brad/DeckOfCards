@@ -11,7 +11,7 @@ using Amazon.SQS;
 using Amazon.SQS.Model;
 using Polly;
 
-namespace Api.Kickstart.Messaging.Console
+namespace DeckOfCards.Kickstart.Messaging.Console
 {
     /// <summary>
     /// This background service is a stateless service that picks up messages off the queue and does necessary processing.

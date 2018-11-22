@@ -1,14 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Amazon;
 using Amazon.SQS;
-using Api.Kickstart.Messaging.Console;
+using DeckOfCards.Kickstart.Messaging.Console;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 
-namespace Api.Kickstart.Messaging
+namespace DeckOfCards.Kickstart.Messaging
 {
     class Program
     {

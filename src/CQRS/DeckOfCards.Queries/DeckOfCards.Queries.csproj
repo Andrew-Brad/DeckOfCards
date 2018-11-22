@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AB.Extensions" Version="3.0.1" />
+    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.5" />
+    <PackageReference Include="MediatR" Version="4.1.0" />
+    <PackageReference Include="Sieve" Version="2.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\DeckOfCards.Domain\DeckOfCards.Domain.csproj" />
+    <ProjectReference Include="..\DeckOfCards.CQRS\DeckOfCards.CQRS.csproj" />
+  </ItemGroup>
+
+</Project>

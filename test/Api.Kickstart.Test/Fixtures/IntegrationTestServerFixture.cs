@@ -1,19 +1,22 @@
+using DeckOfCards.WebApi;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using static Api.Kickstart.Test.TestConstants;
+using static DeckOfCards.Test.TestConstants;
 
-namespace Api.Kickstart.Test.Fixtures
+namespace DeckOfCards.Test.Fixtures
 {
-    [CollectionDefinition("SharedServer")]
-    public class SharedTestServerCollection : ICollectionFixture<IntegrationTestServerFixture>, ICollectionFixture<FakeDataFixture>
+    [CollectionDefinition(SharedServerCollection)]
+    public class SharedTestServerCollection : ICollectionFixture<IntegrationTestServerFixture>, ICollectionFixture<DataProviderFixture>
     {
         // This class has no code, and is never created. 
-        //Its purpose is simply to be the place to apply [CollectionDefinition] and all the ICollectionFixture<> interfaces.
+        // Its purpose is simply to be the place to apply [CollectionDefinition] and all the ICollectionFixture<> interfaces.
     }
 
     public class IntegrationTestServerFixture : IAsyncLifetime
@@ -27,13 +30,23 @@ namespace Api.Kickstart.Test.Fixtures
             string unitTestDirectory = Directory.GetCurrentDirectory();
             string pathToContentRoot = Path.GetFullPath(Path.Combine(unitTestDirectory, NavigationPathDirectoryToApi));
 
-            var webHostBuilder = ApiKickstart.WebApi.Program.CreateWebHostBuilder(null);
+            var webHostBuilder = DeckOfCards.WebApi.Program.CreateWebHostBuilder(null);
 
             // Unit testing customizations/overrides:
             server = webHostBuilder
                 .UseEnvironment("Development")
                 .UseContentRoot(pathToContentRoot)
                 .UseUrls(HostingUri.ToString())
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    // Config overrides from any number of sources
+                    var unitTestingOverrides = new List<KeyValuePair<string, string>>()
+                        {
+                            new KeyValuePair<string, string>(StartupExtensions.ConfigKeyRavenDbDatabase,Guid.NewGuid().ToString()),                           
+                        };
+                    config.AddInMemoryCollection(unitTestingOverrides);
+                })
+                //.UseStartup<TestStartup>() // Mediatr + Automapper are using GetType() and AppDomains, which won't work with this convention
                 .Build();
 
             server.Start();

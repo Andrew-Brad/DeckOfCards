@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
-using ApiKickstart.Domain;
+using DeckOfCards.Domain;
 using Newtonsoft.Json;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Test
 {
     public static class TestExtensions
     {

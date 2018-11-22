@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AB.Extensions" Version="3.0.1" />
+    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.5" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.0.29" />
+    <PackageReference Include="MediatR" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Polly" Version="6.1.1" />
+    <PackageReference Include="RavenDB.Client" Version="4.1.0" />
+    <PackageReference Include="Sieve" Version="2.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\DeckOfCards.DomainEvents\DeckOfCards.DomainEvents.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\DeckOfCards.DataModel\DeckOfCards.Persistence.csproj" />
+    <ProjectReference Include="..\DeckOfCards.Commands\DeckOfCards.Commands.csproj" />
+    <ProjectReference Include="..\DeckOfCards.Queries\DeckOfCards.Queries.csproj" />
+    <ProjectReference Include="..\DeckOfCards.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
+  </ItemGroup>
+
+</Project>

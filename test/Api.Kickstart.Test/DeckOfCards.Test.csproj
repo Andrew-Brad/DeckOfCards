@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- For reference: https://github.com/aspnet/Docs/blob/master/aspnetcore/test/integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/RazorPagesProject.csproj -->
+  <PropertyGroup>    
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AB.Extensions" Version="3.0.1" />
+    <PackageReference Include="Bogus" Version="22.3.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Moq" Version="4.10.0" />
+    <PackageReference Include="RavenDB.Embedded" Version="4.1.2" />
+    <PackageReference Include="RavenDB.TestDriver" Version="4.1.2" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.Commands\DeckOfCards.Commands.csproj" />
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.CQRS\DeckOfCards.CQRS.csproj" />
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.Queries\DeckOfCards.Queries.csproj" />
+    <ProjectReference Include="..\..\src\CQRS\DeckOfCards.QueryHandlers\DeckOfCards.QueryHandlers.csproj" />
+    <ProjectReference Include="..\..\src\Domain\DeckOfCards.Domain\DeckOfCards.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\DeckOfCards.DataModel\DeckOfCards.Persistence.csproj" />
+    <ProjectReference Include="..\..\src\Web\DeckOfCards.WebApi\DeckOfCards.WebApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

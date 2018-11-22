@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ApiKickstart.WebApi;
+using Microsoft.AspNetCore.Hosting;
+using DeckOfCards.WebApi;
 
-namespace Api.Kickstart.Test
+namespace DeckOfCards.Test
 {
     /// <summary>
     /// This class currently isn't used (conflicts with runtime IoC DLL scanning), but is
@@ -12,7 +13,8 @@ namespace Api.Kickstart.Test
     /// </summary>
     public class TestStartup : Startup
     {
-        public TestStartup(IConfiguration configuration, ILogger<Startup> logger) : base(configuration, logger)
+        public TestStartup(IConfiguration configuration, ILogger<TestStartup> logger, IHostingEnvironment hostingEnvironment) 
+            : base(configuration, logger, hostingEnvironment)
         {
             
         }
