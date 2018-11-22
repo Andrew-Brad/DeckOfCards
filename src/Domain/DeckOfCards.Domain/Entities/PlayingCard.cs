@@ -18,7 +18,7 @@ namespace DeckOfCards.Domain
         {
             this.Id = id;
             Template = template;
-            this.CardTemplateId = template?.Id; //  this has to be done to satisfy the serialized, makes for poor DDD visuals
+            //this.CardTemplateId = template?.Id; //  this has to be done to satisfy the serializer, makes for poor DDD visuals
         }
     }
 }

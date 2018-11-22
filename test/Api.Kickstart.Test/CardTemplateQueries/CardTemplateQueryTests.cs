@@ -76,9 +76,10 @@ namespace DeckOfCards.Test
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-            JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
+            JObject responseObject = JObject.Parse(responseString);
             Assert.Equal(expectedCardRank, responseObject["result"]["rank"].ToString(), ignoreCase: true);
             Assert.Equal(expectedCardSuit, responseObject["result"]["suit"].ToString(), ignoreCase: true);
+            Assert.StartsWith("http",responseObject["result"]["imageUrl"].ToString());
             Assert.True(responseObject["result"]["cardName"].ToString().Length > 3);
         }
 

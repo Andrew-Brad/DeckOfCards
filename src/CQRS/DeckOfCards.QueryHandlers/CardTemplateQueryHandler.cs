@@ -60,7 +60,8 @@ namespace DeckOfCards.QueryHandlers
                                 using (var session = _docStore.OpenAsyncSession(new SessionOptions() { NoTracking = true }))
                                 {
                                     QueryStatistics queryStats;
-                                    var allDbWidgetsQuery = session.Query<CardTemplate>()
+                                    var allDbWidgetsQuery = session
+                                        .Query<CardTemplate>()
                                         .Statistics(out queryStats);
 
                                     //allDbWidgetsQuery = _sortFilterPagingProcessor.Apply(query.SortFilterPaging, allDbWidgetsQuery, null, false, false, true);

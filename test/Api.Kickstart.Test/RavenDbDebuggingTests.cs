@@ -53,7 +53,7 @@ namespace DeckOfCards.Test
         {
             using (var session = _db.Datastore.OpenAsyncSession())
             {
-                for (int i = 0; i < 50000; i++)
+                for (int i = 0; i < 5000; i++)
                 {
                     PlayingCard card = new PlayingCard(Guid.NewGuid().ToString(), _fakeDataFixture.CardTemplates.First());
                     await session.StoreAsync(card);

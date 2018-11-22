@@ -12,8 +12,8 @@ namespace DeckOfCards.WebApi.Views
         public string CardName { get; set; }
         public string Rank { get; set; }
         public string Suit { get; set; }
+        public string ImageUrl { get; set; }
 
-        //public Card Widgets { get; set; }
         //public PagingResponse Paging { get; set; }
     }
 }

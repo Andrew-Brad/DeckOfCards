@@ -17,10 +17,12 @@ namespace DeckOfCards.WebApi.View
     {
         public MappingProfiles()
         {
+            // Map the result models to Views (not Domain objects directly)
             CreateMap<CardTemplateQueryResult, GetCardTemplateView>()
                 .ForMember(dest => dest.Rank, opt => opt.MapFrom(src => src.Card.Rank.Name))
                 .ForMember(dest => dest.Suit, opt => opt.MapFrom(src => src.Card.Suit.Name))
-                .ForMember(dest => dest.CardName, opt => opt.MapFrom(src => src.Card.CardName));
+                .ForMember(dest => dest.CardName, opt => opt.MapFrom(src => src.Card.CardName))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Card.ImageUrl));
 
             CreateMap<NewDeckOfCardsQueryResult, DeckByIdView>()
                     .ForMember(dest => dest.Cards, opt => opt.MapFrom(src => src.Deck));
