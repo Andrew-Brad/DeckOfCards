@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AB.Extensions" Version="2.1.0" />
+    <PackageReference Include="AB.Extensions" Version="3.0.1" />
     <PackageReference Include="MediatR" Version="4.1.0" />
   </ItemGroup>
 

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.3" />
+    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.5" />
     <PackageReference Include="RavenDB.Client" Version="4.1.0" />
   </ItemGroup>
 
