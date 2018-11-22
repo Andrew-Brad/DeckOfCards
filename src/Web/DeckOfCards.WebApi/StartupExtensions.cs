@@ -26,31 +26,7 @@ using DeckOfCards.Persistence;
 namespace DeckOfCards.WebApi
 {
     public static class StartupExtensions
-    {
-        public static Container BuildStructureMapContainer(this IServiceCollection services)
-        {
-            var container = new Container();
-            container.Configure(config =>
-            {
-                // Register stuff in container
-                config.Scan(scanner =>
-                {
-                    //scanner.IncludeNamespace("ApiKickstart");
-                    scanner.WithDefaultConventions();
-                    scanner.LookForRegistries();
-                    scanner.AssembliesFromApplicationBaseDirectory();
-
-                    // auto register the open generics for our handler classes:
-                    scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>)); // http://structuremap.github.io/generics/#sec1
-                    scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>)); // also: https://github.com/jbogard/MediatR/wiki
-
-                });
-                config.Populate(services);
-            });
-
-            return container;
-        }
-
+    {        
         public static IApplicationBuilder AddCustomSwagger(this IApplicationBuilder app)
         {
             var config = app.ApplicationServices.GetRequiredService<IConfiguration>();

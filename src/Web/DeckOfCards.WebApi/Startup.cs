@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using AutoMapper;
 using AB.Middleware.HttpRequestLogging;
+using Lamar;
 
 namespace DeckOfCards.WebApi
 {
@@ -28,13 +29,12 @@ namespace DeckOfCards.WebApi
             _environment = hostingEnvironment;
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             _logger.LogDebug("ConfigureServices method entered.");
 
-            //Https
+            // Https
             //services.AddHsts(x => x.IncludeSubDomains = true);
             //services.AddHttpsRedirection(options =>
             //{
@@ -42,7 +42,7 @@ namespace DeckOfCards.WebApi
             //    //options.HttpsPort = 5001;
             //});
 
-            //Add framework services.
+            // Add framework services.
             var mvcBuilder = services.AddMvc();
             mvcBuilder.AddMvcOptions(options => options.OutputFormatters.Add(new Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter(new System.Xml.XmlWriterSettings() { NamespaceHandling = System.Xml.NamespaceHandling.OmitDuplicates, Async = true, OmitXmlDeclaration = false })));//TODO: configure removal of namespacing in the resulting xml
             mvcBuilder.AddMvcOptions(options => options.ReturnHttpNotAcceptable = true);
@@ -64,7 +64,7 @@ namespace DeckOfCards.WebApi
             // Data Access:
             services.AddRavenDb();
 
-            //Versioning:           
+            // Versioning:           
             services.AddApiVersioning(options =>
             {
                 options.ReportApiVersions = true;
@@ -79,12 +79,6 @@ namespace DeckOfCards.WebApi
 
             // Generic sorting/filtering/paging
             services.AddSortFilterPaging();
-
-            // StructureMap DI:
-            var iocContainer = services.BuildStructureMapContainer();
-
-            // Finally, make sure we return an IServiceProvider. This makes ASP.NET use the StructureMap container to resolve its services.
-            return iocContainer.GetInstance<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,6 +105,29 @@ namespace DeckOfCards.WebApi
             app.AddCustomSwagger();
 
             _logger.LogInformation("Startup initialization completed for {environment}.", _environment.EnvironmentName);
+        }
+
+        /// <summary>
+        /// Invoked by 3rd Party dependency injection to enable advanced IoC features
+        /// Roadblocking issue here: https://github.com/JasperFx/lamar/issues/67
+        /// Potentially some nasty interactions with Mediatr and/or Automapper registrations? I believe something is
+        /// causing a circular reference in the IoC container (even though we've enabled validation for this in Development)
+        /// </summary>
+        /// <param name="services"></param>
+        public void ConfigureContainer(ServiceRegistry services)
+        {
+            // Register stuff in container
+            services.Scan(scanner =>
+            {
+                //scanner.IncludeNamespace("ApiKickstart");
+                scanner.WithDefaultConventions();
+                scanner.LookForRegistries();
+                scanner.AssembliesFromApplicationBaseDirectory();
+
+                // auto register the open generics for our handler classes:
+                scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>)); // http://structuremap.github.io/generics/#sec1
+                scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>)); // also: https://github.com/jbogard/MediatR/wiki
+            });
         }
     }
 }
