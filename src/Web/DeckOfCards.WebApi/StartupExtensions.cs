@@ -177,7 +177,7 @@ namespace DeckOfCards.WebApi
             logger.LogDebug("Beginning DI registration of RavenDB DocumentStore...");
             DocumentStore store = InitializeRavenDbDocumentStore(config);
             
-            // "Because the document store is a heavyweight object, there should only be one instance created per application (singleton)."
+            // "Because the document store is a heavyweight object, there should only be one instance created per application (singleton)." - the docs
             services.AddSingleton<IDocumentStore>(store);
             return services;
         }
@@ -192,7 +192,7 @@ namespace DeckOfCards.WebApi
                 Database = config[ConfigKeyRavenDbDatabase]
             };
 
-            store.Conventions.CustomizeJsonSerializer = CustomizeRavenSerializer;
+            store.Conventions.CustomizeJsonSerializer = AddCustomConverters;
             store.Conventions.RegisterAsyncIdConvention<CardTemplate>(IdConventions.CardTemplateIdStrategy);
             // All customizations need to be set before DocumentStore.Initialize() is called.
             // https://ravendb.net/docs/article-page/4.0/csharp/client-api/configuration/conventions
@@ -205,7 +205,7 @@ namespace DeckOfCards.WebApi
         /// to tagging a bunch of Json attributes in your domain model.
         /// </summary>
         /// <param name="ravenJsonSerializer"></param>
-        private static void CustomizeRavenSerializer(JsonSerializer ravenJsonSerializer)
+        private static void AddCustomConverters(JsonSerializer ravenJsonSerializer)
         {
             ravenJsonSerializer.Converters.Add(new SuitsEnumerationConverter());
             ravenJsonSerializer.Converters.Add(new RanksEnumerationConverter());

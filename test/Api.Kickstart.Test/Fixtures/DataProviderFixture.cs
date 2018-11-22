@@ -42,6 +42,7 @@ namespace DeckOfCards.Test.Fixtures
                 {
                     var template = CardTemplate.NewTemplate(rank, suit);
                     template.CardName = "Unit test runtime value: " + rank + " of " + suit;
+                    template.ImageUrl = ValidCardProvider.Generate().ImageUrl;
                     CardTemplates.Add(template);
                 }
             }

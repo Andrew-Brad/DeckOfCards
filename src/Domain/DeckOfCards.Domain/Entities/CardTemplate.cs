@@ -32,7 +32,12 @@ namespace DeckOfCards.Domain
             // unused - use static constructor
         }
 
-        public bool IsFaceCard() => false;
+        public bool IsFaceCard()
+        {
+            return (this.Rank == RanksEnumeration.Jack
+                || this.Rank == RanksEnumeration.Queen
+                || this.Rank == RanksEnumeration.King);
+        }
 
         public bool Equals(CardTemplate other)
         {
