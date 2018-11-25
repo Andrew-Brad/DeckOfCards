@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Windows Authentication &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Windows Authentication</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/windows.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="windows-authentication">
+<h1>Windows Authentication<a class="headerlink" href="#windows-authentication" title="Permalink to this headline">¶</a></h1>
+<p>On supported platforms, you can use IdentityServer to authenticate users using Windows authentication (e.g. against Active Directory).
+Currently Windows authentication is available when you host IdentityServer using:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel">Kestrel</a> on Windows using IIS and the IIS integration package</li>
+<li><a class="reference external" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/httpsys">HTTP.sys</a> server on Windows</li>
+</ul>
+<p>In both cases, Windows authentication is triggered by using the <code class="docutils literal notranslate"><span class="pre">ChallengeAsync</span></code> API on the <code class="docutils literal notranslate"><span class="pre">HttpContext</span></code> using the scheme <code class="docutils literal notranslate"><span class="pre">&quot;Windows&quot;</span></code>.
+The account controller in our <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Quickstart.UI">quickstart UI</a> implements the necessary logic.</p>
+<div class="section" id="using-kestrel">
+<h2>Using Kestrel<a class="headerlink" href="#using-kestrel" title="Permalink to this headline">¶</a></h2>
+<p>When using Kestrel, you must run “behind” IIS and use the IIS integration:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">host</span> <span class="p">=</span> <span class="k">new</span> <span class="n">WebHostBuilder</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">UseKestrel</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">UseUrls</span><span class="p">(</span><span class="s">&quot;http://localhost:5000&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">UseContentRoot</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">GetCurrentDirectory</span><span class="p">())</span>
+    <span class="p">.</span><span class="n">UseIISIntegration</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">UseStartup</span><span class="p">&lt;</span><span class="n">Startup</span><span class="p">&gt;()</span>
+    <span class="p">.</span><span class="n">Build</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Kestrel is automatically configured when using the <code class="docutils literal notranslate"><span class="pre">WebHost.CreateDefaultBuilder</span></code> approach for setting up the <code class="docutils literal notranslate"><span class="pre">WebHostBuilder</span></code>.</p>
+<p>Also the virtual directory in IIS (or IIS Express) must have Windows and anonymous authentication enabled.</p>
+<p>The IIS integration layer will configure a Windows authentication handler into DI that can be invoked via the authentication service.
+Typically in IdentityServer it is advisable to disable this automatic behavior.
+This is done in <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">services</span><span class="p">.</span><span class="n">Configure</span><span class="p">&lt;</span><span class="n">IISOptions</span><span class="p">&gt;(</span><span class="n">iis</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="n">iis</span><span class="p">.</span><span class="n">AuthenticationDisplayName</span> <span class="p">=</span> <span class="s">&quot;Windows&quot;</span><span class="p">;</span>
+    <span class="n">iis</span><span class="p">.</span><span class="n">AutomaticAuthentication</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default, the display name is empty, and the Windows authentication button will not show up in the quickstart UI. You need to set a display name if you rely on automatic discovery of external providers.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

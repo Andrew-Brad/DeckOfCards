@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deployment &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Deployment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/deployment.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deployment">
+<h1>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h1>
+<p>Your identity server is <cite>just</cite> a standard ASP.NET Core application including the IdentityServer middleware.
+Read the official Microsoft <a class="reference external" href="https://docs.microsoft.com/en-us/aspnet/core/publishing">documentation</a> on publishing and deployment first.</p>
+<div class="section" id="typical-architecture">
+<h2>Typical architecture<a class="headerlink" href="#typical-architecture" title="Permalink to this headline">¶</a></h2>
+<p>Typically you will design your IdentityServer deployment for high availability:</p>
+<img alt="../_images/deployment.png" src="../_images/deployment.png" />
+<p>IdentityServer itself is stateless and does not require server affinity - but there is data that needs to be shared between the instances.</p>
+</div>
+<div class="section" id="configuration-data">
+<h2>Configuration data<a class="headerlink" href="#configuration-data" title="Permalink to this headline">¶</a></h2>
+<p>This typically includes:</p>
+<ul class="simple">
+<li>resources</li>
+<li>clients</li>
+<li>startup configuration, e.g. key material, external provider settings etc…</li>
+</ul>
+<p>The way you store that data depends on your environment. In situations where configuration data rarely changes we recommend using the in-memory stores and code or configuration files.</p>
+<p>In highly dynamic environments (e.g. Saas) we recommend using a database or configuration service to load configuration dynamically.</p>
+<p>IdentityServer supports code configuration and configuration files (see <a class="reference external" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration">here</a>) out of the box.
+For databases we provide support for <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.EntityFramework">Entity Framework Core</a> based databases.</p>
+<p>You can also build your own configuration stores by implementing <code class="docutils literal notranslate"><span class="pre">IResourceStore</span></code> and <code class="docutils literal notranslate"><span class="pre">IClientStore</span></code>.</p>
+</div>
+<div class="section" id="key-material">
+<h2>Key material<a class="headerlink" href="#key-material" title="Permalink to this headline">¶</a></h2>
+<p>Another important piece of startup configuration is your key material, see <a class="reference internal" href="crypto.html#refcrypto"><span class="std std-ref">here</span></a> for more details on key material and cryptography.</p>
+</div>
+<div class="section" id="operational-data">
+<h2>Operational data<a class="headerlink" href="#operational-data" title="Permalink to this headline">¶</a></h2>
+<p>For certain operations, IdentityServer needs a persistence store to keep state, this includes:</p>
+<ul class="simple">
+<li>issuing authorization codes</li>
+<li>issuing reference and refresh tokens</li>
+<li>storing consent</li>
+</ul>
+<p>You can either use a traditional database for storing operational data, or use a cache with persistence features like Redis.
+The EF Core implementation mentioned above has also support for operational data.</p>
+<p>You can also implement support for your own custom storage mechanism by implementing <code class="docutils literal notranslate"><span class="pre">IPersistedGrantStore</span></code> - by default IdentityServer injects an in-memory version.</p>
+</div>
+<div class="section" id="asp-net-core-data-protection">
+<h2>ASP.NET Core data protection<a class="headerlink" href="#asp-net-core-data-protection" title="Permalink to this headline">¶</a></h2>
+<p>ASP.NET Core itself needs shared key material for protecting sensitive data like cookies, state strings etc.
+See the official docs <a class="reference external" href="https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/">here</a>.</p>
+<p>You can either re-use one of the above persistence store or use something simple like a shared file if possible.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

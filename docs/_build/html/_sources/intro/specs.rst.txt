@@ -1,0 +1,15 @@
+Principles
+========================
+
+Before digging into the code, it's recommended to better understand the philosophy behind the project.
+
+Let's go over some high level principles:
+
+* **Reliability:** Our software should should start and stop predictably.  Its response time should be *fast*, and operate well within an SLA, if there is one.  It should never fail unexpectedly, and when it does (due to external, uncontrollable factors), the software should be able to resume operating normally (and without manual maintenance) once infrastructure has been restored.
+
+* **Observability:** aaa
+
+* **Testability:**
+
+
+Next up, we go deeper into some specific software principles and their justifications.

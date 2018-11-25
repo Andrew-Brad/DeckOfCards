@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CORS &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>CORS</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/cors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cors">
+<h1>CORS<a class="headerlink" href="#cors" title="Permalink to this headline">¶</a></h1>
+<p>Many endpoints in IdentityServer will be accessed via Ajax calls from JavaScript-based clients.
+Given that IdentityServer will most likely be hosted on a different origin than these clients, this implies that <a class="reference external" href="http://www.html5rocks.com/en/tutorials/cors/">Cross-Origin Resource Sharing</a> (CORS) will need to be configured.</p>
+<div class="section" id="client-based-cors-configuration">
+<h2>Client-based CORS Configuration<a class="headerlink" href="#client-based-cors-configuration" title="Permalink to this headline">¶</a></h2>
+<p>One approach to configuring CORS is to use the <code class="docutils literal notranslate"><span class="pre">AllowedCorsOrigins</span></code> collection on the <a class="reference internal" href="../reference/client.html#refclient"><span class="std std-ref">client configuration</span></a>.
+Simply add the origin of the client to the collection and the default configuration in IdentityServer will consult these values to allow cross-origin calls from the origins.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Be sure to use an origin (not a URL) when configuring CORS. For example: <code class="docutils literal notranslate"><span class="pre">https://foo:123/</span></code> is a URL, whereas <code class="docutils literal notranslate"><span class="pre">https://foo:123</span></code> is an origin.</p>
+</div>
+<p>This default CORS implementation will be in use if you are using either the “in-memory” or EF-based client configuration that we provide.
+If you define your own <code class="docutils literal notranslate"><span class="pre">IClientStore</span></code>, then you will need to implement your own custom CORS policy service (see below).</p>
+</div>
+<div class="section" id="custom-cors-policy-service">
+<h2>Custom Cors Policy Service<a class="headerlink" href="#custom-cors-policy-service" title="Permalink to this headline">¶</a></h2>
+<p>IdentityServer allows the hosting application to implement the <code class="docutils literal notranslate"><span class="pre">ICorsPolicyService</span></code> to completely control the CORS policy.</p>
+<p>The single method to implement is: <code class="docutils literal notranslate"><span class="pre">Task&lt;bool&gt;</span> <span class="pre">IsOriginAllowedAsync(string</span> <span class="pre">origin)</span></code>.
+Return <code class="docutils literal notranslate"><span class="pre">true</span></code> if the <cite>origin</cite> is allowed, <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise.</p>
+<p>Once implemented, simply register the implementation in DI and IdentityServer will then use your custom implementation.</p>
+<p><strong>DefaultCorsPolicyService</strong></p>
+<p>If you simply wish to hard-code a set of allowed origins, then there is a pre-built <code class="docutils literal notranslate"><span class="pre">ICorsPolicyService</span></code> implementation you can use called <code class="docutils literal notranslate"><span class="pre">DefaultCorsPolicyService</span></code>.
+This would be configured as a singleton in DI, and hard-coded with its <code class="docutils literal notranslate"><span class="pre">AllowedOrigins</span></code> collection, or setting the flag <code class="docutils literal notranslate"><span class="pre">AllowAll</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> to allow all origins.
+For example, in <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">cors</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DefaultCorsPolicyService</span><span class="p">(</span><span class="n">_loggerFactory</span><span class="p">.</span><span class="n">CreateLogger</span><span class="p">&lt;</span><span class="n">DefaultCorsPolicyService</span><span class="p">&gt;())</span>
+<span class="p">{</span>
+    <span class="n">AllowedOrigins</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;https://foo&quot;</span><span class="p">,</span> <span class="s">&quot;https://bar&quot;</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">ICorsPolicyService</span><span class="p">&gt;(</span><span class="n">cors</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Use <code class="docutils literal notranslate"><span class="pre">AllowAll</span></code> with caution.</p>
+</div>
+</div>
+<div class="section" id="mixing-identityserver-s-cors-policy-with-asp-net-core-s-cors-policies">
+<h2>Mixing IdentityServer’s CORS policy with ASP.NET Core’s CORS policies<a class="headerlink" href="#mixing-identityserver-s-cors-policy-with-asp-net-core-s-cors-policies" title="Permalink to this headline">¶</a></h2>
+<p>IdentityServer uses the CORS middleware from ASP.NET Core to provide its CORS implementation.
+It is possible that your application that hosts IdentityServer might also require CORS for its own custom endpoints.
+In general, both should work together in the same application.</p>
+<p>Your code should use the documented CORS features from ASP.NET Core without regard to IdentityServer.
+This means you should define policies and register the middleware as normal.
+If your application defines policies in <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code>, then those should continue to work in the same places you are using them (either where you configure the CORS middleware or where you use the MVC <code class="docutils literal notranslate"><span class="pre">EnableCors</span></code> attributes in your controller code).
+If instead you define an inline policy in the use of the CORS middleware (via the policy builder callback), then that too should continue to work normally.</p>
+<p>The one scenario where there might be a conflict between your use of the ASP.NET Core CORS services and IdentityServer is if you decide to create a custom <code class="docutils literal notranslate"><span class="pre">ICorsPolicyProvider</span></code>.
+Given the design of the ASP.NET Core’s CORS services and middleware, IdentityServer implements its own custom <code class="docutils literal notranslate"><span class="pre">ICorsPolicyProvider</span></code> and registers it in the DI system.
+Fortunately, the IdentityServer implementation is designed to use the decorator pattern to wrap any existing  <code class="docutils literal notranslate"><span class="pre">ICorsPolicyProvider</span></code> that is already registered in DI.
+What this means is that you can also implement the <code class="docutils literal notranslate"><span class="pre">ICorsPolicyProvider</span></code>, but it simply needs to be registered prior to IdentityServer in DI (e.g. in <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code>).</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

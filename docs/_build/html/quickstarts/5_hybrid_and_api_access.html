@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Switching to Hybrid Flow and adding API Access back &mdash; IdentityServer4 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using ASP.NET Core Identity" href="6_aspnet_identity.html" />
+    <link rel="prev" title="Adding Support for External Authentication" href="4_external_authentication.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> IdentityServer4
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/big_picture.html">The Big Picture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Supported Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Quickstarts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_overview.html">Setup and Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_client_credentials.html">Protecting an API using Client Credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_resource_owner_passwords.html">Protecting an API using Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_interactive_login.html">Adding User Authentication with OpenID Connect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_external_authentication.html">Adding Support for External Authentication</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Switching to Hybrid Flow and adding API Access back</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-the-client-configuration">Modifying the client configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-the-mvc-client">Modifying the MVC client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-access-token">Using the access token</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="6_aspnet_identity.html">Using ASP.NET Core Identity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_javascript_client.html">Adding a JavaScript client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_entity_framework.html">Using EntityFramework Core for configuration and operational data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community quickstarts &amp; samples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/startup.html">Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resources.html">Defining Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/clients.html">Defining Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin.html">Sign-in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin_external_providers.html">Sign-in with External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/windows.html">Windows Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout.html">Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_external_providers.html">Sign-out of External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_federated.html">Federated Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/federation_gateway.html">Federation Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/consent.html">Consent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/apis.html">Protecting APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/crypto.html">Cryptography, Keys and HTTPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/grant_types.html">Grant Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/secrets.html">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extension_grants.html">Extension Grants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resource_owner.html">Resource Owner Password Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/refresh_tokens.html">Refresh Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/reference_tokens.html">Reference Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/discovery.html">Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_apis.html">Adding more API Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_protocols.html">Adding new Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/tools.html">Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Endpoints</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/discovery.html">Discovery Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/authorize.html">Authorize Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/token.html">Token Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/userinfo.html">UserInfo Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/device_authorization.html">Device Authorization Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/introspection.html">Introspection Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/revocation.html">Revocation Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/endsession.html">End Session Endpoint</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/identity_resource.html">Identity Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api_resource.html">API Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/grant_validation_result.html">GrantValidationResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/profileservice.html">Profile Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/interactionservice.html">IdentityServer Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/deviceflow_interactionservice.html">Device Flow Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/options.html">IdentityServer Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/ef.html">Entity Framework Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/aspnet_identity.html">ASP.NET Identity Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/training.html">Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/blogs.html">Blog posts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/videos.html">Videos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IdentityServer4</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Switching to Hybrid Flow and adding API Access back</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/quickstarts/5_hybrid_and_api_access.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="switching-to-hybrid-flow-and-adding-api-access-back">
+<h1>Switching to Hybrid Flow and adding API Access back<a class="headerlink" href="#switching-to-hybrid-flow-and-adding-api-access-back" title="Permalink to this headline">¶</a></h1>
+<p>In the previous quickstarts we explored both API access and user authentication.
+Now we want to bring the two parts together.</p>
+<p>The beauty of the OpenID Connect &amp; OAuth 2.0 combination is, that you can achieve both with
+a single protocol and a single exchange with the token service.</p>
+<p>In the previous quickstart we used the OpenID Connect implicit flow.
+In the implicit flow all tokens are transmitted via the browser, which is totally fine for the identity token.
+Now we also want to request an access token.</p>
+<p>Access tokens are a bit more sensitive than identity tokens, and we don’t want to expose them to the “outside” world if not needed.
+OpenID Connect includes a flow called “Hybrid Flow” which gives us the best of both worlds,
+the identity token is transmitted via the browser channel, so the client can validate it before doing any more work.
+And if validation is successful, the client opens a back-channel to the token service to retrieve the access token.</p>
+<div class="section" id="modifying-the-client-configuration">
+<h2>Modifying the client configuration<a class="headerlink" href="#modifying-the-client-configuration" title="Permalink to this headline">¶</a></h2>
+<p>There are not many modifications necessary. First we want to allow the client to use the hybrid flow,
+in addition we also want the client to allow doing server to server API calls which are not in the context of a user (this is very similar to our client credentials quickstart).
+This is expressed using the <code class="docutils literal notranslate"><span class="pre">AllowedGrantTypes</span></code> property.</p>
+<p>Next we need to add a client secret. This will be used to retrieve the access token on the back channel.</p>
+<p>And finally, we also give the client access to the <code class="docutils literal notranslate"><span class="pre">offline_access</span></code> scope -
+this allows requesting refresh tokens for long lived API access:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="n">Client</span>
+<span class="p">{</span>
+    <span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;mvc&quot;</span><span class="p">,</span>
+    <span class="n">ClientName</span> <span class="p">=</span> <span class="s">&quot;MVC Client&quot;</span><span class="p">,</span>
+    <span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="n">GrantTypes</span><span class="p">.</span><span class="n">HybridAndClientCredentials</span><span class="p">,</span>
+
+    <span class="n">ClientSecrets</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="nf">Secret</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">.</span><span class="n">Sha256</span><span class="p">())</span>
+    <span class="p">},</span>
+
+    <span class="n">RedirectUris</span>           <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:5002/signin-oidc&quot;</span> <span class="p">},</span>
+    <span class="n">PostLogoutRedirectUris</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:5002/signout-callback-oidc&quot;</span> <span class="p">},</span>
+
+    <span class="n">AllowedScopes</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">OpenId</span><span class="p">,</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">Profile</span><span class="p">,</span>
+        <span class="s">&quot;api1&quot;</span>
+    <span class="p">},</span>
+    <span class="n">AllowOfflineAccess</span> <span class="p">=</span> <span class="k">true</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modifying-the-mvc-client">
+<h2>Modifying the MVC client<a class="headerlink" href="#modifying-the-mvc-client" title="Permalink to this headline">¶</a></h2>
+<p>The modifications at the MVC client are also minimal - the ASP.NET Core OpenID Connect
+handler has built-in support for the hybrid flow, so we only need to change some configuration values.</p>
+<p>We configure the <code class="docutils literal notranslate"><span class="pre">ClientSecret</span></code> to match the secret at IdentityServer. Add the <code class="docutils literal notranslate"><span class="pre">offline_access</span></code> and <code class="docutils literal notranslate"><span class="pre">api1</span></code> scopes,
+and set the <code class="docutils literal notranslate"><span class="pre">ResponseType</span></code> to <code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">id_token</span></code> (which basically means “use hybrid flow”).
+To keep the <code class="docutils literal notranslate"><span class="pre">website</span></code> claim in our mvc client identity we need to explicitly map the claim using ClaimActions.</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="n">AddOpenIdConnect</span><span class="p">(</span><span class="s">&quot;oidc&quot;</span><span class="p">,</span> <span class="n">options</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">SignInScheme</span> <span class="p">=</span> <span class="s">&quot;Cookies&quot;</span><span class="p">;</span>
+
+    <span class="n">options</span><span class="p">.</span><span class="n">Authority</span> <span class="p">=</span> <span class="s">&quot;http://localhost:5000&quot;</span><span class="p">;</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">RequireHttpsMetadata</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+    <span class="n">options</span><span class="p">.</span><span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;mvc&quot;</span><span class="p">;</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">ClientSecret</span> <span class="p">=</span> <span class="s">&quot;secret&quot;</span><span class="p">;</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">ResponseType</span> <span class="p">=</span> <span class="s">&quot;code id_token&quot;</span><span class="p">;</span>
+
+    <span class="n">options</span><span class="p">.</span><span class="n">SaveTokens</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">GetClaimsFromUserInfoEndpoint</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+    <span class="n">options</span><span class="p">.</span><span class="n">Scope</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;api1&quot;</span><span class="p">);</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">Scope</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;offline_access&quot;</span><span class="p">);</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">ClaimActions</span><span class="p">.</span><span class="n">MapJsonKey</span><span class="p">(</span><span class="s">&quot;website&quot;</span><span class="p">,</span> <span class="s">&quot;website&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>When you run the MVC client, there will be no big differences, besides that the consent
+screen now asks you for the additional API and offline access scope.</p>
+</div>
+<div class="section" id="using-the-access-token">
+<h2>Using the access token<a class="headerlink" href="#using-the-access-token" title="Permalink to this headline">¶</a></h2>
+<p>The OpenID Connect middleware saves the tokens (identity, access and refresh in our case)
+automatically for you. That’s what the <code class="docutils literal notranslate"><span class="pre">SaveTokens</span></code> setting does.</p>
+<p>Technically the tokens are stored inside the properties section of the cookie.
+The easiest way to access them is by using extension methods from the <code class="docutils literal notranslate"><span class="pre">Microsoft.AspNetCore.Authentication</span></code> namespace.</p>
+<p>For example on your claims view:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="n">dt</span><span class="p">&gt;</span><span class="n">access</span> <span class="n">token</span><span class="p">&lt;/</span><span class="n">dt</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">dd</span><span class="p">&gt;</span><span class="n">@await</span> <span class="n">ViewContext</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">GetTokenAsync</span><span class="p">(</span><span class="s">&quot;access_token&quot;</span><span class="p">)&lt;/</span><span class="n">dd</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">dt</span><span class="p">&gt;</span><span class="n">refresh</span> <span class="n">token</span><span class="p">&lt;/</span><span class="n">dt</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">dd</span><span class="p">&gt;</span><span class="n">@await</span> <span class="n">ViewContext</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">GetTokenAsync</span><span class="p">(</span><span class="s">&quot;refresh_token&quot;</span><span class="p">)&lt;/</span><span class="n">dd</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>For accessing the API using the access token, all you need to do is retrieve the token,
+and set it on your <em>HttpClient</em>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IActionResult</span><span class="p">&gt;</span> <span class="n">CallApiUsingUserAccessToken</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">accessToken</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HttpContext</span><span class="p">.</span><span class="n">GetTokenAsync</span><span class="p">(</span><span class="s">&quot;access_token&quot;</span><span class="p">);</span>
+
+    <span class="kt">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">();</span>
+    <span class="n">client</span><span class="p">.</span><span class="n">DefaultRequestHeaders</span><span class="p">.</span><span class="n">Authorization</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AuthenticationHeaderValue</span><span class="p">(</span><span class="s">&quot;Bearer&quot;</span><span class="p">,</span> <span class="n">accessToken</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">content</span> <span class="p">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="n">GetStringAsync</span><span class="p">(</span><span class="s">&quot;http://localhost:5001/identity&quot;</span><span class="p">);</span>
+
+    <span class="n">ViewBag</span><span class="p">.</span><span class="n">Json</span> <span class="p">=</span> <span class="n">JArray</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">content</span><span class="p">).</span><span class="n">ToString</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="s">&quot;json&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="6_aspnet_identity.html" class="btn btn-neutral float-right" title="Using ASP.NET Core Identity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="4_external_authentication.html" class="btn btn-neutral" title="Adding Support for External Authentication" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Brock Allen &amp; Dominick Baier
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

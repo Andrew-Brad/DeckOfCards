@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Grant Types &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Grant Types</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/grant_types.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="grant-types">
+<h1>Grant Types<a class="headerlink" href="#grant-types" title="Permalink to this headline">¶</a></h1>
+<p>Grant types are a way to specify how a client wants to interact with IdentityServer.
+The OpenID Connect and OAuth 2 specs define the following grant types:</p>
+<ul class="simple">
+<li>Implicit</li>
+<li>Authorization code</li>
+<li>Hybrid</li>
+<li>Client credentials</li>
+<li>Resource owner password</li>
+<li>Device flow</li>
+<li>Refresh tokens</li>
+<li>Extension grants</li>
+</ul>
+<p>You can specify which grant type a client can use via the <code class="docutils literal notranslate"><span class="pre">AllowedGrantTypes</span></code> property on the <code class="docutils literal notranslate"><span class="pre">Client</span></code> configuration.</p>
+<p>A client can be configured to use more than a single grant type (e.g. Hybrid for user centric operations and client credentials for server to server communication).
+The <code class="docutils literal notranslate"><span class="pre">GrantTypes</span></code> class can be used to pick from typical grant type combinations:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">Client</span><span class="p">.</span><span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="n">GrantTypes</span><span class="p">.</span><span class="n">HybridAndClientCredentials</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>You can also specify the grant types list manually:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">Client</span><span class="p">.</span><span class="n">AllowedGrantTypes</span> <span class="p">=</span>
+<span class="p">{</span>
+    <span class="n">GrantType</span><span class="p">.</span><span class="n">Hybrid</span><span class="p">,</span>
+    <span class="n">GrantType</span><span class="p">.</span><span class="n">ClientCredentials</span><span class="p">,</span>
+    <span class="s">&quot;my_custom_grant_type&quot;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>If you want to transmit access tokens via the browser channel, you also need to allow that explicitly on the client configuration:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">Client</span><span class="p">.</span><span class="n">AllowAccessTokensViaBrowser</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For security reasons, not all grant type combinations are allowed. See below for more details.</p>
+</div>
+<p>For the remainder, the grant types are briefly described, and when you would use them.
+It is also recommended, that in addition you read the corresponding specs to get a better understanding of the differences.</p>
+<div class="section" id="client-credentials">
+<h2>Client credentials<a class="headerlink" href="#client-credentials" title="Permalink to this headline">¶</a></h2>
+<p>This is the simplest grant type and is used for server to server communication - tokens are always requested on behalf of a client, not a user.</p>
+<p>With this grant type you send a token request to the token endpoint, and get an access token back that represents the client.
+The client typically has to authenticate with the token endpoint using its client ID and secret.</p>
+<p>See the <span class="xref std std-ref">Client Credentials Quick Start</span> for a sample how to use it.</p>
+</div>
+<div class="section" id="resource-owner-password">
+<h2>Resource owner password<a class="headerlink" href="#resource-owner-password" title="Permalink to this headline">¶</a></h2>
+<p>The resource owner password grant type allows to request tokens on behalf of a user by sending the user’s name and password to the token endpoint.
+This is so called “non-interactive” authentication and is generally not recommended.</p>
+<p>There might be reasons for certain legacy or first-party integration scenarios, where this grant type is useful, but the general recommendation
+is to use an interactive flow like implicit or hybrid for user authentication instead.</p>
+<p>See the <span class="xref std std-ref">Resource Owner Password Quick Start</span> for a sample how to use it.
+You also need to provide code for the username/password validation which can be supplied by implementing the <code class="docutils literal notranslate"><span class="pre">IResourceOwnerPasswordValidator</span></code> interface.
+You can find more information about this interface <a class="reference internal" href="resource_owner.html#refresourceownerpasswordvalidator"><span class="std std-ref">here</span></a>.</p>
+</div>
+<div class="section" id="implicit">
+<h2>Implicit<a class="headerlink" href="#implicit" title="Permalink to this headline">¶</a></h2>
+<p>The implicit grant type is optimized for browser-based applications. Either for user authentication-only (both server-side and JavaScript applications),
+or authentication and access token requests (JavaScript applications).</p>
+<p>In the implicit flow, all tokens are transmitted via the browser, and advanced features like refresh tokens are thus not allowed.</p>
+<p><span class="xref std std-ref">This</span> quickstart shows authentication for service-side web apps, and
+<span class="xref std std-ref">this</span> shows JavaScript.</p>
+</div>
+<div class="section" id="authorization-code">
+<h2>Authorization code<a class="headerlink" href="#authorization-code" title="Permalink to this headline">¶</a></h2>
+<p>Authorization code flow was originally specified by OAuth 2, and provides a way to retrieve tokens on a back-channel as opposed to the browser front-channel.
+It also support client authentication.</p>
+<p>While this grant type is supported on its own, it is generally recommended you combine that with identity tokens
+which turns it into the so called hybrid flow.
+Hybrid flow gives you important extra features like signed protocol responses.</p>
+</div>
+<div class="section" id="hybrid">
+<h2>Hybrid<a class="headerlink" href="#hybrid" title="Permalink to this headline">¶</a></h2>
+<p>Hybrid flow is a combination of the implicit and authorization code flow - it uses combinations of multiple grant types, most typically <code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">id_token</span></code>.</p>
+<p>In hybrid flow the identity token is transmitted via the browser channel and contains the signed protocol response along with signatures for other artifacts
+like the authorization code. This mitigates a number of attacks that apply to the browser channel.
+After successful validation of the response, the back-channel is used to retrieve the access and refresh token.</p>
+<p>This is the recommended flow for native applications that want to retrieve access tokens (and possibly refresh tokens as well) and is used
+for server-side web applications and native desktop/mobile applications.</p>
+<p>See <span class="xref std std-ref">this</span> quickstart for more information about using hybrid flow with MVC.</p>
+</div>
+<div class="section" id="device-flow">
+<h2>Device flow<a class="headerlink" href="#device-flow" title="Permalink to this headline">¶</a></h2>
+<p>Device flow is designed for browserless and input constrained devices, where the device is unable to securely capture user credentials. This flow outsources user authentication and consent to an external device (e.g. a smart phone).</p>
+<p>This flow is typically used by IoT devices and can request both identity and API resources.</p>
+</div>
+<div class="section" id="refresh-tokens">
+<h2>Refresh tokens<a class="headerlink" href="#refresh-tokens" title="Permalink to this headline">¶</a></h2>
+<p>Refresh tokens allow gaining long lived access to APIs.</p>
+<p>You typically want to keep the lifetime of access tokens as short as possible, but at the same time don’t want to bother the user
+over and over again with doing a front-channel roundtrips to IdentityServer for requesting new ones.</p>
+<p>Refresh tokens allow requesting new access tokens without user interaction. Every time the client refreshes a token it needs to make an
+(authenticated) back-channel call to IdentityServer. This allows checking if the refresh token is still valid, or has been revoked in the meantime.</p>
+<p>Refresh tokens are supported in hybrid, authorization code, device flow and resource owner password flows.
+To request a refresh token, the client needs to include the <code class="docutils literal notranslate"><span class="pre">offline_access</span></code> scope in the token request (and must be authorized to request for that scope).</p>
+</div>
+<div class="section" id="extension-grants">
+<h2>Extension grants<a class="headerlink" href="#extension-grants" title="Permalink to this headline">¶</a></h2>
+<p>Extension grants allow extending the token endpoint with new grant types. See <a class="reference internal" href="extension_grants.html#refextensiongrants"><span class="std std-ref">this</span></a> for more details.</p>
+</div>
+<div class="section" id="incompatible-grant-types">
+<h2>Incompatible grant types<a class="headerlink" href="#incompatible-grant-types" title="Permalink to this headline">¶</a></h2>
+<p>Some grant type combinations are forbidden:</p>
+<ul class="simple">
+<li>Mixing implicit and authorization code or hybrid would allow a downgrade attack from the more secure code based flow to implicit.</li>
+<li>Same concern exists for allowing both authorization code and hybrid</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

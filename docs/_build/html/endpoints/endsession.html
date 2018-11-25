@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>End Session Endpoint &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>End Session Endpoint</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/endpoints/endsession.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="end-session-endpoint">
+<h1>End Session Endpoint<a class="headerlink" href="#end-session-endpoint" title="Permalink to this headline">¶</a></h1>
+<p>The end session endpoint can be used to trigger single sign-out (see <a class="reference external" href="https://openid.net/specs/openid-connect-session-1_0.html#RPLogout">spec</a>).</p>
+<p>To use the end session endpoint a client application will redirect the user’s browser to the end session URL.
+All applications that the user has logged into via the browser during the user’s session can participate in the sign-out.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The URL for the end session endpoint is available via the <a class="reference internal" href="discovery.html#refdiscovery"><span class="std std-ref">discovery endpoint</span></a>.</p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p><strong>id_token_hint</strong></p>
+<p>When the user is redirected to the endpoint, they will be prompted if they really want to sign-out.
+This prompt can be bypassed by a client sending the original <em>id_token</em> received from authentication.
+This is passed as a query string parameter called <code class="docutils literal notranslate"><span class="pre">id_token_hint</span></code>.</p>
+<p><strong>post_logout_redirect_uri</strong></p>
+<p>If a valid <code class="docutils literal notranslate"><span class="pre">id_token_hint</span></code> is passed, then the client may also send a <code class="docutils literal notranslate"><span class="pre">post_logout_redirect_uri</span></code> parameter.
+This can be used to allow the user to redirect back to the client after sign-out.
+The value must match one of the client’s pre-configured <cite>PostLogoutRedirectUris</cite> (<a class="reference internal" href="../reference/client.html#refclient"><span class="std std-ref">client docs</span></a>).</p>
+<p><strong>state</strong></p>
+<p>If a valid <code class="docutils literal notranslate"><span class="pre">post_logout_redirect_uri</span></code> is passed, then the client may also send a <code class="docutils literal notranslate"><span class="pre">state</span></code> parameter.
+This will be returned back to the client as a query string parameter after the user redirects back to the client.
+This is typically used by clients to round-trip state across the redirect.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="p">/</span><span class="n">connect</span><span class="p">/</span><span class="n">endsession</span><span class="p">?</span><span class="n">id_token_hint</span><span class="p">=</span><span class="n">eyJhbGciOiJSUzI1NiIsImtpZCI6IjdlOGFkZmMzMjU1OTEyNzI0ZDY4NWZmYmIwOThjNDEyIiwidHlwIjoiSldUIn0</span><span class="p">.</span><span class="n">eyJuYmYiOjE0OTE3NjUzMjEsImV4cCI6MTQ5MTc2NTYyMSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoianNfb2lkYyIsIm5vbmNlIjoiYTQwNGFjN2NjYWEwNGFmNzkzNmJjYTkyNTJkYTRhODUiLCJpYXQiOjE0OTE3NjUzMjEsInNpZCI6IjI2YTYzNWVmOTQ2ZjRiZGU3ZWUzMzQ2ZjFmMWY1NTZjIiwic3ViIjoiODg0MjExMTMiLCJhdXRoX3RpbWUiOjE0OTE3NjUzMTksImlkcCI6ImxvY2FsIiwiYW1yIjpbInB3ZCJdfQ</span><span class="p">.</span><span class="n">STzOWoeVYMtZdRAeRT95cMYEmClixWkmGwVH2Yyiks9BETotbSZiSfgE5kRh72kghN78N3</span><span class="p">-</span><span class="n">RgCTUmM2edB3bZx4H5ut3wWsBnZtQ2JLfhTwJAjaLE9Ykt68ovNJySbm8hjZhHzPWKh55jzshivQvTX0GdtlbcDoEA1oNONxHkpDIcr3pRoGi6YveEAFsGOeSQwzT76aId</span><span class="p">-</span><span class="n">rAALhFPkyKnVc</span><span class="p">-</span><span class="n">uB8IHtGNSyRWLFhwVqAdS3fRNO7iIs5hYRxeFSU7a5ZuUqZ6RRi</span><span class="p">-</span><span class="n">bcDhI</span><span class="p">-</span><span class="n">djKO5uAwiyhfpbpYcaY_TxXWoCmq8N8uAw9zqFsQUwcXymfOAi2UF3eFZt02hBu</span><span class="p">-</span><span class="n">shKA</span><span class="p">&amp;</span><span class="n">post_logout_redirect_uri</span><span class="p">=</span><span class="n">http</span><span class="p">%</span><span class="m">3</span><span class="n">A</span><span class="p">%</span><span class="m">2F</span><span class="p">%</span><span class="m">2F</span><span class="n">localhost</span><span class="p">%</span><span class="m">3</span><span class="n">A7017</span><span class="p">%</span><span class="m">2F</span><span class="n">index</span><span class="p">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can use the <a class="reference external" href="https://github.com/IdentityModel/IdentityModel2">IdentityModel</a> client library to programmatically create end_session requests .NET code. For more information check the IdentityModel <a class="reference external" href="https://identitymodel.readthedocs.io/en/latest/client/end_session.html">docs</a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Deck of Cards API &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Project" href="intro/project.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro/project.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/philosophy.html">Design Philosphy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/running.html">Running</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>The Deck of Cards API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-deck-of-cards-api">
+<h1>The Deck of Cards API<a class="headerlink" href="#the-deck-of-cards-api" title="Permalink to this headline">¶</a></h1>
+<img alt="_images/four_aces.jpg" class="align-center" src="_images/four_aces.jpg" />
+<p><strong>What is this Project?</strong></p>
+<p>The <a class="reference external" href="https://github.com/Andrew-Brad/DeckOfCards">Deck of Cards</a> API is a living project that tries to demonstrate the principles of Clean Architure using Command-Query Responsibility Segregation, domain events, and in-process messaging.  It can be used to copy paste the occasional snippet, demonstrate how meaningful tests can be written, and see some advanced Api functionality in <a class="reference external" href="https://docs.microsoft.com/en-us/aspnet/core/mvc/overview?view=aspnetcore-2.1">Asp.Net Core MVC</a> .</p>
+<p>I say ‘try’ because as developers, we are constantly learning, evolving, and applying a little bit of design opinion into the things we build.  This project is meant to capture my ongoing learning and show other developers my victories and failures in developing public-facing, enterprise software.</p>
+<p>The project strives to prove out the following features:</p>
+<ul class="simple">
+<li><strong>In Process Messaging:</strong> Using the minimal, yet amazing  <a class="reference external" href="https://github.com/jbogard/MediatR">MediatR</a>  library, we can achieve direct messaging or broadcast semantics for executing code, allowing us to develop with a publish/subscribe pattern as a first class citizen, improving our ability to write maintainable code.</li>
+<li><strong>Robust structured logging with Serilog:</strong> This project uses <a class="reference external" href="https://github.com/jbogard/MediatR">Serilog</a> to persist logs via Sinks.  Old school file sinks? Check.  ELK stack? Check.  Logging done right - everyone loves this.</li>
+<li><strong>Integration testing with XUnit:</strong> Sure you think your code works, but can you prove it?  I tend to favor integration testing over unit testing, but the project strives to have a good amount of tests that cover core functionality, as well as assert some of the basic configurations to ensure nothing breaks when we tweak the MVC builder.</li>
+<li><strong>CQRS Request Handlers:</strong> A controller shouldn’t be involved in business logic, or care about custom validation rules.  To this end, controllers receive pre-validated models, and only dispatch a request object into a direct message broker (Mediatr). This means our Api ends up being a true interface over our core application, and maximizes utility while minimizing breakage.</li>
+<li><strong>Resilience Engineering with Polly:</strong> We should work towards ensuring our software never fails. Ever. No exceptions. The defacto standard for this in .Net is <a class="reference external" href="https://github.com/App-vNext/Polly">Polly</a>.</li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro/project.html" class="btn btn-neutral float-right" title="The Project" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

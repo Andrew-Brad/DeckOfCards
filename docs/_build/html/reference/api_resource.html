@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Resource &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>API Resource</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/api_resource.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-resource">
+<h1>API Resource<a class="headerlink" href="#api-resource" title="Permalink to this headline">¶</a></h1>
+<p>This class model an API resource.</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Enabled</span></code></dt>
+<dd>Indicates if this resource is enabled and can be requested. Defaults to true.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Name</span></code></dt>
+<dd>The unique name of the API. This value is used for authentication with introspection and will be added to the audience of the outgoing access token.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DisplayName</span></code></dt>
+<dd>This value can be used e.g. on the consent screen.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Description</span></code></dt>
+<dd>This value can be used e.g. on the consent screen.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ApiSecrets</span></code></dt>
+<dd>The API secret is used for the introspection endpoint. The API can authenticate with introspection using the API name and secret.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">UserClaims</span></code></dt>
+<dd>List of associated user claim types that should be included in the access token.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Scopes</span></code></dt>
+<dd>An API must have at least one scope. Each scope can have different settings.</dd>
+</dl>
+<div class="section" id="scopes">
+<h2>Scopes<a class="headerlink" href="#scopes" title="Permalink to this headline">¶</a></h2>
+<p>In the simple case an API has exactly one scope. But there are cases where you might want to sub-divide the functionality of an API,
+and give different clients access to different parts.</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Name</span></code></dt>
+<dd>The unique name of the scope. This is the value a client will use for the scope parameter in the authorize/token request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DisplayName</span></code></dt>
+<dd>This value can be used e.g. on the consent screen.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Description</span></code></dt>
+<dd>This value can be used e.g. on the consent screen.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Required</span></code></dt>
+<dd>Specifies whether the user can de-select the scope on the consent screen (if the consent screen wants to implement such a feature). Defaults to false.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Emphasize</span></code></dt>
+<dd>Specifies whether the consent screen will emphasize this scope (if the consent screen wants to implement such a feature). Use this setting for sensitive or important scopes. Defaults to false.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ShowInDiscoveryDocument</span></code></dt>
+<dd>Specifies whether this scope is shown in the discovery document. Defaults to true.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">UserClaims</span></code></dt>
+<dd>List of associated user claim types that should be included in the access token. The claims specified here will be added to the list of claims specified for the API.</dd>
+</dl>
+</div>
+<div class="section" id="convenience-constructor-behavior">
+<h2>Convenience Constructor Behavior<a class="headerlink" href="#convenience-constructor-behavior" title="Permalink to this headline">¶</a></h2>
+<p>Just a note about the constructors provided for the <code class="docutils literal notranslate"><span class="pre">ApiResource</span></code> class.</p>
+<p>For full control over the data in the <code class="docutils literal notranslate"><span class="pre">ApiResource</span></code>, use the default constructor with no parameters.
+You would use this approach if you wanted to configure multiple scopes per API.
+For example:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="n">ApiResource</span>
+<span class="p">{</span>
+    <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;api2&quot;</span><span class="p">,</span>
+
+    <span class="n">Scopes</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="nf">Scope</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;api2.full_access&quot;</span><span class="p">,</span>
+            <span class="n">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Full access to API 2&quot;</span>
+        <span class="p">},</span>
+        <span class="k">new</span> <span class="n">Scope</span>
+        <span class="p">{</span>
+            <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;api2.read_only&quot;</span><span class="p">,</span>
+            <span class="n">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Read only access to API 2&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For simpler scenarios where you only require one scope per API, then several convenience constructors which accept a <code class="docutils literal notranslate"><span class="pre">name</span></code> are provided.
+For example:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nf">ApiResource</span><span class="p">(</span><span class="s">&quot;api1&quot;</span><span class="p">,</span> <span class="s">&quot;Some API 1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the convenience constructor is equivalent to this:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="n">ApiResource</span>
+<span class="p">{</span>
+    <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;api1&quot;</span><span class="p">,</span>
+    <span class="n">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Some API 1&quot;</span><span class="p">,</span>
+
+    <span class="n">Scopes</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="nf">Scope</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;api1&quot;</span><span class="p">,</span>
+            <span class="n">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Some API 1&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

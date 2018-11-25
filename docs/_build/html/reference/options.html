@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IdentityServer Options &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>IdentityServer Options</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/options.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="identityserver-options">
+<h1>IdentityServer Options<a class="headerlink" href="#identityserver-options" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">IssuerUri</span></code></dt>
+<dd>Set the issuer name that will appear in the discovery document and the issued JWT tokens.
+It is recommended to not set this property, which infers the issuer name from the host name that is used by the clients.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">PublicOrigin</span></code></dt>
+<dd>The origin of this server instance, e.g. <a class="reference external" href="https://myorigin.com">https://myorigin.com</a>. If not set, the origin name is inferred from the request.</dd>
+</dl>
+</li>
+</ul>
+<div class="section" id="endpoints">
+<h2>Endpoints<a class="headerlink" href="#endpoints" title="Permalink to this headline">¶</a></h2>
+<p>Allows enabling/disabling individual endpoints, e.g. token, authorize, userinfo etc.</p>
+<p>By default all endpoints are enabled, but you can lock down your server by disabling endpoint that you don’t need.</p>
+</div>
+<div class="section" id="discovery">
+<h2>Discovery<a class="headerlink" href="#discovery" title="Permalink to this headline">¶</a></h2>
+<p>Allows enabling/disabling various sections of the discovery document, e.g. endpoints, scopes, claims, grant types etc.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CustomEntries</span></code> dictionary allows adding custom elements to the discovery document.</p>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">CookieLifetime</span></code></dt>
+<dd>The authentication cookie lifetime (only effective if the IdentityServer-provided cookie handler is used).</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">CookieSlidingExpiration</span></code></dt>
+<dd>Specified if the cookie should be sliding or not (only effective if the IdentityServer-provided cookie handler is used).</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">RequireAuthenticatedUserForSignOutMessage</span></code></dt>
+<dd>Indicates if user must be authenticated to accept parameters to end session endpoint. Defaults to false.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">CheckSessionCookieName</span></code></dt>
+<dd>The name of the cookie used for the check session endpoint.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">RequireCspFrameSrcForSignout</span></code></dt>
+<dd>If set, will require frame-src CSP headers being emitting on the end session callback endpoint which renders iframes to clients for front-channel signout notification. Defaults to true.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="events">
+<h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<p>Allows configuring if and which events should be submitted to a registered event sink. See <a class="reference internal" href="../topics/events.html#refevents"><span class="std std-ref">here</span></a> for more information on events.</p>
+</div>
+<div class="section" id="inputlengthrestrictions">
+<h2>InputLengthRestrictions<a class="headerlink" href="#inputlengthrestrictions" title="Permalink to this headline">¶</a></h2>
+<p>Allows setting length restrictions on various protocol parameters like client id, scope, redirect URI etc.</p>
+</div>
+<div class="section" id="userinteraction">
+<h2>UserInteraction<a class="headerlink" href="#userinteraction" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">LoginUrl</span></code>, <code class="docutils literal notranslate"><span class="pre">LogoutUrl</span></code>, <code class="docutils literal notranslate"><span class="pre">ConsentUrl</span></code>, <code class="docutils literal notranslate"><span class="pre">ErrorUrl</span></code>, <code class="docutils literal notranslate"><span class="pre">DeviceVerificationUrl</span></code></dt>
+<dd>Sets the the URLs for the login, logout, consent, error and device verification pages.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">LoginReturnUrlParameter</span></code></dt>
+<dd>Sets the name of the return URL parameter passed to the login page. Defaults to <em>returnUrl</em>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">LogoutIdParameter</span></code></dt>
+<dd>Sets the name of the logout message id parameter passed to the logout page. Defaults to <em>logoutId</em>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ConsentReturnUrlParameter</span></code></dt>
+<dd>Sets the name of the return URL parameter passed to the consent page. Defaults to <em>returnUrl</em>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ErrorIdParameter</span></code></dt>
+<dd>Sets the name of the error message id parameter passed to the error page. Defaults to <em>errorId</em>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">CustomRedirectReturnUrlParameter</span></code></dt>
+<dd>Sets the name of the return URL parameter passed to a custom redirect from the authorization endpoint. Defaults to <em>returnUrl</em>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">DeviceVerificationUserCodeParameter</span></code></dt>
+<dd>Sets the name of the user code parameter passed to the device verification page. Defaults to <em>userCode</em>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">CookieMessageThreshold</span></code></dt>
+<dd>Certain interactions between IdentityServer and some UI pages require a cookie to pass state and context (any of the pages above that have a configurable “message id” parameter).
+Since browsers have limits on the number of cookies and their size, this setting is used to prevent too many cookies being created.
+The value sets the maximum number of message cookies of any type that will be created.
+The oldest message cookies will be purged once the limit has been reached.
+This effectively indicates how many tabs can be opened by a user when using IdentityServer.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="caching">
+<h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
+<p>These setting only apply if the respective caching has been enabled in the services configuration in startup.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ClientStoreExpiration</span></code></dt>
+<dd>Cache duration of client configuration loaded from the client store.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ResourceStoreExpiration</span></code></dt>
+<dd>Cache duration of identity and API resource configuration loaded from the resource store.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="cors">
+<h2>CORS<a class="headerlink" href="#cors" title="Permalink to this headline">¶</a></h2>
+<p>IdentityServer supports CORS for some of its endpoints.
+The underlying CORS implementation is provided from ASP.NET Core, and as such it is automatically registered in the dependency injection system.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">CorsPolicyName</span></code></dt>
+<dd>Name of the CORS policy that will be evaluated for CORS requests into IdentityServer (defaults to <code class="docutils literal notranslate"><span class="pre">&quot;IdentityServer4&quot;</span></code>).
+The policy provider that handles this is implemented in terms of the <code class="docutils literal notranslate"><span class="pre">ICorsPolicyService</span></code> registered in the dependency injection system.
+If you wish to customize the set of CORS origins allowed to connect, then it is recommended that you provide a custom implementation of <code class="docutils literal notranslate"><span class="pre">ICorsPolicyService</span></code>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">CorsPaths</span></code></dt>
+<dd>The endpoints within IdentityServer where CORS is supported.
+Defaults to the discovery, user info, token, and revocation endpoints.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">PreflightCacheDuration</span></code></dt>
+<dd><cite>Nullable&lt;TimeSpan&gt;</cite> indicating the value to be used in the preflight <cite>Access-Control-Max-Age</cite> response header.
+Defaults to <cite>null</cite> indicating no caching header is set on the response.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="csp-content-security-policy">
+<h2>CSP (Content Security Policy)<a class="headerlink" href="#csp-content-security-policy" title="Permalink to this headline">¶</a></h2>
+<p>IdentityServer emits CSP headers for some responses, where appropriate.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Level</span></code></dt>
+<dd>The level of CSP to use. CSP Level 2 is used by default, but if older browsers must be supported then this be changed to <code class="docutils literal notranslate"><span class="pre">CspLevel.One</span></code> to accomodate them.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddDeprecatedHeader</span></code></dt>
+<dd>Indicates if the older <code class="docutils literal notranslate"><span class="pre">X-Content-Security-Policy</span></code> CSP header should also be emitted (in addition to the standards-based header value). Defaults to true.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="device-flow">
+<h2>Device Flow<a class="headerlink" href="#device-flow" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">DefaultUserCodeType</span></code></dt>
+<dd>The user code type to use, unless set at the client level. Defaults to <em>Numeric</em>, a 9-digit code.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Interval</span></code></dt>
+<dd>Defines the minimum allowed polling interval on the token endpoint. Defaults to <em>5</em>.</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

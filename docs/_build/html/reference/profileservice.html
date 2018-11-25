@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Profile Service &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Profile Service</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/profileservice.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="profile-service">
+<h1>Profile Service<a class="headerlink" href="#profile-service" title="Permalink to this headline">¶</a></h1>
+<p>Often IdentityServer requires identity information about users when creating tokens or when handling requests to the userinfo or introspection endpoints.
+By default, IdentityServer only has the claims in the authentication cookie to draw upon for this identity data.</p>
+<p>It is impractical to put all of the possible claims needed for users into the cookie, so IdentityServer defines an extensibility point for allowing claims to be dynamically loaded as needed for a user.
+This extensibility point is the <code class="docutils literal notranslate"><span class="pre">IProfileService</span></code> and it is common for a developer to implement this interface to access a custom database or API that contains the identity data for users.</p>
+<div class="section" id="iprofileservice-apis">
+<h2>IProfileService APIs<a class="headerlink" href="#iprofileservice-apis" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">GetProfileDataAsync</span></code></dt>
+<dd>The API that is expected to load claims for a user. It is passed an instance of <code class="docutils literal notranslate"><span class="pre">ProfileDataRequestContext</span></code>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">IsActiveAsync</span></code></dt>
+<dd>The API that is expected to indicate if a user is currently allowed to obtain tokens. It is passed an instance of <code class="docutils literal notranslate"><span class="pre">IsActiveContext</span></code>.</dd>
+</dl>
+</div>
+<div class="section" id="profiledatarequestcontext">
+<h2>ProfileDataRequestContext<a class="headerlink" href="#profiledatarequestcontext" title="Permalink to this headline">¶</a></h2>
+<p>Models the request for user claims and is the vehicle to return those claims. It contains these properties:</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Subject</span></code></dt>
+<dd>The <code class="docutils literal notranslate"><span class="pre">ClaimsPrincipal</span></code> modeling the user.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Client</span></code></dt>
+<dd>The <code class="docutils literal notranslate"><span class="pre">Client</span></code> for which the claims are being requested.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RequestedClaimTypes</span></code></dt>
+<dd>The collection of claim types being requested.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Caller</span></code></dt>
+<dd>An identifier for the context in which the claims are being requested (e.g. an identity token, an access token, or the user info endpoint). The constant <code class="docutils literal notranslate"><span class="pre">IdentityServerConstants.ProfileDataCallers</span></code> contains the different constant values.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">IssuedClaims</span></code></dt>
+<dd>The list of <code class="docutils literal notranslate"><span class="pre">Claim</span></code> s that will be returned. This is expected to be populated by the custom <code class="docutils literal notranslate"><span class="pre">IProfileService</span></code> implementation.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AddRequestedClaims</span></code></dt>
+<dd>Extension method on the <code class="docutils literal notranslate"><span class="pre">ProfileDataRequestContext</span></code> to populate the <code class="docutils literal notranslate"><span class="pre">IssuedClaims</span></code>, but first filters the claims based on <code class="docutils literal notranslate"><span class="pre">RequestedClaimTypes</span></code>.</dd>
+</dl>
+</div>
+<div class="section" id="requested-scopes-and-claims-mapping">
+<h2>Requested scopes and claims mapping<a class="headerlink" href="#requested-scopes-and-claims-mapping" title="Permalink to this headline">¶</a></h2>
+<p>The scopes requested by the client control what user claims are returned in the tokens to the client.
+The <code class="docutils literal notranslate"><span class="pre">GetProfileDataAsync</span></code> method is responsible for dynamically obtaining those claims based on the <code class="docutils literal notranslate"><span class="pre">RequestedClaimTypes</span></code> collection on the <code class="docutils literal notranslate"><span class="pre">ProfileDataRequestContext</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">RequestedClaimTypes</span></code> collection is populated based on the user claims defined on the <a class="reference internal" href="../topics/resources.html#refresources"><span class="std std-ref">resources</span></a> that model the scopes.
+If the scopes requested are an <a class="reference internal" href="identity_resource.html#refidentityresource"><span class="std std-ref">identity resources</span></a>, then the claims in the <code class="docutils literal notranslate"><span class="pre">RequestedClaimTypes</span></code> will be populated based on the user claim types defined in the <code class="docutils literal notranslate"><span class="pre">IdentityResource</span></code>.
+If the scopes requested are an <a class="reference internal" href="api_resource.html#refapiresource"><span class="std std-ref">API resources</span></a>, then the claims in the <code class="docutils literal notranslate"><span class="pre">RequestedClaimTypes</span></code> will be populated based on the user claim types defined in the <code class="docutils literal notranslate"><span class="pre">ApiResource</span></code> and/or the <code class="docutils literal notranslate"><span class="pre">Scope</span></code>.</p>
+</div>
+<div class="section" id="isactivecontext">
+<h2>IsActiveContext<a class="headerlink" href="#isactivecontext" title="Permalink to this headline">¶</a></h2>
+<p>Models the request to determine is the user is currently allowed to obtain tokens. It contains these properties:</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Subject</span></code></dt>
+<dd>The <code class="docutils literal notranslate"><span class="pre">ClaimsPrincipal</span></code> modeling the user.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Client</span></code></dt>
+<dd>The <code class="docutils literal notranslate"><span class="pre">Client</span></code> for which the claims are being requested.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Caller</span></code></dt>
+<dd>An identifier for the context in which the claims are being requested (e.g. an identity token, an access token, or the user info endpoint). The constant <code class="docutils literal notranslate"><span class="pre">IdentityServerConstants.ProfileDataCallers</span></code> contains the different constant values.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">IsActive</span></code></dt>
+<dd>The flag indicating if the user is allowed to obtain tokens. This is expected to be assigned by the custom <code class="docutils literal notranslate"><span class="pre">IProfileService</span></code> implementation.</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using EntityFramework Core for configuration and operational data &mdash; IdentityServer4 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Community quickstarts &amp; samples" href="community.html" />
+    <link rel="prev" title="Adding a JavaScript client" href="7_javascript_client.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> IdentityServer4
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/big_picture.html">The Big Picture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Supported Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Quickstarts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_overview.html">Setup and Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_client_credentials.html">Protecting an API using Client Credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_resource_owner_passwords.html">Protecting an API using Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_interactive_login.html">Adding User Authentication with OpenID Connect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_external_authentication.html">Adding Support for External Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_hybrid_and_api_access.html">Switching to Hybrid Flow and adding API Access back</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_aspnet_identity.html">Using ASP.NET Core Identity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_javascript_client.html">Adding a JavaScript client</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using EntityFramework Core for configuration and operational data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#identityserver4-entityframework">IdentityServer4.EntityFramework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-sqlserver">Using SqlServer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-schema-changes-and-using-ef-migrations">Database Schema Changes and Using EF Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ef-tooling-for-migrations">EF Tooling for Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-stores">Configuring the stores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-migrations">Adding migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initialize-the-database">Initialize the database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-the-client-applications">Run the client applications</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community quickstarts &amp; samples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/startup.html">Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resources.html">Defining Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/clients.html">Defining Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin.html">Sign-in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin_external_providers.html">Sign-in with External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/windows.html">Windows Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout.html">Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_external_providers.html">Sign-out of External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_federated.html">Federated Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/federation_gateway.html">Federation Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/consent.html">Consent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/apis.html">Protecting APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/crypto.html">Cryptography, Keys and HTTPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/grant_types.html">Grant Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/secrets.html">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extension_grants.html">Extension Grants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resource_owner.html">Resource Owner Password Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/refresh_tokens.html">Refresh Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/reference_tokens.html">Reference Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/discovery.html">Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_apis.html">Adding more API Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_protocols.html">Adding new Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/tools.html">Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Endpoints</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/discovery.html">Discovery Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/authorize.html">Authorize Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/token.html">Token Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/userinfo.html">UserInfo Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/device_authorization.html">Device Authorization Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/introspection.html">Introspection Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/revocation.html">Revocation Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/endsession.html">End Session Endpoint</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/identity_resource.html">Identity Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api_resource.html">API Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/grant_validation_result.html">GrantValidationResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/profileservice.html">Profile Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/interactionservice.html">IdentityServer Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/deviceflow_interactionservice.html">Device Flow Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/options.html">IdentityServer Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/ef.html">Entity Framework Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/aspnet_identity.html">ASP.NET Identity Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/training.html">Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/blogs.html">Blog posts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/videos.html">Videos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IdentityServer4</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Using EntityFramework Core for configuration and operational data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/quickstarts/8_entity_framework.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-entityframework-core-for-configuration-and-operational-data">
+<h1>Using EntityFramework Core for configuration and operational data<a class="headerlink" href="#using-entityframework-core-for-configuration-and-operational-data" title="Permalink to this headline">¶</a></h1>
+<p>IdentityServer is designed for extensibility, and one of the extensibility points is the storage mechanism used for data that IdentityServer needs.
+This quickstart shows how to configure IdentityServer to use EntityFramework (EF) as the storage mechanism for this data (rather than using the in-memory implementations we had been using up until now).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In addition to manually configuring EF support, there is also an IdentityServer template to create a new project with EF support. Use <code class="docutils literal notranslate"><span class="pre">dotnet</span> <span class="pre">new</span> <span class="pre">is4ef</span></code> to create it. See <a class="reference external" href="https://www.github.com/IdentityServer/IdentityServer4.Templates">here</a> for more information.</p>
+</div>
+<div class="section" id="identityserver4-entityframework">
+<h2>IdentityServer4.EntityFramework<a class="headerlink" href="#identityserver4-entityframework" title="Permalink to this headline">¶</a></h2>
+<p>There are two types of data that we are moving to the database.
+The first is the configuration data (resources and clients).
+The second is operational data that IdentityServer produces as it’s being used (tokens, codes, and consents).
+These stores are modeled with interfaces, and we provide an EF implementation of these interfaces in the <cite>IdentityServer4.EntityFramework</cite> Nuget package.</p>
+<p>Get started by adding a reference to the <cite>IdentityServer4.EntityFramework</cite> Nuget package the IdentityServer project.</p>
+<img alt="../_images/8_nuget.png" src="../_images/8_nuget.png" />
+</div>
+<div class="section" id="using-sqlserver">
+<h2>Using SqlServer<a class="headerlink" href="#using-sqlserver" title="Permalink to this headline">¶</a></h2>
+<p>Given EF’s flexibility, you can then use any EF-supported database.
+For this quickstart we will use the LocalDb version of SqlServer that comes with Visual Studio.</p>
+</div>
+<div class="section" id="database-schema-changes-and-using-ef-migrations">
+<h2>Database Schema Changes and Using EF Migrations<a class="headerlink" href="#database-schema-changes-and-using-ef-migrations" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>IdentityServer4.EntityFramework</cite> package contains entity classes that map from IdentityServer’s models.
+As IdentityServer’s models change, so will the entity classes in <cite>IdentityServer4.EntityFramework</cite>.
+As you use <cite>IdentityServer4.EntityFramework</cite> and upgrade over time, you are responsible for your own database schema and changes necessary to that schema as the entity classes change.
+One approach for managing those changes is to use EF migrations, and this quickstart will show how that can be done.
+If migrations are not your preference, then you can manage the schema changes in any way you see fit.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">SQL scripts for SqlServer are maintained for the entities in <cite>IdentityServer4.EntityFramework</cite>. They are located <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.EntityFramework/tree/release/src/Host/Migrations/IdentityServer">here</a>.</p>
+</div>
+</div>
+<div class="section" id="ef-tooling-for-migrations">
+<h2>EF Tooling for Migrations<a class="headerlink" href="#ef-tooling-for-migrations" title="Permalink to this headline">¶</a></h2>
+<p>In addition to tracking schema changes with EF migrations, we will also use it to create the initial schema in the database.
+This requires the use of the EF Core tooling (more details <a class="reference external" href="https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet">here</a>).
+We will add those now, and unfortunately this must be done by hand-editing your <cite>.csproj</cite> file.
+To edit the <cite>.csproj</cite> by right-click the project and select “Edit projectname.csproj”:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Depending on how you created your initial project for the IdentityServer host, you might already have these tools configured in your <cite>csproj</cite> file. If they are, you can skip to the next section.</p>
+</div>
+<img alt="../_images/8_edit_csproj.png" src="../_images/8_edit_csproj.png" />
+<p>And then add the below snippet before the end <cite>&lt;/Project&gt;</cite> element:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="n">ItemGroup</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="n">DotNetCliToolReference</span> <span class="n">Include</span><span class="p">=</span><span class="s">&quot;Microsoft.EntityFrameworkCore.Tools.DotNet&quot;</span> <span class="n">Version</span><span class="p">=</span><span class="s">&quot;2.0.0&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="n">ItemGroup</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>It should look something like this:</p>
+<img alt="../_images/8_csproj.png" src="../_images/8_csproj.png" />
+<p>Save and close the file.
+To test that you have the tools properly installed, you can open a command shell in the same directory as the project and run <cite>dotnet ef</cite>.
+It should look like this:</p>
+<img alt="../_images/8_dotnet_ef_command_line.png" src="../_images/8_dotnet_ef_command_line.png" />
+</div>
+<div class="section" id="configuring-the-stores">
+<h2>Configuring the stores<a class="headerlink" href="#configuring-the-stores" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to replace the current calls to <code class="docutils literal notranslate"><span class="pre">AddInMemoryClients</span></code>, <code class="docutils literal notranslate"><span class="pre">AddInMemoryIdentityResources</span></code>, and <code class="docutils literal notranslate"><span class="pre">AddInMemoryApiResources</span></code> in the <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code> method in <cite>Startup.cs</cite>.
+We will replace them with this code:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">string</span> <span class="n">connectionString</span> <span class="p">=</span> <span class="s">@&quot;Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer4.Quickstart.EntityFramework-2.0.0;trusted_connection=yes;&quot;</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">migrationsAssembly</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">Startup</span><span class="p">).</span><span class="n">GetTypeInfo</span><span class="p">().</span><span class="n">Assembly</span><span class="p">.</span><span class="n">GetName</span><span class="p">().</span><span class="n">Name</span><span class="p">;</span>
+
+<span class="c1">// configure identity server with in-memory stores, keys, clients and scopes</span>
+<span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">AddDeveloperSigningCredential</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">AddTestUsers</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetUsers</span><span class="p">())</span>
+    <span class="c1">// this adds the config data from DB (clients, resources)</span>
+    <span class="p">.</span><span class="n">AddConfigurationStore</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">ConfigureDbContext</span> <span class="p">=</span> <span class="n">builder</span> <span class="p">=&gt;</span>
+            <span class="n">builder</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">connectionString</span><span class="p">,</span>
+                <span class="n">sql</span> <span class="p">=&gt;</span> <span class="n">sql</span><span class="p">.</span><span class="n">MigrationsAssembly</span><span class="p">(</span><span class="n">migrationsAssembly</span><span class="p">));</span>
+    <span class="p">})</span>
+    <span class="c1">// this adds the operational data from DB (codes, tokens, consents)</span>
+    <span class="p">.</span><span class="n">AddOperationalStore</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">ConfigureDbContext</span> <span class="p">=</span> <span class="n">builder</span> <span class="p">=&gt;</span>
+            <span class="n">builder</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">connectionString</span><span class="p">,</span>
+                <span class="n">sql</span> <span class="p">=&gt;</span> <span class="n">sql</span><span class="p">.</span><span class="n">MigrationsAssembly</span><span class="p">(</span><span class="n">migrationsAssembly</span><span class="p">));</span>
+
+        <span class="c1">// this enables automatic token cleanup. this is optional.</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">EnableTokenCleanup</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">TokenCleanupInterval</span> <span class="p">=</span> <span class="m">30</span><span class="p">;</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>You might need these namespaces added to the file:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">Microsoft.EntityFrameworkCore</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Reflection</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The above code is hard-coding a connection string, which you should feel free to change if you wish.
+Also, the calls to <code class="docutils literal notranslate"><span class="pre">AddConfigurationStore</span></code> and <code class="docutils literal notranslate"><span class="pre">AddOperationalStore</span></code> are registering the EF-backed store implementations.</p>
+<p>The “builder” callback function passed to these APIs is the EF mechanism to allow you to configure the <code class="docutils literal notranslate"><span class="pre">DbContextOptionsBuilder</span></code> for the <code class="docutils literal notranslate"><span class="pre">DbContext</span></code> for each of these two stores.
+This is how our <code class="docutils literal notranslate"><span class="pre">DbContext</span></code> classes can be configured with the database provider you want to use.
+In this case by calling <code class="docutils literal notranslate"><span class="pre">UseSqlServer</span></code> we are using SqlServer.
+As you can also tell, this is where the connection string is provided.</p>
+<p>The “options” callback function in <code class="docutils literal notranslate"><span class="pre">UseSqlServer</span></code> is what configures the assembly where the EF migrations are defined.
+EF requires the use of migrations to define the schema for the database.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is the responsibility of your hosting application to define these migrations, as they are specific to your database and provider.</p>
+</div>
+<p>We’ll add the migrations next.</p>
+</div>
+<div class="section" id="adding-migrations">
+<h2>Adding migrations<a class="headerlink" href="#adding-migrations" title="Permalink to this headline">¶</a></h2>
+<p>To create the migrations, open a command prompt in the IdentityServer project directory.
+In the command prompt run these two commands:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">dotnet</span> <span class="n">ef</span> <span class="n">migrations</span> <span class="k">add</span> <span class="n">InitialIdentityServerPersistedGrantDbMigration</span> <span class="p">-</span><span class="n">c</span> <span class="n">PersistedGrantDbContext</span> <span class="p">-</span><span class="n">o</span> <span class="n">Data</span><span class="p">/</span><span class="n">Migrations</span><span class="p">/</span><span class="n">IdentityServer</span><span class="p">/</span><span class="n">PersistedGrantDb</span>
+<span class="n">dotnet</span> <span class="n">ef</span> <span class="n">migrations</span> <span class="k">add</span> <span class="n">InitialIdentityServerConfigurationDbMigration</span> <span class="p">-</span><span class="n">c</span> <span class="n">ConfigurationDbContext</span> <span class="p">-</span><span class="n">o</span> <span class="n">Data</span><span class="p">/</span><span class="n">Migrations</span><span class="p">/</span><span class="n">IdentityServer</span><span class="p">/</span><span class="n">ConfigurationDb</span>
+</pre></div>
+</div>
+<p>It should look something like this:</p>
+<img alt="../_images/8_add_migrations.png" src="../_images/8_add_migrations.png" />
+<p>You should now see a <cite>~/Data/Migrations/IdentityServer</cite> folder in the project.
+This contains the code for the newly created migrations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If your database project is a separate class library and you fixed the error ‘Unable to create an object of type ‘&lt;your-name&gt;DbContext’. Add an implementation of ‘IDesignTimeDbContextFactory’ to the project, or see <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=851728">https://go.microsoft.com/fwlink/?linkid=851728</a> for additional patterns supported at design time.’ by adding implementations of the IDesignTimeDbContextFactory, you will also need implementations of the factory for both the PersistedGrantDbContext as well as the ConfigurationDbContext.</p>
+</div>
+</div>
+<div class="section" id="initialize-the-database">
+<h2>Initialize the database<a class="headerlink" href="#initialize-the-database" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have the migrations, we can write code to create the database from the migrations.
+We will also seed the database with the in-memory configuration data that we defined in the previous quickstarts.</p>
+<p>In <cite>Startup.cs</cite> add this method to help initialize the database:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">private</span> <span class="k">void</span> <span class="nf">InitializeDatabase</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">serviceScope</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">ApplicationServices</span><span class="p">.</span><span class="n">GetService</span><span class="p">&lt;</span><span class="n">IServiceScopeFactory</span><span class="p">&gt;().</span><span class="n">CreateScope</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">serviceScope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">PersistedGrantDbContext</span><span class="p">&gt;().</span><span class="n">Database</span><span class="p">.</span><span class="n">Migrate</span><span class="p">();</span>
+
+        <span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="n">serviceScope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">ConfigurationDbContext</span><span class="p">&gt;();</span>
+        <span class="n">context</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Migrate</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="n">context</span><span class="p">.</span><span class="n">Clients</span><span class="p">.</span><span class="n">Any</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">client</span> <span class="k">in</span> <span class="n">Config</span><span class="p">.</span><span class="n">GetClients</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="n">context</span><span class="p">.</span><span class="n">Clients</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">ToEntity</span><span class="p">());</span>
+            <span class="p">}</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(!</span><span class="n">context</span><span class="p">.</span><span class="n">IdentityResources</span><span class="p">.</span><span class="n">Any</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">resource</span> <span class="k">in</span> <span class="n">Config</span><span class="p">.</span><span class="n">GetIdentityResources</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="n">context</span><span class="p">.</span><span class="n">IdentityResources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">resource</span><span class="p">.</span><span class="n">ToEntity</span><span class="p">());</span>
+            <span class="p">}</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(!</span><span class="n">context</span><span class="p">.</span><span class="n">ApiResources</span><span class="p">.</span><span class="n">Any</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">resource</span> <span class="k">in</span> <span class="n">Config</span><span class="p">.</span><span class="n">GetApiResources</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="n">context</span><span class="p">.</span><span class="n">ApiResources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">resource</span><span class="p">.</span><span class="n">ToEntity</span><span class="p">());</span>
+            <span class="p">}</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And then we can invoke this from the <code class="docutils literal notranslate"><span class="pre">Configure</span></code> method:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IHostingEnvironment</span> <span class="n">env</span><span class="p">,</span> <span class="n">ILoggerFactory</span> <span class="n">loggerFactory</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// this will do the initial DB population</span>
+    <span class="n">InitializeDatabase</span><span class="p">(</span><span class="n">app</span><span class="p">);</span>
+
+    <span class="c1">// the rest of the code that was already here</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now if you run the IdentityServer project, the database should be created and seeded with the quickstart configuration data.
+You should be able to use SQL Server Management Studio or Visual Studio to connect and inspect the data.</p>
+<img alt="../_images/8_database.png" src="../_images/8_database.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The above <code class="docutils literal notranslate"><span class="pre">InitializeDatabase</span></code> helper API is convenient to seed the database, but this approach is not ideal to leave in to execute each time the applicaion runs. Once your database is populated, consider removing the call to the API.</p>
+</div>
+</div>
+<div class="section" id="run-the-client-applications">
+<h2>Run the client applications<a class="headerlink" href="#run-the-client-applications" title="Permalink to this headline">¶</a></h2>
+<p>You should now be able to run any of the existing client applications and sign-in, get tokens, and call the API – all based upon the database configuration.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The code as it stands in this section still relies upon Config.cs and its fictitious users Alice and Bob. If your user list is short and static, an adjusted version of Config.cs may suffice, however you may wish to manage a larger and more fluid user list dynamically within a database. ASP.NET Identity is one option to consider, and a sample implementation of this solution is listed among the quickstarts in the next section.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="community.html" class="btn btn-neutral float-right" title="Community quickstarts &amp; samples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="7_javascript_client.html" class="btn btn-neutral" title="Adding a JavaScript client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Brock Allen &amp; Dominick Baier
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

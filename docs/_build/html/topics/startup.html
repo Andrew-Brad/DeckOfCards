@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Startup &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Startup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/startup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="startup">
+<h1>Startup<a class="headerlink" href="#startup" title="Permalink to this headline">¶</a></h1>
+<p>IdentityServer is a combination of middleware and services.
+All configuration is done in your startup class.</p>
+<div class="section" id="configuring-services">
+<h2>Configuring services<a class="headerlink" href="#configuring-services" title="Permalink to this headline">¶</a></h2>
+<p>You add the IdentityServer services to the DI system by calling:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">builder</span> <span class="p">=</span> <span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Optionally you can pass in options into this call. See <a class="reference internal" href="../reference/options.html#refoptions"><span class="std std-ref">here</span></a> for details on options.</p>
+<p>This will return you a builder object that in turn has a number of convenience methods to wire up additional services.</p>
+</div>
+<div class="section" id="key-material">
+<h2>Key material<a class="headerlink" href="#key-material" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddSigningCredential</span></code></dt>
+<dd>Adds a signing key service that provides the specified key material to the various token creation/validation services.
+You can pass in either an <code class="docutils literal notranslate"><span class="pre">X509Certificate2</span></code>, a <code class="docutils literal notranslate"><span class="pre">SigningCredential</span></code> or a reference to a certificate from the certificate store.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddDeveloperSigningCredential</span></code></dt>
+<dd>Creates temporary key material at startup time. This is for dev only scenarios when you don’t have a certificate to use.
+The generated key will be persisted to the file system so it stays stable between server restarts (can be disabled by passing <code class="docutils literal notranslate"><span class="pre">false</span></code>).
+This addresses issues when the client/api metadata caches get out of sync during development.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddValidationKey</span></code></dt>
+<dd>Adds a key for validating tokens. They will be used by the internal token validator and will show up in the discovery document.
+You can pass in either an <code class="docutils literal notranslate"><span class="pre">X509Certificate2</span></code>, a <code class="docutils literal notranslate"><span class="pre">SigningCredential</span></code> or a reference to a certificate from the certificate store.
+This is useful for key roll-over scenarios.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="in-memory-configuration-stores">
+<h2>In-Memory configuration stores<a class="headerlink" href="#in-memory-configuration-stores" title="Permalink to this headline">¶</a></h2>
+<p>The various “in-memory” configuration APIs allow for configuring IdentityServer from an in-memory list of configuration objects.
+These “in-memory” collections can be hard-coded in the hosting application, or could be loaded dynamically from a configuration file or a database.
+By design, though, these collections are only created when the hosting application is starting up.</p>
+<p>Use of these configuration APIs are designed for use when prototyping, developing, and/or testing where it is not necessary to dynamically consult database at runtime for the configuration data.
+This style of configuration might also be appropriate for production scenarios if the configuration rarely changes, or it is not inconvenient to require restarting the application if the value must be changed.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddInMemoryClients</span></code></dt>
+<dd>Registers <code class="docutils literal notranslate"><span class="pre">IClientStore</span></code> and <code class="docutils literal notranslate"><span class="pre">ICorsPolicyService</span></code> implementations based on the in-memory collection of <code class="docutils literal notranslate"><span class="pre">Client</span></code> configuration objects.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddInMemoryIdentityResources</span></code></dt>
+<dd>Registers <code class="docutils literal notranslate"><span class="pre">IResourceStore</span></code> implementation based on the in-memory collection of <code class="docutils literal notranslate"><span class="pre">IdentityResource</span></code> configuration objects.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddInMemoryApiResources</span></code></dt>
+<dd>Registers <code class="docutils literal notranslate"><span class="pre">IResourceStore</span></code> implementation based on the in-memory collection of <code class="docutils literal notranslate"><span class="pre">ApiResource</span></code> configuration objects.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="test-stores">
+<h2>Test stores<a class="headerlink" href="#test-stores" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">TestUser</span></code> class models a user, their credentials, and claims in IdentityServer.
+Use of <code class="docutils literal notranslate"><span class="pre">TestUser</span></code> is simiar to the use of the “in-memory” stores in that it is intended for when prototyping, developing, and/or testing.
+The use of <code class="docutils literal notranslate"><span class="pre">TestUser</span></code> is not recommended in production.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddTestUsers</span></code></dt>
+<dd>Registers <code class="docutils literal notranslate"><span class="pre">TestUserStore</span></code> based on a collection of <code class="docutils literal notranslate"><span class="pre">TestUser</span></code> objects.
+<code class="docutils literal notranslate"><span class="pre">TestUserStore</span></code> is used by the default quickstart UI.
+Also registers implementations of <code class="docutils literal notranslate"><span class="pre">IProfileService</span></code> and <code class="docutils literal notranslate"><span class="pre">IResourceOwnerPasswordValidator</span></code>.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="additional-services">
+<h2>Additional services<a class="headerlink" href="#additional-services" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddExtensionGrantValidator</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">IExtensionGrantValidator</span></code> implementation for use with extension grants.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddSecretParser</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">ISecretParser</span></code> implementation for parsing client or API resource credentials.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddSecretValidator</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">ISecretValidator</span></code> implementation for validating client or API resource credentials against a credential store.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddResourceOwnerValidator</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">IResourceOwnerPasswordValidator</span></code> implementation for validating user credentials for the resource owner password credentials grant type.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddProfileService</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">IProfileService</span></code> implementation for connecting to your <a class="reference internal" href="../reference/profileservice.html#refprofileservice"><span class="std std-ref">custom user profile store</span></a>.
+The <code class="docutils literal notranslate"><span class="pre">DefaultProfileService</span></code> class provides the default implementation which relies upon the authentication cookie as the only source of claims for issuing in tokens.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddAuthorizeInteractionResponseGenerator</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">IAuthorizeInteractionResponseGenerator</span></code> implementation to customize logic at authorization endpoint for when a user must be shown a UI for error, login, consent, or any other custom page.
+The <code class="docutils literal notranslate"><span class="pre">AuthorizeInteractionResponseGenerator</span></code> class provides a default implementation, so consider deriving from this existing class if you need to augment the existing behavior.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddCustomAuthorizeRequestValidator</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">ICustomAuthorizeRequestValidator</span></code> implementation to customize request parameter validation at the authorization endpoint.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddCustomTokenRequestValidator</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">ICustomTokenRequestValidator</span></code> implementation to customize request parameter validation at the token endpoint.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddRedirectUriValidator</span></code></dt>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">IRedirectUriValidator</span></code> implementation to customize redirect URI validation.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddAppAuthRedirectUriValidator</span></code></dt>
+<dd>Adds a an “AppAuth” (OAuth 2.0 for Native Apps) compliant redirect URI validator (does strict validation but also allows <a class="reference external" href="http://127.0.0.1">http://127.0.0.1</a> with random port).</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddJwtBearerClientAuthentication</span></code></dt>
+<dd>Adds support for client authentication using JWT bearer assertions.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="caching">
+<h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
+<p>Client and resource configuration data is used frequently by IdentityServer.
+If this data is being loaded from a database or other external store, then it might be expensive to frequently re-load the same data.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddInMemoryCaching</span></code></dt>
+<dd>To use any of the caches described below, an implementation of <code class="docutils literal notranslate"><span class="pre">ICache&lt;T&gt;</span></code> must be registered in DI.
+This API registers a default in-memory implementation of <code class="docutils literal notranslate"><span class="pre">ICache&lt;T&gt;</span></code> that’s based on ASP.NET Core’s <code class="docutils literal notranslate"><span class="pre">MemoryCache</span></code>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddClientStoreCache</span></code></dt>
+<dd>Registers a <code class="docutils literal notranslate"><span class="pre">IClientStore</span></code> decorator implementation which will maintain an in-memory cache of <code class="docutils literal notranslate"><span class="pre">Client</span></code> configuration objects.
+The cache duration is configurable on the <code class="docutils literal notranslate"><span class="pre">Caching</span></code> configuration options on the <code class="docutils literal notranslate"><span class="pre">IdentityServerOptions</span></code>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddResourceStoreCache</span></code></dt>
+<dd>Registers a <code class="docutils literal notranslate"><span class="pre">IResourceStore</span></code> decorator implementation which will maintain an in-memory cache of <code class="docutils literal notranslate"><span class="pre">IdentityResource</span></code> and <code class="docutils literal notranslate"><span class="pre">ApiResource</span></code> configuration objects.
+The cache duration is configurable on the <code class="docutils literal notranslate"><span class="pre">Caching</span></code> configuration options on the <code class="docutils literal notranslate"><span class="pre">IdentityServerOptions</span></code>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AddCorsPolicyCache</span></code></dt>
+<dd>Registers a <code class="docutils literal notranslate"><span class="pre">ICorsPolicyService</span></code> decorator implementation which will maintain an in-memory cache of the results of the CORS policy service evaluation.
+The cache duration is configurable on the <code class="docutils literal notranslate"><span class="pre">Caching</span></code> configuration options on the <code class="docutils literal notranslate"><span class="pre">IdentityServerOptions</span></code>.</dd>
+</dl>
+</li>
+</ul>
+<p>Further customization of the cache is possible:</p>
+<p>The default caching relies upon the <code class="docutils literal notranslate"><span class="pre">ICache&lt;T&gt;</span></code> implementation.
+If you wish to customize the caching behavior for the specific configuration objects, you can replace this implementation in the dependency injection system.</p>
+<p>The default implementation of the <code class="docutils literal notranslate"><span class="pre">ICache&lt;T&gt;</span></code> itself relies upon the <code class="docutils literal notranslate"><span class="pre">IMemoryCache</span></code> interface (and <code class="docutils literal notranslate"><span class="pre">MemoryCache</span></code> implementation) provided by .NET.
+If you wish to customize the in-memory caching behavior, you can replace the <code class="docutils literal notranslate"><span class="pre">IMemoryCache</span></code> implementation in the dependency injection system.</p>
+</div>
+<div class="section" id="configuring-the-pipeline">
+<h2>Configuring the pipeline<a class="headerlink" href="#configuring-the-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>You need to add IdentityServer to the pipeline by calling:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseIdentityServer</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">UseIdentityServer</span></code> includes a call to <code class="docutils literal notranslate"><span class="pre">UseAuthentication</span></code>, so it’s not necessary to have both.</p>
+</div>
+<p>There is no additional configuration for the middleware.</p>
+<p>Be aware that order matters in the pipeline.
+For example, you will want to add IdentitySever before the UI framework that implements the login screen.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Defining Clients &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Defining Clients</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/clients.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="defining-clients">
+<h1>Defining Clients<a class="headerlink" href="#defining-clients" title="Permalink to this headline">¶</a></h1>
+<p>Clients represent applications that can request tokens from your identityserver.</p>
+<p>The details vary, but you typically define the following common settings for a client:</p>
+<ul class="simple">
+<li>a unique client ID</li>
+<li>a secret if needed</li>
+<li>the allowed interactions with the token service (called a grant type)</li>
+<li>a network location where identity and/or access token gets sent to (called a redirect URI)</li>
+<li>a list of scopes (aka resources) the client is allowed to access</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">At runtime, clients are retrieved via an implementation of the <code class="docutils literal notranslate"><span class="pre">IClientStore</span></code>. This allows loading them from arbitrary data sources like config files or databases. For this document we will use the in-memory version of the client store. You can wire up the in-memory store in <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code> via the <code class="docutils literal notranslate"><span class="pre">AddInMemoryClients</span></code> extensions method.</p>
+</div>
+<div class="section" id="defining-a-client-for-server-to-server-communication">
+<h2>Defining a client for server to server communication<a class="headerlink" href="#defining-a-client-for-server-to-server-communication" title="Permalink to this headline">¶</a></h2>
+<p>In this scenario no interactive user is present - a service (aka client) wants to communicate with an API (aka scope):</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">Clients</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Client</span><span class="p">&gt;</span> <span class="n">Get</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Client</span><span class="p">&gt;</span>
+        <span class="p">{</span>
+            <span class="k">new</span> <span class="n">Client</span>
+            <span class="p">{</span>
+                <span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;service.client&quot;</span><span class="p">,</span>
+                <span class="n">ClientSecrets</span> <span class="p">=</span> <span class="p">{</span> <span class="k">new</span> <span class="n">Secret</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">.</span><span class="n">Sha256</span><span class="p">())</span> <span class="p">},</span>
+
+                <span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="n">GrantTypes</span><span class="p">.</span><span class="n">ClientCredentials</span><span class="p">,</span>
+                <span class="n">AllowedScopes</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;api1&quot;</span><span class="p">,</span> <span class="s">&quot;api2.read_only&quot;</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="defining-browser-based-javascript-client-e-g-spa-for-user-authentication-and-delegated-access-and-api">
+<h2>Defining browser-based JavaScript client (e.g. SPA) for user authentication and delegated access and API<a class="headerlink" href="#defining-browser-based-javascript-client-e-g-spa-for-user-authentication-and-delegated-access-and-api" title="Permalink to this headline">¶</a></h2>
+<p>This client uses the so called implicit flow to request an identity and access token from JavaScript:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">jsClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Client</span>
+<span class="p">{</span>
+    <span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;js&quot;</span><span class="p">,</span>
+    <span class="n">ClientName</span> <span class="p">=</span> <span class="s">&quot;JavaScript Client&quot;</span><span class="p">,</span>
+    <span class="n">ClientUri</span> <span class="p">=</span> <span class="s">&quot;http://identityserver.io&quot;</span><span class="p">,</span>
+
+    <span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="n">GrantTypes</span><span class="p">.</span><span class="n">Implicit</span><span class="p">,</span>
+    <span class="n">AllowAccessTokensViaBrowser</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+
+    <span class="n">RedirectUris</span> <span class="p">=</span>           <span class="p">{</span> <span class="s">&quot;http://localhost:7017/index.html&quot;</span> <span class="p">},</span>
+    <span class="n">PostLogoutRedirectUris</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:7017/index.html&quot;</span> <span class="p">},</span>
+    <span class="n">AllowedCorsOrigins</span> <span class="p">=</span>     <span class="p">{</span> <span class="s">&quot;http://localhost:7017&quot;</span> <span class="p">},</span>
+
+    <span class="n">AllowedScopes</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">OpenId</span><span class="p">,</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">Profile</span><span class="p">,</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">Email</span><span class="p">,</span>
+
+        <span class="s">&quot;api1&quot;</span><span class="p">,</span> <span class="s">&quot;api2.read_only&quot;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="defining-a-server-side-web-application-e-g-mvc-for-use-authentication-and-delegated-api-access">
+<span id="startclientsmvc"></span><h2>Defining a server-side web application (e.g. MVC) for use authentication and delegated API access<a class="headerlink" href="#defining-a-server-side-web-application-e-g-mvc-for-use-authentication-and-delegated-api-access" title="Permalink to this headline">¶</a></h2>
+<p>Interactive server side (or native desktop/mobile) applications use the hybrid flow.
+This flow gives you the best security because the access tokens are transmitted via back-channel calls only (and gives you access to refresh tokens):</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">mvcClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Client</span>
+<span class="p">{</span>
+    <span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;mvc&quot;</span><span class="p">,</span>
+    <span class="n">ClientName</span> <span class="p">=</span> <span class="s">&quot;MVC Client&quot;</span><span class="p">,</span>
+    <span class="n">ClientUri</span> <span class="p">=</span> <span class="s">&quot;http://identityserver.io&quot;</span><span class="p">,</span>
+
+    <span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="n">GrantTypes</span><span class="p">.</span><span class="n">Hybrid</span><span class="p">,</span>
+    <span class="n">AllowOfflineAccess</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+    <span class="n">ClientSecrets</span> <span class="p">=</span> <span class="p">{</span> <span class="k">new</span> <span class="n">Secret</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">.</span><span class="n">Sha256</span><span class="p">())</span> <span class="p">},</span>
+
+    <span class="n">RedirectUris</span> <span class="p">=</span>           <span class="p">{</span> <span class="s">&quot;http://localhost:21402/signin-oidc&quot;</span> <span class="p">},</span>
+    <span class="n">PostLogoutRedirectUris</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:21402/&quot;</span> <span class="p">},</span>
+    <span class="n">FrontChannelLogoutUri</span> <span class="p">=</span>  <span class="s">&quot;http://localhost:21402/signout-oidc&quot;</span><span class="p">,</span>
+
+    <span class="n">AllowedScopes</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">OpenId</span><span class="p">,</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">Profile</span><span class="p">,</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">Email</span><span class="p">,</span>
+
+        <span class="s">&quot;api1&quot;</span><span class="p">,</span> <span class="s">&quot;api2.read_only&quot;</span>
+    <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

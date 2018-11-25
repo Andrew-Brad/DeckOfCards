@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Client &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Client</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/client.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="client">
+<h1>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Client</span></code> class models an OpenID Connect or OAuth 2.0 client -
+e.g. a native application, a web application or a JS-based application.</p>
+<div class="section" id="basics">
+<h2>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Enabled</span></code></dt>
+<dd>Specifies if client is enabled. Defaults to <cite>true</cite>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ClientId</span></code></dt>
+<dd>Unique ID of the client</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ClientSecrets</span></code></dt>
+<dd>List of client secrets - credentials to access the token endpoint.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RequireClientSecret</span></code></dt>
+<dd>Specifies whether this client needs a secret to request tokens from the token endpoint (defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AllowedGrantTypes</span></code></dt>
+<dd>Specifies the grant types the client is allowed to use. Use the <code class="docutils literal notranslate"><span class="pre">GrantTypes</span></code> class for common combinations.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RequirePkce</span></code></dt>
+<dd>Specifies whether clients using an authorization code based grant type must send a proof key</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AllowPlainTextPkce</span></code></dt>
+<dd>Specifies whether clients using PKCE can use a plain text code challenge (not recommended - and default to <code class="docutils literal notranslate"><span class="pre">false</span></code>)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RedirectUris</span></code></dt>
+<dd>Specifies the allowed URIs to return tokens or authorization codes to</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AllowedScopes</span></code></dt>
+<dd>By default a client has no access to any resources - specify the allowed resources by adding the corresponding scopes names</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AllowOfflineAccess</span></code></dt>
+<dd>Specifies whether this client can request refresh tokens (be requesting the <code class="docutils literal notranslate"><span class="pre">offline_access</span></code> scope)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AllowAccessTokensViaBrowser</span></code></dt>
+<dd>Specifies whether this client is allowed to receive access tokens via the browser.
+This is useful to harden flows that allow multiple response types
+(e.g. by disallowing a hybrid flow client that is supposed to use <cite>code id_token</cite> to add the <cite>token</cite> response type
+and thus leaking the token to the browser.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Properties</span></code></dt>
+<dd>Dictionary to hold any custom client-specific values as needed.</dd>
+</dl>
+</div>
+<div class="section" id="authentication-logout">
+<h2>Authentication/Logout<a class="headerlink" href="#authentication-logout" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">PostLogoutRedirectUris</span></code></dt>
+<dd>Specifies allowed URIs to redirect to after logout. See the <a class="reference external" href="https://openid.net/specs/openid-connect-session-1_0.html">OIDC Connect Session Management spec</a> for more details.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">FrontChannelLogoutUri</span></code></dt>
+<dd>Specifies logout URI at client for HTTP based front-channel logout. See the <a class="reference external" href="https://openid.net/specs/openid-connect-frontchannel-1_0.html">OIDC Front-Channel spec</a> for more details.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">FrontChannelLogoutSessionRequired</span></code></dt>
+<dd>Specifies if the user’s session id should be sent to the FrontChannelLogoutUri. Defaults to true.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">BackChannelLogoutUri</span></code></dt>
+<dd>Specifies logout URI at client for HTTP based back-channel logout. See the <a class="reference external" href="https://openid.net/specs/openid-connect-backchannel-1_0.html">OIDC Back-Channel spec</a> for more details.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">BackChannelLogoutSessionRequired</span></code></dt>
+<dd>Specifies if the user’s session id should be sent in the request to the BackChannelLogoutUri. Defaults to true.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">EnableLocalLogin</span></code></dt>
+<dd>Specifies if this client can use local accounts, or external IdPs only. Defaults to <cite>true</cite>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">IdentityProviderRestrictions</span></code></dt>
+<dd>Specifies which external IdPs can be used with this client (if list is empty all IdPs are allowed). Defaults to empty.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">UserSsoLifetime</span></code> <cite>added in 2.3</cite></dt>
+<dd>The maximum duration (in seconds) since the last time the user authenticated. Defaults to <code class="docutils literal notranslate"><span class="pre">null</span></code>.</dd>
+</dl>
+</div>
+<div class="section" id="token">
+<h2>Token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">IdentityTokenLifetime</span></code></dt>
+<dd>Lifetime to identity token in seconds (defaults to 300 seconds / 5 minutes)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AccessTokenLifetime</span></code></dt>
+<dd>Lifetime of access token in seconds (defaults to 3600 seconds / 1 hour)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AuthorizationCodeLifetime</span></code></dt>
+<dd>Lifetime of authorization code in seconds (defaults to 300 seconds / 5 minutes)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AbsoluteRefreshTokenLifetime</span></code></dt>
+<dd>Maximum lifetime of a refresh token in seconds. Defaults to 2592000 seconds / 30 days</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SlidingRefreshTokenLifetime</span></code></dt>
+<dd>Sliding lifetime of a refresh token in seconds. Defaults to 1296000 seconds / 15 days</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RefreshTokenUsage</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">ReUse</span></code> the refresh token handle will stay the same when refreshing tokens</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">OneTime</span></code> the refresh token handle will be updated when refreshing tokens. This is the default.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RefreshTokenExpiration</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">Absolute</span></code> the refresh token will expire on a fixed point in time (specified by the AbsoluteRefreshTokenLifetime)</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">Sliding</span></code> when refreshing the token, the lifetime of the refresh token will be renewed (by the amount specified in SlidingRefreshTokenLifetime). The lifetime will not exceed <cite>AbsoluteRefreshTokenLifetime</cite>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">UpdateAccessTokenClaimsOnRefresh</span></code></dt>
+<dd>Gets or sets a value indicating whether the access token (and its claims) should be updated on a refresh token request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AccessTokenType</span></code></dt>
+<dd>Specifies whether the access token is a reference token or a self contained JWT token (defaults to <cite>Jwt</cite>).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">IncludeJwtId</span></code></dt>
+<dd>Specifies whether JWT access tokens should have an embedded unique ID (via the <cite>jti</cite> claim).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AllowedCorsOrigins</span></code></dt>
+<dd>If specified, will be used by the default CORS policy service implementations (In-Memory and EF) to build a CORS policy for JavaScript clients.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Claims</span></code></dt>
+<dd>Allows settings claims for the client (will be included in the access token).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AlwaysSendClientClaims</span></code></dt>
+<dd>If set, the client claims will be sent for every flow. If not, only for client credentials flow (default is <cite>false</cite>)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AlwaysIncludeUserClaimsInIdToken</span></code></dt>
+<dd>When requesting both an id token and access token, should the user claims always be added to the id token instead of requring the client to use the userinfo endpoint. Default is <cite>false</cite>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ClientClaimsPrefix</span></code></dt>
+<dd>If set, the prefix client claim types will be prefixed with. Defaults to <cite>client_</cite>. The intent is to make sure they don’t accidentally collide with user claims.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PairWiseSubjectSalt</span></code></dt>
+<dd>Salt value used in pair-wise subjectId generation for users of this client.</dd>
+</dl>
+</div>
+<div class="section" id="consent-screen">
+<h2>Consent Screen<a class="headerlink" href="#consent-screen" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">RequireConsent</span></code></dt>
+<dd>Specifies whether a consent screen is required. Defaults to <cite>true</cite>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AllowRememberConsent</span></code></dt>
+<dd>Specifies whether user can choose to store consent decisions. Defaults to <cite>true</cite>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ConsentLifetime</span></code></dt>
+<dd>Lifetime of a user consent in seconds. Defaults to null (no expiration).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ClientName</span></code></dt>
+<dd>Client display name (used for logging and consent screen)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ClientUri</span></code></dt>
+<dd>URI to further information about client (used on consent screen)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">LogoUri</span></code></dt>
+<dd>URI to client logo (used on consent screen)</dd>
+</dl>
+</div>
+<div class="section" id="device-flow">
+<h2>Device flow<a class="headerlink" href="#device-flow" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">UserCodeType</span></code></dt>
+<dd>Specifies the type of user code to use for the client. Otherwise falls back to default.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DeviceCodeLifetime</span></code></dt>
+<dd>Lifetime to device code in seconds (defaults to 300 seconds / 5 minutes)</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
