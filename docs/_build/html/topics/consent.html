@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Consent &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Consent</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/consent.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="consent">
+<h1>Consent<a class="headerlink" href="#consent" title="Permalink to this headline">¶</a></h1>
+<p>During an authorization request, if IdentityServer requires user consent the browser will be redirected to the consent page.</p>
+<p>Consent is used to allow an end user to grant a client access to resources (<a class="reference internal" href="../reference/identity_resource.html#refidentityresource"><span class="std std-ref">identity</span></a> or <a class="reference internal" href="../reference/api_resource.html#refapiresource"><span class="std std-ref">API</span></a>).
+This is typically only necessary for third-party clients, and can be enabled/disabled per-client on the <a class="reference internal" href="../reference/client.html#refclient"><span class="std std-ref">client settings</span></a>.</p>
+<div class="section" id="consent-page">
+<h2>Consent Page<a class="headerlink" href="#consent-page" title="Permalink to this headline">¶</a></h2>
+<p>In order for the user to grant consent, a consent page must be provided by the hosting application.
+The <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Quickstart.UI">quickstart UI</a> has a basic implementation of a consent page.</p>
+<p>A consent page normally renders the display name of the current user,
+the display name of the client requesting access,
+the logo of the client,
+a link for more information about the client,
+and the list of resources the client is requesting access to.
+It’s also common to allow the user to indicate that their consent should be “remembered” so they are not prompted again in the future for the same client.</p>
+<p>Once the user has provided consent, the consent page must inform IdentityServer of the consent, and then the browser must be redirected back to the authorization endpoint.</p>
+</div>
+<div class="section" id="authorization-context">
+<h2>Authorization Context<a class="headerlink" href="#authorization-context" title="Permalink to this headline">¶</a></h2>
+<p>IdentityServer will pass a <cite>returnUrl</cite> parameter (configurable on the <a class="reference internal" href="../reference/options.html#refoptions"><span class="std std-ref">user interaction options</span></a>) to the consent page which contains the parameters of the authorization request.
+These parameters provide the context for the consent page, and can be read with help from the <a class="reference internal" href="../reference/interactionservice.html#refinteractionservice"><span class="std std-ref">interaction service</span></a>.
+The <code class="docutils literal notranslate"><span class="pre">GetAuthorizationContextAsync</span></code> API will return an instance of <code class="docutils literal notranslate"><span class="pre">AuthorizationRequest</span></code>.</p>
+<p>Additional details about the client or resources can be obtained using the <code class="docutils literal notranslate"><span class="pre">IClientStore</span></code> and <code class="docutils literal notranslate"><span class="pre">IResourceStore</span></code> interfaces.</p>
+</div>
+<div class="section" id="informing-identityserver-of-the-consent-result">
+<h2>Informing IdentityServer of the consent result<a class="headerlink" href="#informing-identityserver-of-the-consent-result" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">GrantConsentAsync</span></code> API on the <a class="reference internal" href="../reference/interactionservice.html#refinteractionservice"><span class="std std-ref">interaction service</span></a> allows the consent page to inform IdentityServer of the outcome of consent (which might also be to deny the client access).</p>
+<p>IdentityServer will temporarily persist the outcome of the consent.
+This persistence uses a cookie by default, as it only needs to last long enough to convey the outcome back to the authorization endpoint.
+This temporary persistence is different than the persistence used for the “remember my consent” feature (and it is the authorization endpoint which persists the “remember my consent” for the user).
+If you wish to use some other persistence between the consent page and the authorization redirect, then you can implement <code class="docutils literal notranslate"><span class="pre">IMessageStore&lt;ConsentResponse&gt;</span></code> and register the implementation in DI.</p>
+</div>
+<div class="section" id="returning-the-user-to-the-authorization-endpoint">
+<h2>Returning the user to the authorization endpoint<a class="headerlink" href="#returning-the-user-to-the-authorization-endpoint" title="Permalink to this headline">¶</a></h2>
+<p>Once the consent page has informed IdentityServer of the outcome, the user can be redirected back to the <cite>returnUrl</cite>.
+Your consent page should protect against open redirects by verifying that the <cite>returnUrl</cite> is valid.
+This can be done by calling <code class="docutils literal notranslate"><span class="pre">IsValidReturnUrl</span></code> on the <a class="reference internal" href="../reference/interactionservice.html#refinteractionservice"><span class="std std-ref">interaction service</span></a>.
+Also, if <code class="docutils literal notranslate"><span class="pre">GetAuthorizationContextAsync</span></code> returns a non-null result, then you can also trust that the <cite>returnUrl</cite> is valid.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

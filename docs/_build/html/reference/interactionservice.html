@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IdentityServer Interaction Service &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>IdentityServer Interaction Service</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/interactionservice.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="identityserver-interaction-service">
+<h1>IdentityServer Interaction Service<a class="headerlink" href="#identityserver-interaction-service" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">IIdentityServerInteractionService</span></code> interface is intended to provide services to be used by the user interface to communicate with IdentityServer, mainly pertaining to user interaction.
+It is available from the dependency injection system and would normally be injected as a constructor parameter into your MVC controllers for the user interface of IdentityServer.</p>
+<div class="section" id="iidentityserverinteractionservice-apis">
+<h2>IIdentityServerInteractionService APIs<a class="headerlink" href="#iidentityserverinteractionservice-apis" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">GetAuthorizationContextAsync</span></code></dt>
+<dd>Returns the <code class="docutils literal notranslate"><span class="pre">AuthorizationRequest</span></code> based on the <code class="docutils literal notranslate"><span class="pre">returnUrl</span></code> passed to the login or consent pages.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">IsValidReturnUrl</span></code></dt>
+<dd>Indicates if the <code class="docutils literal notranslate"><span class="pre">returnUrl</span></code> is a valid URL for redirect after login or consent.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">GetErrorContextAsync</span></code></dt>
+<dd>Returns the <code class="docutils literal notranslate"><span class="pre">ErrorMessage</span></code> based on the <code class="docutils literal notranslate"><span class="pre">errorId</span></code> passed to the error page.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">GetLogoutContextAsync</span></code></dt>
+<dd>Returns the <code class="docutils literal notranslate"><span class="pre">LogoutRequest</span></code> based on the <code class="docutils literal notranslate"><span class="pre">logoutId</span></code> passed to the logout page.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CreateLogoutContextAsync</span></code></dt>
+<dd>Used to create a <code class="docutils literal notranslate"><span class="pre">logoutId</span></code> if there is not one presently.
+This creates a cookie capturing all the current state needed for signout and the <code class="docutils literal notranslate"><span class="pre">logoutId</span></code> identifies that cookie.
+This is typically used when there is no current <code class="docutils literal notranslate"><span class="pre">logoutId</span></code> and the logout page must capture the current user’s state needed for sign-out prior to redirecting to an external identity provider for signout.
+The newly created <code class="docutils literal notranslate"><span class="pre">logoutId</span></code> would need to be round-tripped to the external identity provider at signout time, and then used on the signout callback page in the same way it would be on the normal logout page.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">GrantConsentAsync</span></code></dt>
+<dd>Accepts a <code class="docutils literal notranslate"><span class="pre">ConsentResponse</span></code> to inform IdentityServer of the user’s consent to a particular <code class="docutils literal notranslate"><span class="pre">AuthorizationRequest</span></code>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">GetAllUserConsentsAsync</span></code></dt>
+<dd>Returns a collection of <code class="docutils literal notranslate"><span class="pre">Consent</span></code> for the user.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RevokeUserConsentAsync</span></code></dt>
+<dd>Revokes all of a user’s consents and grants for a client.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RevokeTokensForCurrentSessionAsync</span></code></dt>
+<dd>Revokes all of a user’s consents and grants for clients the user has signed into during their current session.</dd>
+</dl>
+</div>
+<div class="section" id="authorizationrequest">
+<h2>AuthorizationRequest<a class="headerlink" href="#authorizationrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ClientId</span></code></dt>
+<dd>The client identifier that initiated the request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RedirectUri</span></code></dt>
+<dd>The URI to redirect the user to after successful authorization.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DisplayMode</span></code></dt>
+<dd>The display mode passed from the authorization request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">UiLocales</span></code></dt>
+<dd>The UI locales passed from the authorization request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">IdP</span></code></dt>
+<dd>The external identity provider requested.
+This is used to bypass home realm discovery (HRD).
+This is provided via the “idp:” prefix to the <code class="docutils literal notranslate"><span class="pre">acr_values</span></code> parameter on the authorize request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Tenant</span></code></dt>
+<dd>The tenant requested.
+This is provided via the “tenant:” prefix to the <code class="docutils literal notranslate"><span class="pre">acr_values</span></code> parameter on the authorize request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">LoginHint</span></code></dt>
+<dd>The expected username the user will use to login.
+This is requested from the client via the <code class="docutils literal notranslate"><span class="pre">login_hint</span></code> parameter on the authorize request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PromptMode</span></code></dt>
+<dd>The prompt mode requested from the authorization request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AcrValues</span></code></dt>
+<dd>The acr values passed from the authorization request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ScopesRequested</span></code></dt>
+<dd>The scopes requested from the authorization request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Parameters</span></code></dt>
+<dd>The entire parameter collection passed to the authorization request.</dd>
+</dl>
+</div>
+<div class="section" id="errormessage">
+<h2>ErrorMessage<a class="headerlink" href="#errormessage" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">DisplayMode</span></code></dt>
+<dd>The display mode passed from the authorization request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">UiLocales</span></code></dt>
+<dd>The UI locales passed from the authorization request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Error</span></code></dt>
+<dd>The error code.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RequestId</span></code></dt>
+<dd>The per-request identifier. This can be used to display to the end user and can be used in diagnostics.</dd>
+</dl>
+</div>
+<div class="section" id="logoutrequest">
+<h2>LogoutRequest<a class="headerlink" href="#logoutrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ClientId</span></code></dt>
+<dd>The client identifier that initiated the request.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PostLogoutRedirectUri</span></code></dt>
+<dd>The URL to redirect the user to after they have logged out.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SessionId</span></code></dt>
+<dd>The user’s current session id.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SignOutIFrameUrl</span></code></dt>
+<dd>The URL to render in an <code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> on the logged out page to enable single sign-out.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Parameters</span></code></dt>
+<dd>The entire parameter collection passed to the end session endpoint.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ShowSignoutPrompt</span></code></dt>
+<dd>Indicates if the user should be prompted for signout based upon the parameters passed to the end session endpoint.</dd>
+</dl>
+</div>
+<div class="section" id="consentresponse">
+<h2>ConsentResponse<a class="headerlink" href="#consentresponse" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ScopesConsented</span></code></dt>
+<dd>The collection of scopes the user consented to.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RememberConsent</span></code></dt>
+<dd>Flag indicating if the user’s consent is to be persisted.</dd>
+</dl>
+</div>
+<div class="section" id="consent">
+<h2>Consent<a class="headerlink" href="#consent" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">SubjectId</span></code></dt>
+<dd>The subject id that granted the consent.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ClientId</span></code></dt>
+<dd>The client identifier for the consent.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Scopes</span></code></dt>
+<dd>The collection of scopes consented to.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CreationTime</span></code></dt>
+<dd>The date and time when the consent was granted.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Expiration</span></code></dt>
+<dd>The date and time when the consent will expire.</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

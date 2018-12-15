@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Entity Framework Support &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Entity Framework Support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/ef.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="entity-framework-support">
+<h1>Entity Framework Support<a class="headerlink" href="#entity-framework-support" title="Permalink to this headline">¶</a></h1>
+<p>An EntityFramework-based implementation is provided for the configuration and operational data extensibility points in IdentityServer.
+The use of EntityFramework allows any EF-supported database to be used with this library.</p>
+<p>The repo for this library is located <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.EntityFramework/">here</a> and the NuGet package is <a class="reference external" href="https://www.nuget.org/packages/IdentityServer4.EntityFramework">here</a>.</p>
+<p>The features provided by this library are broken down into two main areas: configuration store and operational store support.
+These two different areas can be used independently or together, based upon the needs of the hosting application.</p>
+<div class="section" id="configuration-store-support-for-clients-resources-and-cors-settings">
+<h2>Configuration Store support for Clients, Resources, and CORS settings<a class="headerlink" href="#configuration-store-support-for-clients-resources-and-cors-settings" title="Permalink to this headline">¶</a></h2>
+<p>If client, identity resource, API resource, or CORS data is desired to be loaded from a EF-supported database
+(rather than use in-memory configuration), then the configuration store can be used.
+This support provides implementations of the <code class="docutils literal notranslate"><span class="pre">IClientStore</span></code>, <code class="docutils literal notranslate"><span class="pre">IResourceStore</span></code>, and the <code class="docutils literal notranslate"><span class="pre">ICorsPolicyService</span></code> extensibility points.
+These implementations use a <code class="docutils literal notranslate"><span class="pre">DbContext</span></code>-derived class called <code class="docutils literal notranslate"><span class="pre">ConfigurationDbContext</span></code> to model the tables in the database.</p>
+<p>To use the configuration store support, use the <code class="docutils literal notranslate"><span class="pre">AddConfigurationStore</span></code> extension method after the call to <code class="docutils literal notranslate"><span class="pre">AddIdentityServer</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="n">IServiceProvider</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">string</span> <span class="n">connectionString</span> <span class="p">=</span> <span class="s">@&quot;Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer4.EntityFramework-2.0.0;trusted_connection=yes;&quot;</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">migrationsAssembly</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">Startup</span><span class="p">).</span><span class="n">GetTypeInfo</span><span class="p">().</span><span class="n">Assembly</span><span class="p">.</span><span class="n">GetName</span><span class="p">().</span><span class="n">Name</span><span class="p">;</span>
+
+    <span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">()</span>
+        <span class="c1">// this adds the config data from DB (clients, resources, CORS)</span>
+        <span class="p">.</span><span class="n">AddConfigurationStore</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">ConfigureDbContext</span> <span class="p">=</span> <span class="n">builder</span> <span class="p">=&gt;</span>
+                <span class="n">builder</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">connectionString</span><span class="p">,</span>
+                    <span class="n">sql</span> <span class="p">=&gt;</span> <span class="n">sql</span><span class="p">.</span><span class="n">MigrationsAssembly</span><span class="p">(</span><span class="n">migrationsAssembly</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To configure the configuration store, use the <code class="docutils literal notranslate"><span class="pre">ConfigurationStoreOptions</span></code> options object passed to the configuration callback.</p>
+</div>
+<div class="section" id="configurationstoreoptions">
+<h2>ConfigurationStoreOptions<a class="headerlink" href="#configurationstoreoptions" title="Permalink to this headline">¶</a></h2>
+<p>This options class contains properties to control the configuration store and <code class="docutils literal notranslate"><span class="pre">ConfigurationDbContext</span></code>.</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ConfigureDbContext</span></code></dt>
+<dd>Delegate of type <code class="docutils literal notranslate"><span class="pre">Action&lt;DbContextOptionsBuilder&gt;</span></code> used as a callback to configure the underlying <code class="docutils literal notranslate"><span class="pre">ConfigurationDbContext</span></code>.
+The delegate can configure the <code class="docutils literal notranslate"><span class="pre">ConfigurationDbContext</span></code> in the same way if EF were being used directly with <code class="docutils literal notranslate"><span class="pre">AddDbContext</span></code>, which allows any EF-supported database to be used.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DefaultSchema</span></code></dt>
+<dd>Allows setting the default database schema name for all the tables in the <code class="docutils literal notranslate"><span class="pre">ConfigurationDbContext</span></code>.</dd>
+</dl>
+</div>
+<div class="section" id="operational-store-support-for-authorization-grants-consents-and-tokens-refresh-and-reference">
+<h2>Operational Store support for authorization grants, consents, and tokens (refresh and reference)<a class="headerlink" href="#operational-store-support-for-authorization-grants-consents-and-tokens-refresh-and-reference" title="Permalink to this headline">¶</a></h2>
+<p>If authorization grants, consents, and tokens (refresh and reference) are desired to be loaded from a EF-supported database
+(rather than the default in-memory database), then the operational store can be used.
+This support provides implementations of the <code class="docutils literal notranslate"><span class="pre">IPersistedGrantStore</span></code> extensibility point.
+The implementation uses a <code class="docutils literal notranslate"><span class="pre">DbContext</span></code>-derived class called <code class="docutils literal notranslate"><span class="pre">PersistedGrantDbContext</span></code> to model the table in the database.</p>
+<p>To use the operational store support, use the <code class="docutils literal notranslate"><span class="pre">AddOperationalStore</span></code> extension method after the call to <code class="docutils literal notranslate"><span class="pre">AddIdentityServer</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="n">IServiceProvider</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">string</span> <span class="n">connectionString</span> <span class="p">=</span> <span class="s">@&quot;Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer4.EntityFramework-2.0.0;trusted_connection=yes;&quot;</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">migrationsAssembly</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">Startup</span><span class="p">).</span><span class="n">GetTypeInfo</span><span class="p">().</span><span class="n">Assembly</span><span class="p">.</span><span class="n">GetName</span><span class="p">().</span><span class="n">Name</span><span class="p">;</span>
+
+    <span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">()</span>
+        <span class="c1">// this adds the operational data from DB (codes, tokens, consents)</span>
+        <span class="p">.</span><span class="n">AddOperationalStore</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">ConfigureDbContext</span> <span class="p">=</span> <span class="n">builder</span> <span class="p">=&gt;</span>
+                <span class="n">builder</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">connectionString</span><span class="p">,</span>
+                    <span class="n">sql</span> <span class="p">=&gt;</span> <span class="n">sql</span><span class="p">.</span><span class="n">MigrationsAssembly</span><span class="p">(</span><span class="n">migrationsAssembly</span><span class="p">));</span>
+
+            <span class="c1">// this enables automatic token cleanup. this is optional.</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">EnableTokenCleanup</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">TokenCleanupInterval</span> <span class="p">=</span> <span class="m">30</span><span class="p">;</span> <span class="c1">// interval in seconds</span>
+        <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To configure the operational store, use the <code class="docutils literal notranslate"><span class="pre">OperationalStoreOptions</span></code> options object passed to the configuration callback.</p>
+</div>
+<div class="section" id="operationalstoreoptions">
+<h2>OperationalStoreOptions<a class="headerlink" href="#operationalstoreoptions" title="Permalink to this headline">¶</a></h2>
+<p>This options class contains properties to control the operational store and <code class="docutils literal notranslate"><span class="pre">PersistedGrantDbContext</span></code>.</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">ConfigureDbContext</span></code></dt>
+<dd>Delegate of type <code class="docutils literal notranslate"><span class="pre">Action&lt;DbContextOptionsBuilder&gt;</span></code> used as a callback to configure the underlying <code class="docutils literal notranslate"><span class="pre">PersistedGrantDbContext</span></code>.
+The delegate can configure the <code class="docutils literal notranslate"><span class="pre">PersistedGrantDbContext</span></code> in the same way if EF were being used directly with <code class="docutils literal notranslate"><span class="pre">AddDbContext</span></code>, which allows any EF-supported database to be used.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DefaultSchema</span></code></dt>
+<dd>Allows setting the default database schema name for all the tables in the <code class="docutils literal notranslate"><span class="pre">PersistedGrantDbContext</span></code>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">EnableTokenCleanup</span></code></dt>
+<dd>Indicates whether stale entries will be automatically cleaned up from the database. The default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">TokenCleanupInterval</span></code></dt>
+<dd>The token cleanup interval (in seconds). The default is 3600 (1 hour).</dd>
+</dl>
+</div>
+<div class="section" id="database-creation-and-schema-changes-across-different-versions-of-identityserver">
+<h2>Database creation and schema changes across different versions of IdentityServer<a class="headerlink" href="#database-creation-and-schema-changes-across-different-versions-of-identityserver" title="Permalink to this headline">¶</a></h2>
+<p>It is very likely that across different versions of IdentityServer (and the EF support) that the database schema will change to accommodate new and changing features.</p>
+<p>We do not provide any support for creating your database or migrating your data from one version to another.
+You are expected to manage the database creation, schema changes, and data migration in any way your organization sees fit.</p>
+<p>Using EF migrations is one possible approach to this.
+If you do wish to use migrations, then see the <span class="xref std std-ref">EF quickstart</span> for samples on how to get started, or consult the Microsoft <a class="reference external" href="https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet">documentation on EF migrations</a>.</p>
+<p>We also publish <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.EntityFramework/tree/release/src/Host/Migrations/IdentityServer">sample SQL scripts</a> for the current version of the database schema.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

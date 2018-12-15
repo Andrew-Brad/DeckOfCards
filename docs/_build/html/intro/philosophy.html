@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Design Philosphy &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running" href="running.html" />
+    <link rel="prev" title="The Project" href="project.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project.html">The Project</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Design Philosphy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lean-principles">Lean Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#s-o-l-i-d-principles">S.O.L.I.D. Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#principles-of-microservices">Principles of Microservices</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Design Philosphy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/intro/philosophy.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="design-philosphy">
+<h1>Design Philosphy<a class="headerlink" href="#design-philosphy" title="Permalink to this headline">¶</a></h1>
+<p>Before digging into the code, it’s recommended to better understand the philosophy behind engineering.</p>
+<p>Everything we do should be in the name of software quality.</p>
+<p><strong>Everything.</strong></p>
+<div class="section" id="lean-principles">
+<h2>Lean Principles<a class="headerlink" href="#lean-principles" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.lean.org/WhatsLean/Principles.cfm">Lean principles</a> guide everything.  The tricky part is the fact that quality means different things to different people.</p>
+<ul class="simple">
+<li><strong>External Customers - End Users:</strong> Your end users are the reason we all get paid.  Listen to them.</li>
+<li><strong>Internal Customers - Ops:</strong> Nowadays with Devops, some lines are blurred here, but when it comes to production outages, it’s rare a developer is called in to mess around with infrastructure.  Partner with your infrastructure team and ensure the software behaves like they would expect it to without any ‘tribal knowledge’ or hacks.</li>
+<li><strong>Internal Customers - Engineers:</strong> Your codebase should get you excited about writing code.  If it doesn’t, have a retrospective with teammates and get on track.  It should <em>not</em> be difficult to change (fragile), or prone to failure.  What was your first day like as a new developer on a codebase?  Was the product well documented, and the standards and expectations made clear?  Technical debt is something that needs to be measured, managed, or at least observed and refactored continually.</li>
+</ul>
+<p>If you’d like to read about the history and interactions between Lean Manufacturing and Software Design, I’d highly recommend <a class="reference external" href="https://www.amazon.com/Implementing-Lean-Software-Development-Concept/dp/0321437381/ref=pd_bxgy_14_img_2?_encoding=UTF8&amp;pd_rd_i=0321437381&amp;pd_rd_r=385946bc-f59f-11e8-b1af-c353f8636503&amp;pd_rd_w=LKZJC&amp;pd_rd_wg=ToauZ&amp;pf_rd_i=desktop-dp-sims&amp;pf_rd_m=ATVPDKIKX0DER&amp;pf_rd_p=6725dbd6-9917-451d-beba-16af7874e407&amp;pf_rd_r=2GT1SSH33DR82EMZ9X4B&amp;pf_rd_s=desktop-dp-sims&amp;pf_rd_t=40701&amp;psc=1&amp;refRID=2GT1SSH33DR82EMZ9X4B">Implementing Lean Software Development</a>.
+Next, let’s cover some principles already established in the industry.</p>
+</div>
+<div class="section" id="s-o-l-i-d-principles">
+<h2>S.O.L.I.D. Principles<a class="headerlink" href="#s-o-l-i-d-principles" title="Permalink to this headline">¶</a></h2>
+<p>WIP</p>
+</div>
+<div class="section" id="principles-of-microservices">
+<h2>Principles of Microservices<a class="headerlink" href="#principles-of-microservices" title="Permalink to this headline">¶</a></h2>
+<p>WIP</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="running.html" class="btn btn-neutral float-right" title="Running" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="project.html" class="btn btn-neutral" title="The Project" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

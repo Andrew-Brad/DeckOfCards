@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Defining Resources &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Defining Resources</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/resources.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="defining-resources">
+<h1>Defining Resources<a class="headerlink" href="#defining-resources" title="Permalink to this headline">¶</a></h1>
+<p>The first thing you will typically define in your system are the resources that you want to protect.
+That could be identity information of your users, like profile data or email addresses, or access to APIs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can define resources using a C# object model - or load them from a data store. An implementation of <code class="docutils literal notranslate"><span class="pre">IResourceStore</span></code> deals with these low-level details. For this document we are using the in-memory implementation.</p>
+</div>
+<div class="section" id="defining-identity-resources">
+<h2>Defining identity resources<a class="headerlink" href="#defining-identity-resources" title="Permalink to this headline">¶</a></h2>
+<p>Identity resources are data like user ID, name, or email address of a user.
+An identity resource has a unique name, and you can assign arbitrary claim types to it. These claims will then be included in the identity token for the user.
+The client will use the <code class="docutils literal notranslate"><span class="pre">scope</span></code> parameter to request access to an identity resource.</p>
+<p>The OpenID Connect specification specifies a couple of <a class="reference external" href="https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims">standard</a> identity resources.
+The minimum requirement is, that you provide support for emitting a unique ID for your users - also called the subject id.
+This is done by exposing the standard identity resource called <code class="docutils literal notranslate"><span class="pre">openid</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IdentityResource</span><span class="p">&gt;</span> <span class="n">GetIdentityResources</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">IdentityResource</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">OpenId</span><span class="p">()</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <cite>IdentityResources</cite> class supports all scopes defined in the specification (openid, email, profile, telephone, and address).
+If you want to support them all, you can add them to your list of supported identity resources:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IdentityResource</span><span class="p">&gt;</span> <span class="n">GetIdentityResources</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">IdentityResource</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">OpenId</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">Email</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">Profile</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">Phone</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">Address</span><span class="p">()</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="defining-custom-identity-resources">
+<h2>Defining custom identity resources<a class="headerlink" href="#defining-custom-identity-resources" title="Permalink to this headline">¶</a></h2>
+<p>You can also define custom identity resources. Create a new <cite>IdentityResource</cite> class, give it a name and optionally a display name and description
+and define which user claims should be included in the identity token when this resource gets requested:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IdentityResource</span><span class="p">&gt;</span> <span class="n">GetIdentityResources</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">customProfile</span> <span class="p">=</span> <span class="k">new</span> <span class="n">IdentityResource</span><span class="p">(</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s">&quot;custom.profile&quot;</span><span class="p">,</span>
+        <span class="n">displayName</span><span class="p">:</span> <span class="s">&quot;Custom profile&quot;</span><span class="p">,</span>
+        <span class="n">claimTypes</span><span class="p">:</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;email&quot;</span><span class="p">,</span> <span class="s">&quot;status&quot;</span> <span class="p">});</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">IdentityResource</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">OpenId</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">Profile</span><span class="p">(),</span>
+        <span class="n">customProfile</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="../reference/identity_resource.html#refidentityresource"><span class="std std-ref">reference</span></a> section for more information on identity resource settings.</p>
+</div>
+<div class="section" id="defining-api-resources">
+<h2>Defining API resources<a class="headerlink" href="#defining-api-resources" title="Permalink to this headline">¶</a></h2>
+<p>To allow clients to request access tokens for APIs, you need to define API resources, e.g.:</p>
+<p>To get access tokens for APIs, you also need to register them as a scope. This time the scope type is of type <cite>Resource</cite>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">ApiResource</span><span class="p">&gt;</span> <span class="n">GetApis</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span><span class="p">[]</span>
+    <span class="p">{</span>
+        <span class="c1">// simple API with a single scope (in this case the scope name is the same as the api name)</span>
+        <span class="k">new</span> <span class="nf">ApiResource</span><span class="p">(</span><span class="s">&quot;api1&quot;</span><span class="p">,</span> <span class="s">&quot;Some API 1&quot;</span><span class="p">),</span>
+
+        <span class="c1">// expanded version if more control is needed</span>
+        <span class="k">new</span> <span class="n">ApiResource</span>
+        <span class="p">{</span>
+            <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;api2&quot;</span><span class="p">,</span>
+
+            <span class="c1">// secret for using introspection endpoint</span>
+            <span class="n">ApiSecrets</span> <span class="p">=</span>
+            <span class="p">{</span>
+                <span class="k">new</span> <span class="nf">Secret</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">.</span><span class="n">Sha256</span><span class="p">())</span>
+            <span class="p">},</span>
+
+            <span class="c1">// include the following using claims in access token (in addition to subject id)</span>
+            <span class="n">UserClaims</span> <span class="p">=</span> <span class="p">{</span> <span class="n">JwtClaimTypes</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">JwtClaimTypes</span><span class="p">.</span><span class="n">Email</span> <span class="p">},</span>
+
+            <span class="c1">// this API defines two scopes</span>
+            <span class="n">Scopes</span> <span class="p">=</span>
+            <span class="p">{</span>
+                <span class="k">new</span> <span class="nf">Scope</span><span class="p">()</span>
+                <span class="p">{</span>
+                    <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;api2.full_access&quot;</span><span class="p">,</span>
+                    <span class="n">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Full access to API 2&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="k">new</span> <span class="n">Scope</span>
+                <span class="p">{</span>
+                    <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;api2.read_only&quot;</span><span class="p">,</span>
+                    <span class="n">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Read only access to API 2&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="../reference/api_resource.html#refapiresource"><span class="std std-ref">reference</span></a> section for more information on API resource settings.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The user claims defined by resources are loaded by the <a class="reference internal" href="../reference/profileservice.html#refprofileservice"><span class="std std-ref">IProfileService</span></a> extensibility point.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Refresh Tokens &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Refresh Tokens</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/refresh_tokens.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="refresh-tokens">
+<h1>Refresh Tokens<a class="headerlink" href="#refresh-tokens" title="Permalink to this headline">¶</a></h1>
+<p>Since access tokens have finite lifetimes, refresh tokens allow requesting new access tokens without user interaction.</p>
+<p>Refresh tokens are supported for the following flows: authorization code, hybrid and resource owner password credential flow.
+The clients needs to be explicitly authorized to request refresh tokens by setting <code class="docutils literal notranslate"><span class="pre">AllowOfflineAccess</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<div class="section" id="additional-client-settings">
+<h2>Additional client settings<a class="headerlink" href="#additional-client-settings" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">AbsoluteRefreshTokenLifetime</span></code></dt>
+<dd>Maximum lifetime of a refresh token in seconds. Defaults to 2592000 seconds / 30 days. Zero allows refresh tokens that, when used with <code class="docutils literal notranslate"><span class="pre">RefreshTokenExpiration</span> <span class="pre">=</span> <span class="pre">Sliding</span></code> only expire after the SlidingRefreshTokenLifetime is passed.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SlidingRefreshTokenLifetime</span></code></dt>
+<dd>Sliding lifetime of a refresh token in seconds. Defaults to 1296000 seconds / 15 days</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RefreshTokenUsage</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">ReUse</span></code> the refresh token handle will stay the same when refreshing tokens</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">OneTime</span></code> the refresh token handle will be updated when refreshing tokens</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RefreshTokenExpiration</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">Absolute</span></code> the refresh token will expire on a fixed point in time (specified by the AbsoluteRefreshTokenLifetime)</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">Sliding</span></code> when refreshing the token, the lifetime of the refresh token will be renewed (by the amount specified in SlidingRefreshTokenLifetime). The lifetime will not exceed <cite>AbsoluteRefreshTokenLifetime</cite>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">UpdateAccessTokenClaimsOnRefresh</span></code></dt>
+<dd>Gets or sets a value indicating whether the access token (and its claims) should be updated on a refresh token request.</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

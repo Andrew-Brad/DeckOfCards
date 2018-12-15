@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Extension Grants &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Extension Grants</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/extension_grants.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="extension-grants">
+<h1>Extension Grants<a class="headerlink" href="#extension-grants" title="Permalink to this headline">¶</a></h1>
+<p>OAuth 2.0 defines standard grant types for the token endpoint, such as <code class="docutils literal notranslate"><span class="pre">password</span></code>, <code class="docutils literal notranslate"><span class="pre">authorization_code</span></code> and <code class="docutils literal notranslate"><span class="pre">refresh_token</span></code>. Extension grants are a way to add support for non-standard token issuance scenarios like token translation, delegation, or custom credentials.</p>
+<p>You can add support for additional grant types by implementing the <code class="docutils literal notranslate"><span class="pre">IExtensionGrantValidator</span></code> interface:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">interface</span> <span class="n">IExtensionGrantValidator</span>
+<span class="p">{</span>
+    <span class="c1">/// &lt;summary&gt;</span>
+    <span class="c1">/// Handles the custom grant request.</span>
+    <span class="c1">/// &lt;/summary&gt;</span>
+    <span class="c1">/// &lt;param name=&quot;request&quot;&gt;The validation context.&lt;/param&gt;</span>
+    <span class="n">Task</span> <span class="nf">ValidateAsync</span><span class="p">(</span><span class="n">ExtensionGrantValidationContext</span> <span class="n">context</span><span class="p">);</span>
+
+    <span class="c1">/// &lt;summary&gt;</span>
+    <span class="c1">/// Returns the grant type this validator can deal with</span>
+    <span class="c1">/// &lt;/summary&gt;</span>
+    <span class="c1">/// &lt;value&gt;</span>
+    <span class="c1">/// The type of the grant.</span>
+    <span class="c1">/// &lt;/value&gt;</span>
+    <span class="kt">string</span> <span class="n">GrantType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ExtensionGrantValidationContext</span></code> object gives you access to:</p>
+<ul class="simple">
+<li>the incoming token request - both the well-known validated values, as well as any custom values (via the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> collection)</li>
+<li>the result - either error or success</li>
+<li>custom response parameters</li>
+</ul>
+<p>To register the extension grant, add it to DI:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">builder</span><span class="p">.</span><span class="n">AddExtensionGrantValidator</span><span class="p">&lt;</span><span class="n">MyExtensionsGrantValidator</span><span class="p">&gt;();</span>
+</pre></div>
+</div>
+<div class="section" id="example-simple-delegation-using-an-extension-grant">
+<h2>Example: Simple delegation using an extension grant<a class="headerlink" href="#example-simple-delegation-using-an-extension-grant" title="Permalink to this headline">¶</a></h2>
+<p>Imagine the following scenario - a front end client calls a middle tier API using a token acquired via an interactive flow (e.g. hybrid flow).
+This middle tier API (API 1) now wants to call a back end API (API 2) on behalf of the interactive user:</p>
+<img alt="../_images/delegation.png" src="../_images/delegation.png" />
+<p>In other words, the middle tier API (API 1) needs an access token containing the user’s identity, but with the scope of the back end API (API 2).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You might have heard of the term <em>poor man’s delegation</em> where the access token from the front end is simply forwarded to the back end. This has some shortcomings, e.g. <em>API 2</em> must now accept the <em>API 1</em> scope which would allow the user to call <em>API 2</em> directly. Also - you might want to add some delegation specific claims into the token, e.g. the fact that the call path is via <em>API 1</em>.</p>
+</div>
+<p><strong>Implementing the extension grant</strong></p>
+<p>The front end would send the token to API 1, and now this token needs to be exchanged at IdentityServer with a new token for API 2.</p>
+<p>On the wire the call to token service for the exchange could look like this:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="p">/</span><span class="n">connect</span><span class="p">/</span><span class="n">token</span>
+
+<span class="n">grant_type</span><span class="p">=</span><span class="n">delegation</span><span class="p">&amp;</span>
+<span class="n">scope</span><span class="p">=</span><span class="n">api2</span><span class="p">&amp;</span>
+<span class="n">token</span><span class="p">=...&amp;</span>
+<span class="n">client_id</span><span class="p">=</span><span class="n">api1</span><span class="p">.</span><span class="n">client</span>
+<span class="n">client_secret</span><span class="p">=</span><span class="n">secret</span>
+</pre></div>
+</div>
+<p>It’s the job of the extension grant validator to handle that request by validating the incoming token, and returning a result that represents the new token:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">DelegationGrantValidator</span> <span class="p">:</span> <span class="n">IExtensionGrantValidator</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ITokenValidator</span> <span class="n">_validator</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">DelegationGrantValidator</span><span class="p">(</span><span class="n">ITokenValidator</span> <span class="n">validator</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_validator</span> <span class="p">=</span> <span class="n">validator</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">GrantType</span> <span class="p">=&gt;</span> <span class="s">&quot;delegation&quot;</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ValidateAsync</span><span class="p">(</span><span class="n">ExtensionGrantValidationContext</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">userToken</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Raw</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">userToken</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GrantValidationResult</span><span class="p">(</span><span class="n">TokenRequestErrors</span><span class="p">.</span><span class="n">InvalidGrant</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_validator</span><span class="p">.</span><span class="n">ValidateAccessTokenAsync</span><span class="p">(</span><span class="n">userToken</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">IsError</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GrantValidationResult</span><span class="p">(</span><span class="n">TokenRequestErrors</span><span class="p">.</span><span class="n">InvalidGrant</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// get user&#39;s identity</span>
+        <span class="kt">var</span> <span class="n">sub</span> <span class="p">=</span> <span class="n">result</span><span class="p">.</span><span class="n">Claims</span><span class="p">.</span><span class="n">FirstOrDefault</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">Type</span> <span class="p">==</span> <span class="s">&quot;sub&quot;</span><span class="p">).</span><span class="n">Value</span><span class="p">;</span>
+
+        <span class="n">context</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GrantValidationResult</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">GrantType</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Don’t forget to register the validator with DI.</p>
+<p><strong>Registering the delegation client</strong></p>
+<p>You need a client registration in IdentityServer that allows a client to use this new extension grant, e.g.:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">client</span>
+<span class="p">{</span>
+    <span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;api1.client&quot;</span><span class="p">,</span>
+    <span class="n">ClientSecrets</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Secret</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="nf">Secret</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">.</span><span class="n">Sha256</span><span class="p">())</span>
+    <span class="p">},</span>
+
+    <span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;delegation&quot;</span> <span class="p">},</span>
+
+    <span class="n">AllowedScopes</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="s">&quot;api2&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Calling the token endpoint</strong></p>
+<p>In API 1 you can now construct the HTTP payload yourself, or use the <em>IdentityModel</em> helper library:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TokenResponse</span><span class="p">&gt;</span> <span class="n">DelegateAsync</span><span class="p">(</span><span class="kt">string</span> <span class="n">userToken</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">payload</span> <span class="p">=</span> <span class="k">new</span>
+    <span class="p">{</span>
+        <span class="n">token</span> <span class="p">=</span> <span class="n">userToken</span>
+    <span class="p">};</span>
+
+    <span class="c1">// create token client</span>
+    <span class="kt">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TokenClient</span><span class="p">(</span><span class="n">disco</span><span class="p">.</span><span class="n">TokenEndpoint</span><span class="p">,</span> <span class="s">&quot;api1.client&quot;</span><span class="p">,</span> <span class="s">&quot;secret&quot;</span><span class="p">);</span>
+
+    <span class="c1">// send custom grant to token endpoint, return response</span>
+    <span class="k">return</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="n">RequestCustomGrantAsync</span><span class="p">(</span><span class="s">&quot;delegation&quot;</span><span class="p">,</span> <span class="s">&quot;api2&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">TokenResponse.AccessToken</span></code> will now contain the delegation access token.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

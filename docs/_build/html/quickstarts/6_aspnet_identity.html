@@ -1,0 +1,474 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using ASP.NET Core Identity &mdash; IdentityServer4 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adding a JavaScript client" href="7_javascript_client.html" />
+    <link rel="prev" title="Switching to Hybrid Flow and adding API Access back" href="5_hybrid_and_api_access.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> IdentityServer4
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/big_picture.html">The Big Picture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Supported Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Quickstarts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_overview.html">Setup and Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_client_credentials.html">Protecting an API using Client Credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_resource_owner_passwords.html">Protecting an API using Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_interactive_login.html">Adding User Authentication with OpenID Connect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_external_authentication.html">Adding Support for External Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_hybrid_and_api_access.html">Switching to Hybrid Flow and adding API Access back</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using ASP.NET Core Identity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#new-project-for-asp-net-identity">New Project for ASP.NET Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modify-hosting">Modify hosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-identityserver-packages">Add IdentityServer packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scopes-and-clients-configuration">Scopes and Clients Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-identityserver">Configure IdentityServer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-user-database">Creating the user database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-user">Creating a user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging-in-with-the-mvc-client">Logging in with the MVC client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="7_javascript_client.html">Adding a JavaScript client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_entity_framework.html">Using EntityFramework Core for configuration and operational data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community quickstarts &amp; samples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/startup.html">Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resources.html">Defining Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/clients.html">Defining Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin.html">Sign-in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin_external_providers.html">Sign-in with External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/windows.html">Windows Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout.html">Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_external_providers.html">Sign-out of External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_federated.html">Federated Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/federation_gateway.html">Federation Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/consent.html">Consent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/apis.html">Protecting APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/crypto.html">Cryptography, Keys and HTTPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/grant_types.html">Grant Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/secrets.html">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extension_grants.html">Extension Grants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resource_owner.html">Resource Owner Password Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/refresh_tokens.html">Refresh Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/reference_tokens.html">Reference Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/discovery.html">Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_apis.html">Adding more API Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_protocols.html">Adding new Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/tools.html">Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Endpoints</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/discovery.html">Discovery Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/authorize.html">Authorize Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/token.html">Token Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/userinfo.html">UserInfo Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/device_authorization.html">Device Authorization Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/introspection.html">Introspection Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/revocation.html">Revocation Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/endsession.html">End Session Endpoint</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/identity_resource.html">Identity Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api_resource.html">API Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/grant_validation_result.html">GrantValidationResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/profileservice.html">Profile Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/interactionservice.html">IdentityServer Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/deviceflow_interactionservice.html">Device Flow Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/options.html">IdentityServer Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/ef.html">Entity Framework Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/aspnet_identity.html">ASP.NET Identity Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/training.html">Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/blogs.html">Blog posts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/videos.html">Videos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IdentityServer4</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Using ASP.NET Core Identity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/quickstarts/6_aspnet_identity.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-asp-net-core-identity">
+<h1>Using ASP.NET Core Identity<a class="headerlink" href="#using-asp-net-core-identity" title="Permalink to this headline">¶</a></h1>
+<p>IdentityServer is designed for flexibility and part of that is allowing you to use any database you want for your users and their data (including passwords).
+If you are starting with a new user database, then ASP.NET Identity is one option you could choose.
+This quickstart shows how to use ASP.NET Identity with IdentityServer.</p>
+<p>This quickstart assumes you’ve been through all of the prior quickstarts.
+The approach this quickstart takes to using ASP.NET Identity is to create a new project from the ASP.NET Identity template in Visual Studio.
+This new project will replace the prior IdentityServer project we built up from scratch in the previous quickstarts.
+All the other projects in this solution (for the clients and the API) will remain the same.</p>
+<div class="section" id="new-project-for-asp-net-identity">
+<h2>New Project for ASP.NET Identity<a class="headerlink" href="#new-project-for-asp-net-identity" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to add a new project for ASP.NET Identity to your solution.
+Given that a lot of code is required for ASP.NET Identity, it makes sense to use the template from Visual Studio.
+You will eventually delete the old project for IdentityServer (assuming you were following the other quickstarts), but there are several items that you will need to migrate over (or rewrite from scratch as described in the prior quickstarts).</p>
+<p>Start by creating a new “ASP.NET Core Web Application” project.</p>
+<img alt="../_images/6_new_web_project.png" src="../_images/6_new_web_project.png" />
+<p>Then select the “Web Application Template (Model-View-Controller)” option.</p>
+<img alt="../_images/6_web_app_template.png" src="../_images/6_web_app_template.png" />
+<p>Then click the “Change Authentication” button, and choose “Individual User Accounts” (which means to use ASP.NET Identity):</p>
+<img alt="../_images/6_change_authentication.png" src="../_images/6_change_authentication.png" />
+<p>Finally, your new project dialog should look something like this. Once it does, click “OK” to create the project.</p>
+<img alt="../_images/6_web_app_template_with_aspnet_identity.png" src="../_images/6_web_app_template_with_aspnet_identity.png" />
+</div>
+<div class="section" id="modify-hosting">
+<h2>Modify hosting<a class="headerlink" href="#modify-hosting" title="Permalink to this headline">¶</a></h2>
+<p>Don’t forget to modify the hosting (<a class="reference external" href="0_overview.html#modify-hosting">as described here</a>) to run on port 5000.
+This is important so the existing clients and api projects will continue to work.</p>
+</div>
+<div class="section" id="add-identityserver-packages">
+<h2>Add IdentityServer packages<a class="headerlink" href="#add-identityserver-packages" title="Permalink to this headline">¶</a></h2>
+<p>Add the <code class="docutils literal notranslate"><span class="pre">IdentityServer4.AspNetIdentity</span></code> NuGet package.
+This depends on the <code class="docutils literal notranslate"><span class="pre">IdentityServer4</span></code> package, so that’s automatically added as a transitive dependency.</p>
+<img alt="../_images/6_nuget.png" src="../_images/6_nuget.png" />
+</div>
+<div class="section" id="scopes-and-clients-configuration">
+<h2>Scopes and Clients Configuration<a class="headerlink" href="#scopes-and-clients-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Despite this being a new project for IdentityServer, we still need the same scope and client configuration as the prior quickstarts.
+Copy the configuration class (in <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Samples/blob/release/Quickstarts/5_HybridFlowAuthenticationWithApiAccess/src/QuickstartIdentityServer/Config.cs">Config.cs</a>) you used for the previous quickstarts into this new project.</p>
+<p>One change to the configuration that is necessary (for now) is to disable consent for the MVC client.
+We’ve not yet copied over the consent code from the prior IdentityServer project, so for now make this one modification to the MVC client and set <code class="docutils literal notranslate"><span class="pre">RequireConsent=false</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="n">Client</span>
+<span class="p">{</span>
+    <span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;mvc&quot;</span><span class="p">,</span>
+    <span class="n">ClientName</span> <span class="p">=</span> <span class="s">&quot;MVC Client&quot;</span><span class="p">,</span>
+    <span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="n">GrantTypes</span><span class="p">.</span><span class="n">HybridAndClientCredentials</span><span class="p">,</span>
+
+    <span class="n">RequireConsent</span> <span class="p">=</span> <span class="k">false</span><span class="p">,</span>
+
+    <span class="n">ClientSecrets</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="nf">Secret</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">.</span><span class="n">Sha256</span><span class="p">())</span>
+    <span class="p">},</span>
+
+    <span class="n">RedirectUris</span>           <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:5002/signin-oidc&quot;</span> <span class="p">},</span>
+    <span class="n">PostLogoutRedirectUris</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:5002/signout-callback-oidc&quot;</span> <span class="p">},</span>
+
+    <span class="n">AllowedScopes</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">OpenId</span><span class="p">,</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">Profile</span><span class="p">,</span>
+        <span class="s">&quot;api1&quot;</span>
+    <span class="p">},</span>
+    <span class="n">AllowOfflineAccess</span> <span class="p">=</span> <span class="k">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-identityserver">
+<h2>Configure IdentityServer<a class="headerlink" href="#configure-identityserver" title="Permalink to this headline">¶</a></h2>
+<p>As before, IdentityServer needs to be configured in both <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code> and in <code class="docutils literal notranslate"><span class="pre">Configure</span></code> in <cite>Startup.cs</cite>.</p>
+<p><strong>ConfigureServices</strong></p>
+<p>This shows both the template code generated for ASP.NET Identity, plus the additions needed for IdentityServer (at the end).
+In the previous quickstarts, the <code class="docutils literal notranslate"><span class="pre">AddTestUsers</span></code> extension method was used to register the users, but in this situation we replace that extension method with <code class="docutils literal notranslate"><span class="pre">AddAspNetIdentity</span></code> to use the ASP.NET Identity users instead.
+The <code class="docutils literal notranslate"><span class="pre">AddAspNetIdentity</span></code> extension method requires a generic parameter which is your ASP.NET Identity user type (the same one needed in the <code class="docutils literal notranslate"><span class="pre">AddIdentity</span></code> method from the template).</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">ApplicationDbContext</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="n">GetConnectionString</span><span class="p">(</span><span class="s">&quot;DefaultConnection&quot;</span><span class="p">)));</span>
+
+    <span class="n">services</span><span class="p">.</span><span class="n">AddIdentity</span><span class="p">&lt;</span><span class="n">ApplicationUser</span><span class="p">,</span> <span class="n">IdentityRole</span><span class="p">&gt;()</span>
+        <span class="p">.</span><span class="n">AddEntityFrameworkStores</span><span class="p">&lt;</span><span class="n">ApplicationDbContext</span><span class="p">&gt;()</span>
+        <span class="p">.</span><span class="n">AddDefaultTokenProviders</span><span class="p">();</span>
+
+    <span class="c1">// Add application services.</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddTransient</span><span class="p">&lt;</span><span class="n">IEmailSender</span><span class="p">,</span> <span class="n">EmailSender</span><span class="p">&gt;();</span>
+
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">();</span>
+
+    <span class="c1">// configure identity server with in-memory stores, keys, clients and scopes</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddDeveloperSigningCredential</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddInMemoryPersistedGrants</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddInMemoryIdentityResources</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetIdentityResources</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddInMemoryApiResources</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetApiResources</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddInMemoryClients</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetClients</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddAspNetIdentity</span><span class="p">&lt;</span><span class="n">ApplicationUser</span><span class="p">&gt;();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It’s important when using ASP.NET Identity that IdentityServer be registered <em>after</em> ASP.NET Identity in the DI system because IdentityServer is overwriting some configuration from ASP.NET Identity.</p>
+</div>
+<p><strong>Configure</strong></p>
+<p>This shows both the template code generated for ASP.NET Identity, plus the call to <code class="docutils literal notranslate"><span class="pre">UseIdentityServer</span></code> which replaces the call to <code class="docutils literal notranslate"><span class="pre">UseAuthentication</span></code>.</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IHostingEnvironment</span> <span class="n">env</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseBrowserLink</span><span class="p">();</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseDatabaseErrorPage</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseExceptionHandler</span><span class="p">(</span><span class="s">&quot;/Home/Error&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
+
+    <span class="c1">// app.UseAuthentication(); // not needed, since UseIdentityServer adds the authentication middleware</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseIdentityServer</span><span class="p">();</span>
+
+    <span class="n">app</span><span class="p">.</span><span class="n">UseMvc</span><span class="p">(</span><span class="n">routes</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">routes</span><span class="p">.</span><span class="n">MapRoute</span><span class="p">(</span>
+            <span class="n">name</span><span class="p">:</span> <span class="s">&quot;default&quot;</span><span class="p">,</span>
+            <span class="n">template</span><span class="p">:</span> <span class="s">&quot;{controller=Home}/{action=Index}/{id?}&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-the-user-database">
+<h2>Creating the user database<a class="headerlink" href="#creating-the-user-database" title="Permalink to this headline">¶</a></h2>
+<p>Given that this is a new ASP.NET Identity project, you will need to create the database.
+You can do this by running a command prompt from the project directory and running <code class="docutils literal notranslate"><span class="pre">dotnet</span> <span class="pre">ef</span> <span class="pre">database</span> <span class="pre">update</span> <span class="pre">-c</span> <span class="pre">ApplicationDbContext</span></code>, like this:</p>
+<img alt="../_images/6_ef_database_update.png" src="../_images/6_ef_database_update.png" />
+</div>
+<div class="section" id="creating-a-user">
+<h2>Creating a user<a class="headerlink" href="#creating-a-user" title="Permalink to this headline">¶</a></h2>
+<p>At this point, you should be able to run the project and create/register a user in the database.
+Launch the application, and from the home page click the “Register” link:</p>
+<img alt="../_images/6_home_page.png" src="../_images/6_home_page.png" />
+<p>And on the register page create a new user account:</p>
+<img alt="../_images/6_register_page.png" src="../_images/6_register_page.png" />
+<p>Now that you have a user account, you should be able to login, use the clients, and invoke the APIs.</p>
+</div>
+<div class="section" id="logging-in-with-the-mvc-client">
+<h2>Logging in with the MVC client<a class="headerlink" href="#logging-in-with-the-mvc-client" title="Permalink to this headline">¶</a></h2>
+<p>Launch the MVC client application, and you should be able to click the “Secure” link to get logged in.</p>
+<img alt="../_images/6_mvc_client.png" src="../_images/6_mvc_client.png" />
+<p>You should be redirected to the ASP.NET Identity login page.
+Login with your newly created user:</p>
+<img alt="../_images/6_login.png" src="../_images/6_login.png" />
+<p>After login you should skip the consent page (given the change we made above), and be immediately redirected back to the MVC client application where your user’s claims should be listed.</p>
+<img alt="../_images/6_claims.png" src="../_images/6_claims.png" />
+<p>You should also be able to click “Call API using application identity” to invoke the API on behalf of the user:</p>
+<img alt="../_images/6_api_claims.png" src="../_images/6_api_claims.png" />
+<p>And now you’ve logged in with a user from ASP.NET Identity.</p>
+</div>
+<div class="section" id="what-s-next">
+<h2>What’s Next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>The prior quickstart project for IdentityServer provided a consent page, an error page, and a logout page.
+The code for these missing pieces can simply be copied over from the prior quickstart project into this one.
+Once you’ve done that, then you can finally delete/remove the old IdentityServer project.
+Also, once you’ve done this don’t forget to re-enable the <code class="docutils literal notranslate"><span class="pre">RequireConsent=true</span></code> flag on the MVC client configuration.</p>
+<p>The <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Samples/tree/dev/Quickstarts/6_AspNetIdentity">sample code for this quickstart</a> has already done these steps for you, so you can get started quickly with all of these features.
+Enjoy!</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="7_javascript_client.html" class="btn btn-neutral float-right" title="Adding a JavaScript client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="5_hybrid_and_api_access.html" class="btn btn-neutral" title="Switching to Hybrid Flow and adding API Access back" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Brock Allen &amp; Dominick Baier
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

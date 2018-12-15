@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setup and Overview &mdash; IdentityServer4 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Protecting an API using Client Credentials" href="1_client_credentials.html" />
+    <link rel="prev" title="Contributing" href="../intro/contributing.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> IdentityServer4
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/big_picture.html">The Big Picture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Supported Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Quickstarts</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-setup">Basic setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modify-hosting">Modify hosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-run-the-quickstart">How to run the quickstart</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="1_client_credentials.html">Protecting an API using Client Credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_resource_owner_passwords.html">Protecting an API using Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_interactive_login.html">Adding User Authentication with OpenID Connect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_external_authentication.html">Adding Support for External Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_hybrid_and_api_access.html">Switching to Hybrid Flow and adding API Access back</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_aspnet_identity.html">Using ASP.NET Core Identity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_javascript_client.html">Adding a JavaScript client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_entity_framework.html">Using EntityFramework Core for configuration and operational data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community quickstarts &amp; samples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/startup.html">Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resources.html">Defining Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/clients.html">Defining Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin.html">Sign-in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin_external_providers.html">Sign-in with External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/windows.html">Windows Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout.html">Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_external_providers.html">Sign-out of External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_federated.html">Federated Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/federation_gateway.html">Federation Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/consent.html">Consent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/apis.html">Protecting APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/crypto.html">Cryptography, Keys and HTTPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/grant_types.html">Grant Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/secrets.html">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extension_grants.html">Extension Grants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resource_owner.html">Resource Owner Password Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/refresh_tokens.html">Refresh Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/reference_tokens.html">Reference Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/discovery.html">Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_apis.html">Adding more API Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_protocols.html">Adding new Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/tools.html">Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Endpoints</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/discovery.html">Discovery Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/authorize.html">Authorize Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/token.html">Token Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/userinfo.html">UserInfo Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/device_authorization.html">Device Authorization Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/introspection.html">Introspection Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/revocation.html">Revocation Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/endsession.html">End Session Endpoint</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/identity_resource.html">Identity Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api_resource.html">API Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/grant_validation_result.html">GrantValidationResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/profileservice.html">Profile Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/interactionservice.html">IdentityServer Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/deviceflow_interactionservice.html">Device Flow Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/options.html">IdentityServer Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/ef.html">Entity Framework Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/aspnet_identity.html">ASP.NET Identity Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/training.html">Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/blogs.html">Blog posts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/videos.html">Videos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IdentityServer4</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Setup and Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/quickstarts/0_overview.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setup-and-overview">
+<h1>Setup and Overview<a class="headerlink" href="#setup-and-overview" title="Permalink to this headline">¶</a></h1>
+<p>There are two fundamental ways to start a new IdentityServer project:</p>
+<ul class="simple">
+<li>start from scratch</li>
+<li>start with the ASP.NET Identity template in Visual Studio</li>
+</ul>
+<p>If you start from scratch, we provide a couple of helpers and in-memory stores, so
+you don’t have to worry about persistence right from the start.</p>
+<p>If you start with ASP.NET Identity, we provide an easy way to integrate with that as well.</p>
+<p>The quickstarts provide step by step instructions for various common IdentityServer scenarios.
+They start with the absolute basics and become more complex -
+it is recommended you do them in order.</p>
+<p>Every quickstart has a reference solution - you can find the code in the
+<a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Samples">IdentityServer4.Samples</a>
+repo in the quickstarts folder.</p>
+<div class="section" id="basic-setup">
+<h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
+<p>The screen shots show Visual Studio - but this is not a requirement.</p>
+<p><strong>Creating the quickstart IdentityServer</strong></p>
+<p>Start by creating a new ASP.NET Core project.</p>
+<img alt="../_images/0_new_web_project.png" src="../_images/0_new_web_project.png" />
+<p>Then select the “Empty” option.</p>
+<img alt="../_images/0_empty_web.png" src="../_images/0_empty_web.png" />
+<p>Next, add the <cite>IdentityServer4</cite> nuget package:</p>
+<img alt="../_images/0_nuget.png" src="../_images/0_nuget.png" />
+<p>Alternatively you can use Package Manager Console to add the dependency by running the following command:</p>
+<blockquote>
+<div>“Install-Package IdentityServer4”</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">IdentityServer build numbers 1.x target ASP.NET Core 1.1, and IdentityServer build numbers 2.x targets ASP.NET Core 2.0 .</p>
+</div>
+<p>IdentityServer uses the usual pattern to configure and add services to an ASP.NET Core host.
+In <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code> the required services are configured and added to the DI system.
+In <code class="docutils literal notranslate"><span class="pre">Configure</span></code> the middleware is added to the HTTP pipeline.</p>
+<p>Modify your <code class="docutils literal notranslate"><span class="pre">Startup.cs</span></code> file to look like this:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">Startup</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">AddDeveloperSigningCredential</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IHostingEnvironment</span> <span class="n">env</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="n">app</span><span class="p">.</span><span class="n">UseIdentityServer</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">AddIdentityServer</span></code> registers the IdentityServer services in DI. It also registers an in-memory store for runtime state.
+This is useful for development scenarios. For production scenarios you need a persistent or shared store like a database or cache for that.
+See the <a class="reference internal" href="8_entity_framework.html#refentityframeworkquickstart"><span class="std std-ref">EntityFramework</span></a> quickstart for more information.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AddDeveloperSigningCredential</span></code> extension creates temporary key material for signing tokens.
+Again this might be useful to get started, but needs to be replaced by some persistent key material for production scenarios.
+See the <a class="reference internal" href="../topics/crypto.html#refcrypto"><span class="std std-ref">cryptography docs</span></a> for more information.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">IdentityServer is not yet ready to be launched. We will add the required services in the following quickstarts.</p>
+</div>
+</div>
+<div class="section" id="modify-hosting">
+<h2>Modify hosting<a class="headerlink" href="#modify-hosting" title="Permalink to this headline">¶</a></h2>
+<p>By default Visual Studio uses IIS Express to host your web project. This is totally fine,
+except that you won’t be able to see the real time log output to the console.</p>
+<p>IdentityServer makes extensive use of logging whereas the “visible” error message in the UI
+or returned to clients are deliberately vague.</p>
+<p>We recommend to run IdentityServer in the console host.
+You can do this by switching the launch profile in Visual Studio.
+You also don’t need to launch a browser every time you start IdentityServer - you can turn that off as well:</p>
+<img alt="../_images/0_launch_profile.png" src="../_images/0_launch_profile.png" />
+<p>In addition, it will be helpful to run IdentityServer on a consistent URL for these quickstarts.
+You should also configure this URL in the launch profile dialog above, and use <code class="docutils literal notranslate"><span class="pre">http://localhost:5000/</span></code>.
+In the above screenshot  you can see this URL has been configured.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We recommend to configure the same port for IIS Express and self-hosting. This way you can switch between the two without having to modify any configuration in your clients.</p>
+</div>
+<p>To then choose the console host when you launch, you must select it in the launch menu from Visual Studio:</p>
+<img alt="../_images/0_choose_launch.png" src="../_images/0_choose_launch.png" />
+</div>
+<div class="section" id="how-to-run-the-quickstart">
+<h2>How to run the quickstart<a class="headerlink" href="#how-to-run-the-quickstart" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned above every quickstart has a reference solution - you can find the code in the
+<a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Samples">IdentityServer4.Samples</a>
+repo in the quickstarts folder.</p>
+<p>The easiest way to run the individual parts of a quickstart solution is to set the startup mode to “current selection”.
+Right click the solution and select “Set Startup Projects”:</p>
+<img alt="../_images/0_startup_mode.png" src="../_images/0_startup_mode.png" />
+<p>Typically you start IdentityServer first, then the API, and then the client. Only run in the debugger if you actually want to debug.
+Otherwise Ctrl+F5 is the best way to run the projects.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="1_client_credentials.html" class="btn btn-neutral float-right" title="Protecting an API using Client Credentials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../intro/contributing.html" class="btn btn-neutral" title="Contributing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Brock Allen &amp; Dominick Baier
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

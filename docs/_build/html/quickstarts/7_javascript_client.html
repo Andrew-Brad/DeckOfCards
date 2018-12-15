@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adding a JavaScript client &mdash; IdentityServer4 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using EntityFramework Core for configuration and operational data" href="8_entity_framework.html" />
+    <link rel="prev" title="Using ASP.NET Core Identity" href="6_aspnet_identity.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> IdentityServer4
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/big_picture.html">The Big Picture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Supported Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Quickstarts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_overview.html">Setup and Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_client_credentials.html">Protecting an API using Client Credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_resource_owner_passwords.html">Protecting an API using Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_interactive_login.html">Adding User Authentication with OpenID Connect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_external_authentication.html">Adding Support for External Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_hybrid_and_api_access.html">Switching to Hybrid Flow and adding API Access back</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_aspnet_identity.html">Using ASP.NET Core Identity</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Adding a JavaScript client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#new-project-for-the-javascript-client">New Project for the JavaScript client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modify-hosting">Modify hosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-the-static-file-middleware">Add the static file middleware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reference-oidc-client">Reference oidc-client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-your-html-and-javascript-files">Add your HTML and JavaScript files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-client-registration-to-identityserver-for-the-javascript-client">Add a client registration to IdentityServer for the JavaScript client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#allowing-ajax-calls-to-the-web-api-with-cors">Allowing Ajax calls to the Web API with CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-the-javascript-application">Run the JavaScript application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="8_entity_framework.html">Using EntityFramework Core for configuration and operational data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community quickstarts &amp; samples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/startup.html">Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resources.html">Defining Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/clients.html">Defining Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin.html">Sign-in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin_external_providers.html">Sign-in with External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/windows.html">Windows Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout.html">Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_external_providers.html">Sign-out of External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_federated.html">Federated Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/federation_gateway.html">Federation Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/consent.html">Consent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/apis.html">Protecting APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/crypto.html">Cryptography, Keys and HTTPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/grant_types.html">Grant Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/secrets.html">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extension_grants.html">Extension Grants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resource_owner.html">Resource Owner Password Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/refresh_tokens.html">Refresh Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/reference_tokens.html">Reference Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/discovery.html">Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_apis.html">Adding more API Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_protocols.html">Adding new Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/tools.html">Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Endpoints</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/discovery.html">Discovery Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/authorize.html">Authorize Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/token.html">Token Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/userinfo.html">UserInfo Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/device_authorization.html">Device Authorization Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/introspection.html">Introspection Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/revocation.html">Revocation Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/endsession.html">End Session Endpoint</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/identity_resource.html">Identity Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api_resource.html">API Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/grant_validation_result.html">GrantValidationResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/profileservice.html">Profile Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/interactionservice.html">IdentityServer Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/deviceflow_interactionservice.html">Device Flow Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/options.html">IdentityServer Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/ef.html">Entity Framework Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/aspnet_identity.html">ASP.NET Identity Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/training.html">Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/blogs.html">Blog posts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/videos.html">Videos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IdentityServer4</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Adding a JavaScript client</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/quickstarts/7_javascript_client.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adding-a-javascript-client">
+<h1>Adding a JavaScript client<a class="headerlink" href="#adding-a-javascript-client" title="Permalink to this headline">¶</a></h1>
+<p>This quickstart will show how to build a JavaScript client application.
+The user will login to IdentityServer, invoke the web API with an access token issued by IdentityServer, and logout of IdentityServer.</p>
+<div class="section" id="new-project-for-the-javascript-client">
+<h2>New Project for the JavaScript client<a class="headerlink" href="#new-project-for-the-javascript-client" title="Permalink to this headline">¶</a></h2>
+<p>Create a new project for the JavaScript application.
+It can simply be an empty web project, or an empty ASP.NET Core application.
+This quickstart will use an empty ASP.NET Core application.</p>
+<p>Create a new ASP.NET Core web application:</p>
+<img alt="../_images/7_new_project.png" src="../_images/7_new_project.png" />
+<p>Choose the “Empty” template:</p>
+<img alt="../_images/7_empty_template.png" src="../_images/7_empty_template.png" />
+<p>Click the “OK” button to create the project.</p>
+</div>
+<div class="section" id="modify-hosting">
+<h2>Modify hosting<a class="headerlink" href="#modify-hosting" title="Permalink to this headline">¶</a></h2>
+<p>Modify the hosting (<a class="reference external" href="0_overview.html#modify-hosting">as described here</a>) to run on port 5003.</p>
+</div>
+<div class="section" id="add-the-static-file-middleware">
+<h2>Add the static file middleware<a class="headerlink" href="#add-the-static-file-middleware" title="Permalink to this headline">¶</a></h2>
+<p>Given that this project is designed to mainly run client-side, we need ASP.NET Core to serve up the static HTML and JavaScript files that will make up our application.
+The static file middleware is designed to do this.</p>
+<p>Register the static file middleware in <cite>Startup.cs</cite> in the <code class="docutils literal notranslate"><span class="pre">Configure</span></code> method:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseDefaultFiles</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This middleware will now serve up static files from the application’s <cite>~/wwwroot</cite> folder.
+This is where we will put our HTML and JavaScript files.</p>
+</div>
+<div class="section" id="reference-oidc-client">
+<h2>Reference oidc-client<a class="headerlink" href="#reference-oidc-client" title="Permalink to this headline">¶</a></h2>
+<p>In the MVC project, we used a library to handle the OpenID Connect protocol.
+In this project we need a similar library, except one that works in JavaScript and is designed to run in the browser.
+The <a class="reference external" href="https://github.com/IdentityModel/oidc-client-js">oidc-client library</a> is one such library.
+It is available via <a class="reference external" href="https://github.com/IdentityModel/oidc-client-js">NPM</a>, <a class="reference external" href="https://bower.io/search/?q=oidc-client">Bower</a>,  as well as a <a class="reference external" href="https://github.com/IdentityModel/oidc-client-js/tree/master/dist">direct download</a> from github.</p>
+<p><strong>NPM</strong></p>
+<p>If you want to use NPM to download <cite>oidc-client</cite>, then follow these steps:</p>
+<p>Add a new NPM package file to your project and name it <cite>package.json</cite>:</p>
+<img alt="../_images/7_add_package_json.png" src="../_images/7_add_package_json.png" />
+<p>In <cite>package.json</cite> add a <code class="docutils literal notranslate"><span class="pre">dependency</span></code> to <code class="docutils literal notranslate"><span class="pre">oidc-client</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="s">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s">&quot;oidc-client&quot;</span><span class="p">:</span> <span class="s">&quot;1.4.1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Once you have saved this file, Visual Studio should automatically restore these packages into a folder called <cite>node_modules</cite>:</p>
+<img alt="../_images/7_node_modules.png" src="../_images/7_node_modules.png" />
+<p>Locate the file called <cite>oidc-client.js</cite> in the <cite>~/node_modules/oidc-client/dist</cite> folder and copy it into your application’s <cite>~/wwwroot</cite> folder.
+There are more sophisticated ways of copying your NPM packages into <cite>~/wwwroot</cite>, but those techniques are beyond the scope of this quickstart.</p>
+</div>
+<div class="section" id="add-your-html-and-javascript-files">
+<h2>Add your HTML and JavaScript files<a class="headerlink" href="#add-your-html-and-javascript-files" title="Permalink to this headline">¶</a></h2>
+<p>Next is to add your HTML and JavaScript files to <cite>~/wwwroot</cite>.
+We will have two HTML files and one application-specific JavaScript file (in addition to the <cite>oidc-client.js</cite> library).
+In <cite>~/wwwroot</cite>, add a HTML file named <cite>index.html</cite> and <cite>callback.html</cite>, and add a JavaScript file called <cite>app.js</cite>.</p>
+<p><strong>index.html</strong></p>
+<p>This will be the main page in our application.
+It will simply contain the HTML for the buttons for the user to login, logout, and call the web API.
+It will also contain the <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> tags to include our two JavaScript files.
+It will also contain a <code class="docutils literal notranslate"><span class="pre">&lt;pre&gt;</span></code> used for showing messages to the user.</p>
+<p>It should look like this:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;!</span><span class="n">DOCTYPE</span> <span class="n">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="p">=</span><span class="s">&quot;utf-8&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="n">title</span><span class="p">&gt;&lt;/</span><span class="n">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">button</span> <span class="n">id</span><span class="p">=</span><span class="s">&quot;login&quot;</span><span class="p">&gt;</span><span class="n">Login</span><span class="p">&lt;/</span><span class="n">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">button</span> <span class="n">id</span><span class="p">=</span><span class="s">&quot;api&quot;</span><span class="p">&gt;</span><span class="n">Call</span> <span class="n">API</span><span class="p">&lt;/</span><span class="n">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">button</span> <span class="n">id</span><span class="p">=</span><span class="s">&quot;logout&quot;</span><span class="p">&gt;</span><span class="n">Logout</span><span class="p">&lt;/</span><span class="n">button</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="n">pre</span> <span class="n">id</span><span class="p">=</span><span class="s">&quot;results&quot;</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="p">=</span><span class="s">&quot;oidc-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="n">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="p">=</span><span class="s">&quot;app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="n">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><strong>app.js</strong></p>
+<p>This will contain the main code for our application.
+The first thing is to add a helper function to log messages to the <code class="docutils literal notranslate"><span class="pre">&lt;pre&gt;</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span>function log() {
+    document.getElementById(&#39;results&#39;).innerText = &#39;&#39;;
+
+    Array.prototype.forEach.call(arguments, function (msg) {
+        if (msg instanceof Error) {
+            msg = &quot;Error: &quot; + msg.message;
+        }
+        else if (typeof msg !== &#39;string&#39;) {
+            msg = JSON.stringify(msg, null, 2);
+        }
+        document.getElementById(&#39;results&#39;).innerHTML += msg + &#39;\r\n&#39;;
+    });
+}
+</pre></div>
+</div>
+<p>Next, add code to register “click” event handlers to the three buttons:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">document</span><span class="p">.</span><span class="n">getElementById</span><span class="p">(</span><span class="s">&quot;login&quot;</span><span class="p">).</span><span class="n">addEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="n">login</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+<span class="n">document</span><span class="p">.</span><span class="n">getElementById</span><span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">).</span><span class="n">addEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="n">api</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+<span class="n">document</span><span class="p">.</span><span class="n">getElementById</span><span class="p">(</span><span class="s">&quot;logout&quot;</span><span class="p">).</span><span class="n">addEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="n">logout</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Next, we can use the <code class="docutils literal notranslate"><span class="pre">UserManager</span></code> class in the <cite>oidc-client</cite> library to manage the OpenID Connect protocol.
+It requires similar configuration that was necessary in the MVC Client (albeit with different values).
+Add this code to configure and instantiate the <code class="docutils literal notranslate"><span class="pre">UserManager</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">config</span> <span class="p">=</span> <span class="p">{</span>
+    <span class="n">authority</span><span class="p">:</span> <span class="s">&quot;http://localhost:5000&quot;</span><span class="p">,</span>
+    <span class="n">client_id</span><span class="p">:</span> <span class="s">&quot;js&quot;</span><span class="p">,</span>
+    <span class="n">redirect_uri</span><span class="p">:</span> <span class="s">&quot;http://localhost:5003/callback.html&quot;</span><span class="p">,</span>
+    <span class="n">response_type</span><span class="p">:</span> <span class="s">&quot;id_token token&quot;</span><span class="p">,</span>
+    <span class="n">scope</span><span class="p">:</span><span class="s">&quot;openid profile api1&quot;</span><span class="p">,</span>
+    <span class="n">post_logout_redirect_uri</span> <span class="p">:</span> <span class="s">&quot;http://localhost:5003/index.html&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="kt">var</span> <span class="n">mgr</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Oidc</span><span class="p">.</span><span class="n">UserManager</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Next, the <code class="docutils literal notranslate"><span class="pre">UserManager</span></code> provides a <code class="docutils literal notranslate"><span class="pre">getUser</span></code> API to know if the user is logged into the JavaScript application.
+It uses a JavaScript <code class="docutils literal notranslate"><span class="pre">Promise</span></code> to return the results asynchronously.
+The returned <code class="docutils literal notranslate"><span class="pre">User</span></code> object has a <code class="docutils literal notranslate"><span class="pre">profile</span></code> property which contains the claims for the user.
+Add this code to detect if the user is logged into the JavaScript application:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">mgr</span><span class="p">.</span><span class="n">getUser</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">function</span> <span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">log</span><span class="p">(</span><span class="s">&quot;User logged in&quot;</span><span class="p">,</span> <span class="n">user</span><span class="p">.</span><span class="n">profile</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">log</span><span class="p">(</span><span class="s">&quot;User not logged in&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Next, we want to implement the <code class="docutils literal notranslate"><span class="pre">login</span></code>, <code class="docutils literal notranslate"><span class="pre">api</span></code>, and <code class="docutils literal notranslate"><span class="pre">logout</span></code> functions.
+The <code class="docutils literal notranslate"><span class="pre">UserManager</span></code> provides a <code class="docutils literal notranslate"><span class="pre">signinRedirect</span></code> to log the user in, and a <code class="docutils literal notranslate"><span class="pre">signoutRedirect</span></code> to log the user out.
+The <code class="docutils literal notranslate"><span class="pre">User</span></code> object that we obtained in the above code also has an <code class="docutils literal notranslate"><span class="pre">access_token</span></code> property which can be used to authenticate with a web API.
+The <code class="docutils literal notranslate"><span class="pre">access_token</span></code> will be passed to the web API via the <cite>Authorization</cite> header with the <cite>Bearer</cite> scheme.
+Add this code to implement those three functions in our application:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="nf">login</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">mgr</span><span class="p">.</span><span class="n">signinRedirect</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">function</span> <span class="nf">api</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">mgr</span><span class="p">.</span><span class="n">getUser</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">function</span> <span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">url</span> <span class="p">=</span> <span class="s">&quot;http://localhost:5001/identity&quot;</span><span class="p">;</span>
+
+        <span class="kt">var</span> <span class="n">xhr</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XMLHttpRequest</span><span class="p">();</span>
+        <span class="n">xhr</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">);</span>
+        <span class="n">xhr</span><span class="p">.</span><span class="n">onload</span> <span class="p">=</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="n">log</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="n">status</span><span class="p">,</span> <span class="n">JSON</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="n">responseText</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="n">xhr</span><span class="p">.</span><span class="n">setRequestHeader</span><span class="p">(</span><span class="s">&quot;Authorization&quot;</span><span class="p">,</span> <span class="s">&quot;Bearer &quot;</span> <span class="p">+</span> <span class="n">user</span><span class="p">.</span><span class="n">access_token</span><span class="p">);</span>
+        <span class="n">xhr</span><span class="p">.</span><span class="n">send</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="n">function</span> <span class="nf">logout</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">mgr</span><span class="p">.</span><span class="n">signoutRedirect</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See: <cite>Protecting an API using Client Credentials &lt;http://docs.identityserver.io/en/release/quickstarts/1_client_credentials.html&gt;</cite> for information on how to create the api used in the code above.</p>
+<p><strong>callback.html</strong></p>
+<p>This HTML file is the designated <code class="docutils literal notranslate"><span class="pre">redirect_uri</span></code> page once the user has logged into IdentityServer.
+It will complete the OpenID Connect protocol sign-in handshake with IdentityServer.
+The code for this is all provided by the <code class="docutils literal notranslate"><span class="pre">UserManager</span></code> class we used earlier.
+Once the sign-in is complete, we can then redirect the user back to the main <cite>index.html</cite> page.
+Add this code to complete the signin process:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;!</span><span class="n">DOCTYPE</span> <span class="n">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="p">=</span><span class="s">&quot;utf-8&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="n">title</span><span class="p">&gt;&lt;/</span><span class="n">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="p">=</span><span class="s">&quot;oidc-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="n">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">script</span><span class="p">&gt;</span>
+        <span class="k">new</span> <span class="n">Oidc</span><span class="p">.</span><span class="n">UserManager</span><span class="p">().</span><span class="n">signinRedirectCallback</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="n">window</span><span class="p">.</span><span class="n">location</span> <span class="p">=</span> <span class="s">&quot;index.html&quot;</span><span class="p">;</span>
+        <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="n">function</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">console</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">&lt;/</span><span class="n">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-a-client-registration-to-identityserver-for-the-javascript-client">
+<h2>Add a client registration to IdentityServer for the JavaScript client<a class="headerlink" href="#add-a-client-registration-to-identityserver-for-the-javascript-client" title="Permalink to this headline">¶</a></h2>
+<p>Now that the client application is ready to go, we need to define a configuration entry in IdentityServer for this new JavaScript client.
+In the IdentityServer project locate the client configuration (in <cite>Config.cs</cite>).
+Add a new <cite>Client</cite> to the list for our new JavaScript application.
+It should have the configuration listed below:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// JavaScript Client</span>
+<span class="k">new</span> <span class="n">Client</span>
+<span class="p">{</span>
+    <span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;js&quot;</span><span class="p">,</span>
+    <span class="n">ClientName</span> <span class="p">=</span> <span class="s">&quot;JavaScript Client&quot;</span><span class="p">,</span>
+    <span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="n">GrantTypes</span><span class="p">.</span><span class="n">Implicit</span><span class="p">,</span>
+    <span class="n">AllowAccessTokensViaBrowser</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+
+    <span class="n">RedirectUris</span> <span class="p">=</span>           <span class="p">{</span> <span class="s">&quot;http://localhost:5003/callback.html&quot;</span> <span class="p">},</span>
+    <span class="n">PostLogoutRedirectUris</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:5003/index.html&quot;</span> <span class="p">},</span>
+    <span class="n">AllowedCorsOrigins</span> <span class="p">=</span>     <span class="p">{</span> <span class="s">&quot;http://localhost:5003&quot;</span> <span class="p">},</span>
+
+    <span class="n">AllowedScopes</span> <span class="p">=</span>
+    <span class="p">{</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">OpenId</span><span class="p">,</span>
+        <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">Profile</span><span class="p">,</span>
+        <span class="s">&quot;api1&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="allowing-ajax-calls-to-the-web-api-with-cors">
+<h2>Allowing Ajax calls to the Web API with CORS<a class="headerlink" href="#allowing-ajax-calls-to-the-web-api-with-cors" title="Permalink to this headline">¶</a></h2>
+<p>One last bit of configuration that is necessary is to configure CORS in the web API project.
+This will allow Ajax calls to be made from <cite>http://localhost:5003</cite> to <cite>http://localhost:5001</cite>.</p>
+<p><strong>Configure CORS</strong></p>
+<p>Add the CORS services to the dependency injection system in <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code> in <cite>Startup.cs</cite>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvcCore</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddAuthorization</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddJsonFormatters</span><span class="p">();</span>
+
+    <span class="n">services</span><span class="p">.</span><span class="n">AddAuthentication</span><span class="p">(</span><span class="s">&quot;Bearer&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">AddIdentityServerAuthentication</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">Authority</span> <span class="p">=</span> <span class="s">&quot;http://localhost:5000&quot;</span><span class="p">;</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">RequireHttpsMetadata</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+            <span class="n">options</span><span class="p">.</span><span class="n">ApiName</span> <span class="p">=</span> <span class="s">&quot;api1&quot;</span><span class="p">;</span>
+        <span class="p">});</span>
+
+    <span class="n">services</span><span class="p">.</span><span class="n">AddCors</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="c1">// this defines a CORS policy called &quot;default&quot;</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">AddPolicy</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">,</span> <span class="n">policy</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="n">policy</span><span class="p">.</span><span class="n">WithOrigins</span><span class="p">(</span><span class="s">&quot;http://localhost:5003&quot;</span><span class="p">)</span>
+                <span class="p">.</span><span class="n">AllowAnyHeader</span><span class="p">()</span>
+                <span class="p">.</span><span class="n">AllowAnyMethod</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Add the CORS middleware to the pipeline in <code class="docutils literal notranslate"><span class="pre">Configure</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseCors</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">);</span>
+
+    <span class="n">app</span><span class="p">.</span><span class="n">UseAuthentication</span><span class="p">();</span>
+
+    <span class="n">app</span><span class="p">.</span><span class="n">UseMvc</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-the-javascript-application">
+<h2>Run the JavaScript application<a class="headerlink" href="#run-the-javascript-application" title="Permalink to this headline">¶</a></h2>
+<p>Now you should be able to run the JavaScript client application:</p>
+<img alt="../_images/7_not_logged_in.png" src="../_images/7_not_logged_in.png" />
+<p>Click the “Login” button to sign the user in.
+Once the user is returned back to the JavaScript application, you should see their profile information:</p>
+<img alt="../_images/7_logged_in.png" src="../_images/7_logged_in.png" />
+<p>And click the “API” button to invoke the web API:</p>
+<img alt="../_images/7_api_results.png" src="../_images/7_api_results.png" />
+<p>And finally click “Logout” to sign the user out.</p>
+<img alt="../_images/7_signed_out.png" src="../_images/7_signed_out.png" />
+<p>You now have the start of a JavaScript client application that uses IdentityServer for sign-in, sign-out, and authenticating calls to web APIs.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="8_entity_framework.html" class="btn btn-neutral float-right" title="Using EntityFramework Core for configuration and operational data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="6_aspnet_identity.html" class="btn btn-neutral" title="Using ASP.NET Core Identity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Brock Allen &amp; Dominick Baier
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

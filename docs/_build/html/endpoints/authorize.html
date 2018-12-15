@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Authorize Endpoint &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Authorize Endpoint</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/endpoints/authorize.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="authorize-endpoint">
+<h1>Authorize Endpoint<a class="headerlink" href="#authorize-endpoint" title="Permalink to this headline">¶</a></h1>
+<p>The authorize endpoint can be used to request tokens or authorization codes via the browser.
+This process typically involves authentication of the end-user and optionally consent.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">IdentityServer supports a subset of the OpenID Connect and OAuth 2.0 authorize request parameters. For a full list, see <a class="reference external" href="https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest">here</a>.</p>
+</div>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">client_id</span></code></dt>
+<dd>identifier of the client (required).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">scope</span></code></dt>
+<dd>one or more registered scopes (required)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">redirect_uri</span></code></dt>
+<dd>must exactly match one of the allowed redirect URIs for that client (required)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">response_type</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">id_token</span></code> requests an identity token (only identity scopes are allowed)</p>
+<p><code class="docutils literal notranslate"><span class="pre">token</span></code> requests an access token (only resource scopes are allowed)</p>
+<p><code class="docutils literal notranslate"><span class="pre">id_token</span> <span class="pre">token</span></code> requests an identity token and an access token</p>
+<p><code class="docutils literal notranslate"><span class="pre">code</span></code> requests an authorization code</p>
+<p><code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">id_token</span></code> requests an authorization code and identity token</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">id_token</span> <span class="pre">token</span></code> requests an authorization code, identity token and access token</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">response_mode</span></code></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">form_post</span></code> sends the token response as a form post instead of a fragment encoded redirect (optional)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">state</span></code></dt>
+<dd>identityserver will echo back the state value on the token response,
+this is for round tripping state between client and provider, correlating request and response and CSRF/replay protection. (recommended)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">nonce</span></code></dt>
+<dd><p class="first">identityserver will echo back the nonce value in the identity token, this is for replay protection)</p>
+<p class="last"><em>Required for identity tokens via implicit grant.</em></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">prompt</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">none</span></code> no UI will be shown during the request. If this is not possible (e.g. because the user has to sign in or consent) an error is returned</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">login</span></code> the login UI will be shown, even if the user is already signed-in and has a valid session</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">code_challenge</span></code></dt>
+<dd>sends the code challenge for PKCE</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">code_challenge_method</span></code></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">plain</span></code> indicates that the challenge is using plain text (not recommended)
+<code class="docutils literal notranslate"><span class="pre">S256</span></code> indicates the the challenge is hashed with SHA256</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">login_hint</span></code></dt>
+<dd>can be used to pre-fill the username field on the login page</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ui_locales</span></code></dt>
+<dd>gives a hint about the desired display language of the login UI</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">max_age</span></code></dt>
+<dd>if the user’s logon session exceeds the max age (in seconds), the login UI will be shown</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">acr_values</span></code></dt>
+<dd><p class="first">allows passing in additional authentication related information - identityserver special cases the following proprietary acr_values:</p>
+<blockquote class="last">
+<div><p><code class="docutils literal notranslate"><span class="pre">idp:name_of_idp</span></code> bypasses the login/home realm screen and forwards the user directly to the selected identity provider (if allowed per client configuration)</p>
+<p><code class="docutils literal notranslate"><span class="pre">tenant:name_of_tenant</span></code> can be used to pass a tenant name to the login UI</p>
+</div></blockquote>
+</dd>
+</dl>
+<p><strong>Example</strong></p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="p">/</span><span class="n">connect</span><span class="p">/</span><span class="n">authorize</span><span class="p">?</span>
+    <span class="n">client_id</span><span class="p">=</span><span class="n">client1</span><span class="p">&amp;</span>
+    <span class="n">scope</span><span class="p">=</span><span class="n">openid</span> <span class="n">email</span> <span class="n">api1</span><span class="p">&amp;</span>
+    <span class="n">response_type</span><span class="p">=</span><span class="n">id_token</span> <span class="n">token</span><span class="p">&amp;</span>
+    <span class="n">redirect_uri</span><span class="p">=</span><span class="n">https</span><span class="p">:</span><span class="c1">//myapp/callback&amp;</span>
+    <span class="n">state</span><span class="p">=</span><span class="n">abc</span><span class="p">&amp;</span>
+    <span class="n">nonce</span><span class="p">=</span><span class="n">xyz</span>
+</pre></div>
+</div>
+<p>(URL encoding removed, and line breaks added for readability)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can use the <a class="reference external" href="https://github.com/IdentityModel/IdentityModel2">IdentityModel</a> client library to programmatically create authorize requests .NET code. For more information check the IdentityModel <a class="reference external" href="https://identitymodel.readthedocs.io/en/latest/client/authorize.html">docs</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

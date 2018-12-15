@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cryptography, Keys and HTTPS &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Cryptography, Keys and HTTPS</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topics/crypto.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cryptography-keys-and-https">
+<h1>Cryptography, Keys and HTTPS<a class="headerlink" href="#cryptography-keys-and-https" title="Permalink to this headline">¶</a></h1>
+<p>IdentityServer relies on a couple of crypto mechanisms to do its job.</p>
+<div class="section" id="token-signing-and-validation">
+<h2>Token signing and validation<a class="headerlink" href="#token-signing-and-validation" title="Permalink to this headline">¶</a></h2>
+<p>IdentityServer needs an asymmetric key pair to sign and validate JWTs.
+This keypair can be a certificate/private key combination or raw RSA keys.
+In any case it must support RSA with SHA256.</p>
+<p>Loading of signing key and the corresponding validation part is done by implementations of <code class="docutils literal notranslate"><span class="pre">ISigningCredentialStore</span></code> and <code class="docutils literal notranslate"><span class="pre">IValidationKeysStore</span></code>.
+If you want to customize the loading of the keys, you can implement those interfaces and register them with DI.</p>
+<p>The DI builder extensions has a couple of convenience methods to set signing and validation keys - see <a class="reference internal" href="startup.html#refstartupkeymaterial"><span class="std std-ref">here</span></a>.</p>
+</div>
+<div class="section" id="signing-key-rollover">
+<h2>Signing key rollover<a class="headerlink" href="#signing-key-rollover" title="Permalink to this headline">¶</a></h2>
+<p>While you can only use one signing key at a time, you can publish more than one validation key to the discovery document.
+This is useful for key rollover.</p>
+<p>A rollover typically works like this:</p>
+<ol class="arabic simple">
+<li>you request/create new key material</li>
+<li>you publish the new validation key in addition to the current one. You can use the <code class="docutils literal notranslate"><span class="pre">AddValidationKeys</span></code> builder extension method for that.</li>
+<li>all clients and APIs now have a chance to learn about the new key the next time they update their local copy of the discovery document</li>
+<li>after a certain amount of time (e.g. 24h) all clients and APIs should now accept both the old and the new key material</li>
+<li>keep the old key material around for as long as you like, maybe you have long-lived tokens that need validation</li>
+<li>retire the old key material when it is not used anymore</li>
+<li>all clients and APIs will “forget” the old key next time they update their local copy of the discovery document</li>
+</ol>
+<p>This requires that clients and APIs use the discovery document, and also have a feature to periodically refresh their configuration.</p>
+</div>
+<div class="section" id="data-protection">
+<h2>Data protection<a class="headerlink" href="#data-protection" title="Permalink to this headline">¶</a></h2>
+<p>Cookie authentication in ASP.NET Core (or anti-forgery in MVC) use the ASP.NET Core data protection feature.
+Depending on your deployment scenario, this might require additional configuration. See the Microsoft <a class="reference external" href="https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview">docs</a> for more information.</p>
+</div>
+<div class="section" id="https">
+<h2>HTTPS<a class="headerlink" href="#https" title="Permalink to this headline">¶</a></h2>
+<p>We don’t enforce the use of HTTPS, but for production it is mandatory for every interaction with IdentityServer.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

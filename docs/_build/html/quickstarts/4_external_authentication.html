@@ -1,0 +1,379 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adding Support for External Authentication &mdash; IdentityServer4 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Switching to Hybrid Flow and adding API Access back" href="5_hybrid_and_api_access.html" />
+    <link rel="prev" title="Adding User Authentication with OpenID Connect" href="3_interactive_login.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> IdentityServer4
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/big_picture.html">The Big Picture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Supported Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Quickstarts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_overview.html">Setup and Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_client_credentials.html">Protecting an API using Client Credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_resource_owner_passwords.html">Protecting an API using Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_interactive_login.html">Adding User Authentication with OpenID Connect</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Adding Support for External Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-google-support">Adding Google support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-experiments">Further experiments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="5_hybrid_and_api_access.html">Switching to Hybrid Flow and adding API Access back</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_aspnet_identity.html">Using ASP.NET Core Identity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_javascript_client.html">Adding a JavaScript client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_entity_framework.html">Using EntityFramework Core for configuration and operational data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community quickstarts &amp; samples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/startup.html">Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resources.html">Defining Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/clients.html">Defining Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin.html">Sign-in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin_external_providers.html">Sign-in with External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/windows.html">Windows Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout.html">Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_external_providers.html">Sign-out of External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_federated.html">Federated Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/federation_gateway.html">Federation Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/consent.html">Consent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/apis.html">Protecting APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/crypto.html">Cryptography, Keys and HTTPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/grant_types.html">Grant Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/secrets.html">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extension_grants.html">Extension Grants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resource_owner.html">Resource Owner Password Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/refresh_tokens.html">Refresh Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/reference_tokens.html">Reference Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/discovery.html">Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_apis.html">Adding more API Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_protocols.html">Adding new Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/tools.html">Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Endpoints</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/discovery.html">Discovery Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/authorize.html">Authorize Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/token.html">Token Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/userinfo.html">UserInfo Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/device_authorization.html">Device Authorization Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/introspection.html">Introspection Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/revocation.html">Revocation Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/endsession.html">End Session Endpoint</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/identity_resource.html">Identity Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api_resource.html">API Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/grant_validation_result.html">GrantValidationResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/profileservice.html">Profile Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/interactionservice.html">IdentityServer Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/deviceflow_interactionservice.html">Device Flow Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/options.html">IdentityServer Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/ef.html">Entity Framework Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/aspnet_identity.html">ASP.NET Identity Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/training.html">Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/blogs.html">Blog posts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/videos.html">Videos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IdentityServer4</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Adding Support for External Authentication</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/quickstarts/4_external_authentication.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adding-support-for-external-authentication">
+<h1>Adding Support for External Authentication<a class="headerlink" href="#adding-support-for-external-authentication" title="Permalink to this headline">¶</a></h1>
+<p>Next we will add support for external authentication.
+This is really easy, because all you really need is an ASP.NET Core compatible authentication handler.</p>
+<p>ASP.NET Core itself ships with support for Google, Facebook, Twitter, Microsoft Account and OpenID Connect.
+In addition you can find implementations for many other authentication providers <a class="reference external" href="https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers">here</a>.</p>
+<div class="section" id="adding-google-support">
+<h2>Adding Google support<a class="headerlink" href="#adding-google-support" title="Permalink to this headline">¶</a></h2>
+<p>To be able to use Google for authentication, you first need to register with them.
+This is done at their developer <a class="reference external" href="https://console.developers.google.com/">console</a>.
+Create a new project, enable the Google+ API and configure the callback address of your
+local IdentityServer by adding the <em>/signin-google</em> path to your base-address (e.g. <a class="reference external" href="http://localhost:5000/signin-google">http://localhost:5000/signin-google</a>).</p>
+<p>If you are running on port 5000 - you can simply use the client id/secret from the code snippet
+below, since this is pre-registered by us.</p>
+<p>Start by adding the Google authentication handler to DI.
+This is done by adding this snippet to <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code> in <code class="docutils literal notranslate"><span class="pre">Startup</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">();</span>
+
+    <span class="c1">// configure identity server with in-memory stores, keys, clients and scopes</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddDeveloperSigningCredential</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddInMemoryIdentityResources</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetIdentityResources</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddInMemoryApiResources</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetApiResources</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddInMemoryClients</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetClients</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddTestUsers</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetUsers</span><span class="p">());</span>
+
+    <span class="n">services</span><span class="p">.</span><span class="n">AddAuthentication</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddGoogle</span><span class="p">(</span><span class="s">&quot;Google&quot;</span><span class="p">,</span> <span class="n">options</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">SignInScheme</span> <span class="p">=</span> <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">ExternalCookieAuthenticationScheme</span><span class="p">;</span>
+
+            <span class="n">options</span><span class="p">.</span><span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com&quot;</span><span class="p">;</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">ClientSecret</span> <span class="p">=</span> <span class="s">&quot;3gcoTrEDPPJ0ukn_aYYT6PWo&quot;</span><span class="p">;</span>
+        <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By default, IdentityServer configures a cookie handler specifically for the results of external authentication (with the scheme based on the constant <code class="docutils literal notranslate"><span class="pre">IdentityServerConstants.ExternalCookieAuthenticationScheme</span></code>).
+The configuration for the Google handler is then using that cookie handler.
+For a better understanding of how this is done, see the <code class="docutils literal notranslate"><span class="pre">AccountController</span></code> class under the <cite>Quickstart</cite> folder.</p>
+<p>Now run the MVC client and try to authenticate - you will see a Google button on the login page:</p>
+<img alt="../_images/4_login_page.png" src="../_images/4_login_page.png" />
+<p>After authentication, you can see that the claims are now being sourced from Google data.</p>
+<img alt="../_images/4_external_claims.png" src="../_images/4_external_claims.png" />
+</div>
+<div class="section" id="further-experiments">
+<h2>Further experiments<a class="headerlink" href="#further-experiments" title="Permalink to this headline">¶</a></h2>
+<p>You can add an additional external provider.
+We have a <a class="reference external" href="https://demo.identityserver.io">cloud-hosted demo</a> version of IdentityServer4 which you can integrate using OpenID Connect.</p>
+<p>Add the OpenId Connect handler to DI:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">services</span><span class="p">.</span><span class="n">AddAuthentication</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">AddGoogle</span><span class="p">(</span><span class="s">&quot;Google&quot;</span><span class="p">,</span> <span class="n">options</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">SignInScheme</span> <span class="p">=</span> <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">ExternalCookieAuthenticationScheme</span><span class="p">;</span>
+
+        <span class="n">options</span><span class="p">.</span><span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com&quot;</span><span class="p">;</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">ClientSecret</span> <span class="p">=</span> <span class="s">&quot;3gcoTrEDPPJ0ukn_aYYT6PWo&quot;</span><span class="p">;</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="n">AddOpenIdConnect</span><span class="p">(</span><span class="s">&quot;oidc&quot;</span><span class="p">,</span> <span class="s">&quot;OpenID Connect&quot;</span><span class="p">,</span> <span class="n">options</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">SignInScheme</span> <span class="p">=</span> <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">ExternalCookieAuthenticationScheme</span><span class="p">;</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">SignOutScheme</span> <span class="p">=</span> <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">SignoutScheme</span><span class="p">;</span>
+
+        <span class="n">options</span><span class="p">.</span><span class="n">Authority</span> <span class="p">=</span> <span class="s">&quot;https://demo.identityserver.io/&quot;</span><span class="p">;</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;implicit&quot;</span><span class="p">;</span>
+
+        <span class="n">options</span><span class="p">.</span><span class="n">TokenValidationParameters</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TokenValidationParameters</span>
+        <span class="p">{</span>
+            <span class="n">NameClaimType</span> <span class="p">=</span> <span class="s">&quot;name&quot;</span><span class="p">,</span>
+            <span class="n">RoleClaimType</span> <span class="p">=</span> <span class="s">&quot;role&quot;</span>
+        <span class="p">};</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>And now a user should be able to use the cloud-hosted demo identity provider.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The quickstart UI auto-provisions external users. As an external user logs in for the first time, a new local user is created, and all the external claims are copied over and associated with the new user. The way you deal with such a situation is completely up to you though. Maybe you want to show some sort of registration UI first. The source code for the default quickstart can be found <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Quickstart.UI">here</a>. The controller where auto-provisioning is executed can be found <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Quickstart.UI/blob/release/Quickstart/Account/AccountController.cs">here</a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="5_hybrid_and_api_access.html" class="btn btn-neutral float-right" title="Switching to Hybrid Flow and adding API Access back" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="3_interactive_login.html" class="btn btn-neutral" title="Adding User Authentication with OpenID Connect" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Brock Allen &amp; Dominick Baier
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Big Picture &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>The Big Picture</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/intro/big_picture.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-big-picture">
+<h1>The Big Picture<a class="headerlink" href="#the-big-picture" title="Permalink to this headline">¶</a></h1>
+<p>Most modern applications look more or less like this:</p>
+<img alt="../_images/appArch.png" src="../_images/appArch.png" />
+<p>The most common interactions are:</p>
+<ul class="simple">
+<li>Browsers communicate with web applications</li>
+<li>Web applications communicate with web APIs (sometimes on their own, sometimes on behalf of a user)</li>
+<li>Browser-based applications communicate with web APIs</li>
+<li>Native applications communicate with web APIs</li>
+<li>Server-based applications communicate with web APIs</li>
+<li>Web APIs communicate with web APIs (sometimes on their own, sometimes on behalf of a user)</li>
+</ul>
+<p>Typically each and every layer (front-end, middle-tier and back-end) has to protect resources and
+implement authentication and/or authorization – often against the same user store.</p>
+<p>Outsourcing these fundamental security functions to a security token service prevents duplicating that functionality across those applications and endpoints.</p>
+<p>Restructuring the application to support a security token service leads to the following architecture and protocols:</p>
+<img alt="../_images/protocols.png" src="../_images/protocols.png" />
+<p>Such a design divides security concerns into two parts:</p>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>Authentication is needed when an application needs to know the identity of the current user.
+Typically these applications manage data on behalf of that user and need to make sure that this user can only
+access the data for which he is allowed. The most common example for that is (classic) web applications –
+but native and JS-based applications also have a need for authentication.</p>
+<p>The most common authentication protocols are SAML2p, WS-Federation and OpenID Connect – SAML2p being the
+most popular and the most widely deployed.</p>
+<p>OpenID Connect is the newest of the three, but is considered to be the future because it has the
+most potential for modern applications. It was built for mobile application scenarios right from the start
+and is designed to be API friendly.</p>
+</div>
+<div class="section" id="api-access">
+<h2>API Access<a class="headerlink" href="#api-access" title="Permalink to this headline">¶</a></h2>
+<p>Applications have two fundamental ways with which they communicate with APIs – using the application identity,
+or delegating the user’s identity. Sometimes both methods need to be combined.</p>
+<p>OAuth2 is a protocol that allows applications to request access tokens from a security token service and use them
+to communicate with APIs. This delegation reduces complexity in both the client applications as well as the APIs since
+authentication and authorization can be centralized.</p>
+</div>
+<div class="section" id="openid-connect-and-oauth-2-0-better-together">
+<h2>OpenID Connect and OAuth 2.0 – better together<a class="headerlink" href="#openid-connect-and-oauth-2-0-better-together" title="Permalink to this headline">¶</a></h2>
+<p>OpenID Connect and OAuth 2.0 are very similar – in fact OpenID Connect is an extension on top of OAuth 2.0.
+The two fundamental security concerns, authentication and API access, are combined into a  single protocol - often with a single round trip to the security token service.</p>
+<p>We believe that the combination of OpenID Connect and OAuth 2.0 is the best approach to secure modern
+applications for the foreseeable future. IdentityServer4 is an implementation of these two protocols and is
+highly optimized to solve the typical security problems of today’s mobile, native and web applications.</p>
+</div>
+<div class="section" id="how-identityserver4-can-help">
+<h2>How IdentityServer4 can help<a class="headerlink" href="#how-identityserver4-can-help" title="Permalink to this headline">¶</a></h2>
+<p>IdentityServer is middleware that adds the spec compliant OpenID Connect and OAuth 2.0 endpoints to an arbitrary ASP.NET Core application.</p>
+<p>Typically, you build (or re-use) an application that contains a login and logout page (and maybe consent - depending on your needs),
+and the IdentityServer middleware adds the necessary protocol heads to it, so that client applications can talk to it using those standard protocols.</p>
+<img alt="../_images/middleware.png" src="../_images/middleware.png" />
+<p>The hosting application can be as complex as you want, but we typically recommend to keep the attack surface as small as possible by including
+authentication related UI only.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

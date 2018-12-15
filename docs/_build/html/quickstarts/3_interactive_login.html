@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adding User Authentication with OpenID Connect &mdash; IdentityServer4 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adding Support for External Authentication" href="4_external_authentication.html" />
+    <link rel="prev" title="Protecting an API using Passwords" href="2_resource_owner_passwords.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> IdentityServer4
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/big_picture.html">The Big Picture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Supported Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Quickstarts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_overview.html">Setup and Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_client_credentials.html">Protecting an API using Client Credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_resource_owner_passwords.html">Protecting an API using Passwords</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Adding User Authentication with OpenID Connect</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-the-ui">Adding the UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-mvc-client">Creating an MVC client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-support-for-openid-connect-identity-scopes">Adding support for OpenID Connect Identity Scopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-client-for-openid-connect-implicit-flow">Adding a client for OpenID Connect implicit flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-the-client">Testing the client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-sign-out">Adding sign-out</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-experiments">Further experiments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="4_external_authentication.html">Adding Support for External Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_hybrid_and_api_access.html">Switching to Hybrid Flow and adding API Access back</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_aspnet_identity.html">Using ASP.NET Core Identity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_javascript_client.html">Adding a JavaScript client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_entity_framework.html">Using EntityFramework Core for configuration and operational data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community quickstarts &amp; samples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/startup.html">Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resources.html">Defining Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/clients.html">Defining Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin.html">Sign-in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signin_external_providers.html">Sign-in with External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/windows.html">Windows Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout.html">Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_external_providers.html">Sign-out of External Identity Providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signout_federated.html">Federated Sign-out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/federation_gateway.html">Federation Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/consent.html">Consent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/apis.html">Protecting APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/crypto.html">Cryptography, Keys and HTTPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/grant_types.html">Grant Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/secrets.html">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extension_grants.html">Extension Grants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/resource_owner.html">Resource Owner Password Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/refresh_tokens.html">Refresh Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/reference_tokens.html">Reference Tokens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/discovery.html">Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_apis.html">Adding more API Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/add_protocols.html">Adding new Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/tools.html">Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Endpoints</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/discovery.html">Discovery Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/authorize.html">Authorize Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/token.html">Token Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/userinfo.html">UserInfo Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/device_authorization.html">Device Authorization Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/introspection.html">Introspection Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/revocation.html">Revocation Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../endpoints/endsession.html">End Session Endpoint</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/identity_resource.html">Identity Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api_resource.html">API Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/grant_validation_result.html">GrantValidationResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/profileservice.html">Profile Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/interactionservice.html">IdentityServer Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/deviceflow_interactionservice.html">Device Flow Interaction Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/options.html">IdentityServer Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/ef.html">Entity Framework Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/aspnet_identity.html">ASP.NET Identity Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/training.html">Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/blogs.html">Blog posts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/videos.html">Videos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IdentityServer4</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Adding User Authentication with OpenID Connect</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/quickstarts/3_interactive_login.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adding-user-authentication-with-openid-connect">
+<h1>Adding User Authentication with OpenID Connect<a class="headerlink" href="#adding-user-authentication-with-openid-connect" title="Permalink to this headline">¶</a></h1>
+<p>In this quickstart we want to add support for interactive user authentication via the
+OpenID Connect protocol to our IdentityServer.</p>
+<p>Once that is in place, we will create an MVC application that will use IdentityServer for
+authentication.</p>
+<div class="section" id="adding-the-ui">
+<h2>Adding the UI<a class="headerlink" href="#adding-the-ui" title="Permalink to this headline">¶</a></h2>
+<p>All the protocol support needed for OpenID Connect is already built into IdentityServer.
+You need to provide the necessary UI parts for login, logout, consent and error.</p>
+<p>While the look &amp; feel as well as the exact workflows will probably always differ in every
+IdentityServer implementation, we provide an MVC-based sample UI that you can use as a starting point.</p>
+<p>This UI can be found in the <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Quickstart.UI/tree/release">Quickstart UI repo</a>.
+You can either clone or download this repo and drop the controllers, views, models and CSS into your IdentityServer web application.</p>
+<p>Alternatively you can run this command from the command line in the same directory as your IdentityServer web application to
+automate the download:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span>iex ((New-Object System.Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/IdentityServer/IdentityServer4.Quickstart.UI/release/get.ps1&#39;))
+</pre></div>
+</div>
+<p>For Unix/Linux:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span>\curl -L https://raw.githubusercontent.com/IdentityServer/IdentityServer4.Quickstart.UI/release/get.sh | bash
+</pre></div>
+</div>
+<p>Once you have added the MVC UI assets, you will also need to add MVC to the hosting application, both in the DI system and in the pipeline.
+Add MVC to <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code> with the <code class="docutils literal notranslate"><span class="pre">AddMvc</span></code> extension method:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">();</span>
+
+    <span class="c1">// configure identity server with in-memory stores, keys, clients and scopes</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddDeveloperSigningCredential</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddInMemoryApiResources</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetApiResources</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddInMemoryClients</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetClients</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddTestUsers</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetUsers</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Add MVC as the last middleware in the pipeline in <code class="docutils literal notranslate"><span class="pre">Configure</span></code> with the <code class="docutils literal notranslate"><span class="pre">UseMvc</span></code> extension method:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IHostingEnvironment</span> <span class="n">env</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">app</span><span class="p">.</span><span class="n">UseIdentityServer</span><span class="p">();</span>
+
+    <span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseMvcWithDefaultRoute</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See the <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4.Quickstart.UI/blob/release/README.md">readme</a> for the quickstart UI for more information.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal notranslate"><span class="pre">release</span></code> branch of the UI repo has the UI that matches the latest stable release. The <code class="docutils literal notranslate"><span class="pre">dev</span></code> branch goes along with the current dev build of IdentityServer4. If you are looking for a specific version of the UI - check the tags.</p>
+</div>
+<p>Spend some time inspecting the controllers and models, the better you understand them,
+the easier it will be to make future modifications.
+Most of the code lives in the “Quickstart” folder using a “feature folder” style.
+If this style doesn’t suit you, feel free to organize the code in any way you want.</p>
+</div>
+<div class="section" id="creating-an-mvc-client">
+<h2>Creating an MVC client<a class="headerlink" href="#creating-an-mvc-client" title="Permalink to this headline">¶</a></h2>
+<p>Next you will add an MVC application to your solution.
+Use the ASP.NET Core “Web Application” (i.e. MVC) template for that.
+Don’t configure the “Authentication” settings in the wizard – you will do this manually in this quickstart.
+Once you’ve created the project, configure the application to use port 5002 (see the overview part for instructions on how to do that).</p>
+<p>To add support for OpenID Connect authentication to the MVC application, add the following to <code class="docutils literal notranslate"><span class="pre">ConfigureServices</span></code> in <code class="docutils literal notranslate"><span class="pre">Startup</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">();</span>
+
+    <span class="n">JwtSecurityTokenHandler</span><span class="p">.</span><span class="n">DefaultInboundClaimTypeMap</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+
+    <span class="n">services</span><span class="p">.</span><span class="n">AddAuthentication</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">DefaultScheme</span> <span class="p">=</span> <span class="s">&quot;Cookies&quot;</span><span class="p">;</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">DefaultChallengeScheme</span> <span class="p">=</span> <span class="s">&quot;oidc&quot;</span><span class="p">;</span>
+        <span class="p">})</span>
+        <span class="p">.</span><span class="n">AddCookie</span><span class="p">(</span><span class="s">&quot;Cookies&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">AddOpenIdConnect</span><span class="p">(</span><span class="s">&quot;oidc&quot;</span><span class="p">,</span> <span class="n">options</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">SignInScheme</span> <span class="p">=</span> <span class="s">&quot;Cookies&quot;</span><span class="p">;</span>
+
+            <span class="n">options</span><span class="p">.</span><span class="n">Authority</span> <span class="p">=</span> <span class="s">&quot;http://localhost:5000&quot;</span><span class="p">;</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">RequireHttpsMetadata</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+            <span class="n">options</span><span class="p">.</span><span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;mvc&quot;</span><span class="p">;</span>
+            <span class="n">options</span><span class="p">.</span><span class="n">SaveTokens</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">AddAuthentication</span></code> adds the authentication services to DI.
+We are using a cookie as the primary means to authenticate a user (via <code class="docutils literal notranslate"><span class="pre">&quot;Cookies&quot;</span></code> as the <code class="docutils literal notranslate"><span class="pre">DefaultScheme</span></code>).
+We set the <code class="docutils literal notranslate"><span class="pre">DefaultChallengeScheme</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;oidc&quot;</span></code> because when we need the user to login, we will be using the OpenID Connect scheme.</p>
+<p>We then use <code class="docutils literal notranslate"><span class="pre">AddCookie</span></code> to add the handler that can process cookies.</p>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">AddOpenIdConnect</span></code> is used to configure the handler that perform the OpenID Connect protocol.
+The <code class="docutils literal notranslate"><span class="pre">Authority</span></code> indicates that we are trusting IdentityServer.
+We then identify this client via the <code class="docutils literal notranslate"><span class="pre">ClientId</span></code>.
+<code class="docutils literal notranslate"><span class="pre">SignInScheme</span></code> is used to issue a cookie using the cookie handler once the OpenID Connect protocol is complete.
+And <code class="docutils literal notranslate"><span class="pre">SaveTokens</span></code> is used to persist the tokens from IdentityServer in the cookie (as they will be needed later).</p>
+<p>As well, we’ve turned off the JWT claim type mapping to allow well-known claims (e.g. ‘sub’ and ‘idp’) to flow through unmolested:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">JwtSecurityTokenHandler</span><span class="p">.</span><span class="n">DefaultInboundClaimTypeMap</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>And then to ensure the authentication services execute on each request, add <code class="docutils literal notranslate"><span class="pre">UseAuthentication</span></code> to <code class="docutils literal notranslate"><span class="pre">Configure</span></code> in <code class="docutils literal notranslate"><span class="pre">Startup</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IHostingEnvironment</span> <span class="n">env</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseExceptionHandler</span><span class="p">(</span><span class="s">&quot;/Home/Error&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">app</span><span class="p">.</span><span class="n">UseAuthentication</span><span class="p">();</span>
+
+    <span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseMvcWithDefaultRoute</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The authentication middleware should be added before the MVC in the pipeline.</p>
+<p>The last step is to trigger the authentication handshake. For that go to the home controller and
+add the <code class="docutils literal notranslate"><span class="pre">[Authorize]</span></code> on one of the actions.
+Also modify the view of that action to display the claims of the user, e.g.:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="n">dl</span><span class="p">&gt;</span>
+    <span class="n">@foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">claim</span> <span class="k">in</span> <span class="n">User</span><span class="p">.</span><span class="n">Claims</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="p">&lt;</span><span class="n">dt</span><span class="p">&gt;</span><span class="n">@claim</span><span class="p">.</span><span class="n">Type</span><span class="p">&lt;/</span><span class="n">dt</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">dd</span><span class="p">&gt;</span><span class="n">@claim</span><span class="p">.</span><span class="n">Value</span><span class="p">&lt;/</span><span class="n">dd</span><span class="p">&gt;</span>
+    <span class="p">}</span>
+<span class="p">&lt;/</span><span class="n">dl</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>If you now navigate to that controller using the browser, a redirect attempt will be made
+to IdentityServer - this will result in an error because the MVC client is not registered yet.</p>
+</div>
+<div class="section" id="adding-support-for-openid-connect-identity-scopes">
+<h2>Adding support for OpenID Connect Identity Scopes<a class="headerlink" href="#adding-support-for-openid-connect-identity-scopes" title="Permalink to this headline">¶</a></h2>
+<p>Similar to OAuth 2.0, OpenID Connect also uses the scopes concept.
+Again, scopes represent something you want to protect and that clients want to access.
+In contrast to OAuth, scopes in OIDC don’t represent APIs, but identity data like user id,
+name or email address.</p>
+<p>Add support for the standard <code class="docutils literal notranslate"><span class="pre">openid</span></code> (subject id) and <code class="docutils literal notranslate"><span class="pre">profile</span></code> (first name, last name etc..) scopes
+by adding a new helper (in <code class="docutils literal notranslate"><span class="pre">Config.cs</span></code>) to create a collection of <code class="docutils literal notranslate"><span class="pre">IdentityResource</span></code> objects:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IdentityResource</span><span class="p">&gt;</span> <span class="n">GetIdentityResources</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">IdentityResource</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">OpenId</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="n">IdentityResources</span><span class="p">.</span><span class="n">Profile</span><span class="p">(),</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All standard scopes and their corresponding claims can be found in the OpenID Connect <a class="reference external" href="https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims">specification</a></p>
+</div>
+<p>You will then need to add these identity resources to your IdentityServer configuration in <code class="docutils literal notranslate"><span class="pre">Startup.cs</span></code>.
+Use the <code class="docutils literal notranslate"><span class="pre">AddInMemoryIdentityResources</span></code> extension method where you call <code class="docutils literal notranslate"><span class="pre">AddIdentityServer()</span></code>:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">();</span>
+
+    <span class="c1">// configure identity server with in-memory stores, keys, clients and scopes</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddIdentityServer</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddDeveloperSigningCredential</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">AddInMemoryIdentityResources</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetIdentityResources</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddInMemoryApiResources</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetApiResources</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddInMemoryClients</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetClients</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">AddTestUsers</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">GetUsers</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-a-client-for-openid-connect-implicit-flow">
+<h2>Adding a client for OpenID Connect implicit flow<a class="headerlink" href="#adding-a-client-for-openid-connect-implicit-flow" title="Permalink to this headline">¶</a></h2>
+<p>The last step is to add a new configuration entry for the MVC client to IdentityServer.</p>
+<p>OpenID Connect-based clients are very similar to the OAuth 2.0 clients we added so far.
+But since the flows in OIDC are always interactive, we need to add some redirect URLs to our configuration.</p>
+<p>Add the following to your clients configuration:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Client</span><span class="p">&gt;</span> <span class="n">GetClients</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Client</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="c1">// other clients omitted...</span>
+
+        <span class="c1">// OpenID Connect implicit flow client (MVC)</span>
+        <span class="k">new</span> <span class="n">Client</span>
+        <span class="p">{</span>
+            <span class="n">ClientId</span> <span class="p">=</span> <span class="s">&quot;mvc&quot;</span><span class="p">,</span>
+            <span class="n">ClientName</span> <span class="p">=</span> <span class="s">&quot;MVC Client&quot;</span><span class="p">,</span>
+            <span class="n">AllowedGrantTypes</span> <span class="p">=</span> <span class="n">GrantTypes</span><span class="p">.</span><span class="n">Implicit</span><span class="p">,</span>
+
+            <span class="c1">// where to redirect to after login</span>
+            <span class="n">RedirectUris</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:5002/signin-oidc&quot;</span> <span class="p">},</span>
+
+            <span class="c1">// where to redirect to after logout</span>
+            <span class="n">PostLogoutRedirectUris</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&quot;http://localhost:5002/signout-callback-oidc&quot;</span> <span class="p">},</span>
+
+            <span class="n">AllowedScopes</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span>
+            <span class="p">{</span>
+                <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">OpenId</span><span class="p">,</span>
+                <span class="n">IdentityServerConstants</span><span class="p">.</span><span class="n">StandardScopes</span><span class="p">.</span><span class="n">Profile</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing-the-client">
+<h2>Testing the client<a class="headerlink" href="#testing-the-client" title="Permalink to this headline">¶</a></h2>
+<p>Now finally everything should be in place for the new MVC client.</p>
+<p>Trigger the authentication handshake by navigating to the protected controller action.
+You should see a redirect to the login page at IdentityServer.</p>
+<img alt="../_images/3_login.png" src="../_images/3_login.png" />
+<p>After successful login, the user is presented with the consent screen.
+Here the user can decide if he wants to release his identity information to the client application.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Consent can be turned off on a per client basis using the <code class="docutils literal notranslate"><span class="pre">RequireConsent</span></code> property on the client object.</p>
+</div>
+<img alt="../_images/3_consent.png" src="../_images/3_consent.png" />
+<p>..and finally the browser redirects back to the client application, which shows the claims
+of the user.</p>
+<img alt="../_images/3_claims.png" src="../_images/3_claims.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">During development you might sometimes see an exception stating that the token could not be validated. This is due to the fact that the signing key material is created on the fly and kept in-memory only. This exception happens when the client and IdentityServer get out of sync. Simply repeat the operation at the client, the next time the metadata has caught up, and everything should work normal again.</p>
+</div>
+</div>
+<div class="section" id="adding-sign-out">
+<h2>Adding sign-out<a class="headerlink" href="#adding-sign-out" title="Permalink to this headline">¶</a></h2>
+<p>The very last step is to add sign-out to the MVC client.</p>
+<p>With an authentication service like IdentityServer, it is not enough to clear the local application cookies.
+In addition you also need to make a roundtrip to IdentityServer to clear the central single sign-on session.</p>
+<p>The exact protocol steps are implemented inside the OpenID Connect middleware,
+simply add the following code to some controller to trigger the sign-out:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">Logout</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">await</span> <span class="n">HttpContext</span><span class="p">.</span><span class="n">SignOutAsync</span><span class="p">(</span><span class="s">&quot;Cookies&quot;</span><span class="p">);</span>
+    <span class="k">await</span> <span class="n">HttpContext</span><span class="p">.</span><span class="n">SignOutAsync</span><span class="p">(</span><span class="s">&quot;oidc&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will clear the local cookie and then redirect to IdentityServer.
+IdentityServer will clear its cookies and then give the user a link to return back to the MVC application.</p>
+</div>
+<div class="section" id="further-experiments">
+<h2>Further experiments<a class="headerlink" href="#further-experiments" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned above, the OpenID Connect middleware asks for the <em>profile</em> scope by default.
+This scope also includes claims like <em>name</em> or <em>website</em>.</p>
+<p>Let’s add these claims to the user, so IdentityServer can put them into the identity token:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">TestUser</span><span class="p">&gt;</span> <span class="n">GetUsers</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">TestUser</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">new</span> <span class="n">TestUser</span>
+        <span class="p">{</span>
+            <span class="n">SubjectId</span> <span class="p">=</span> <span class="s">&quot;1&quot;</span><span class="p">,</span>
+            <span class="n">Username</span> <span class="p">=</span> <span class="s">&quot;alice&quot;</span><span class="p">,</span>
+            <span class="n">Password</span> <span class="p">=</span> <span class="s">&quot;password&quot;</span><span class="p">,</span>
+
+            <span class="n">Claims</span> <span class="p">=</span> <span class="k">new</span> <span class="p">[]</span>
+            <span class="p">{</span>
+                <span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;Alice&quot;</span><span class="p">),</span>
+                <span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span><span class="s">&quot;website&quot;</span><span class="p">,</span> <span class="s">&quot;https://alice.com&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="k">new</span> <span class="n">TestUser</span>
+        <span class="p">{</span>
+            <span class="n">SubjectId</span> <span class="p">=</span> <span class="s">&quot;2&quot;</span><span class="p">,</span>
+            <span class="n">Username</span> <span class="p">=</span> <span class="s">&quot;bob&quot;</span><span class="p">,</span>
+            <span class="n">Password</span> <span class="p">=</span> <span class="s">&quot;password&quot;</span><span class="p">,</span>
+
+            <span class="n">Claims</span> <span class="p">=</span> <span class="k">new</span> <span class="p">[]</span>
+            <span class="p">{</span>
+                <span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;Bob&quot;</span><span class="p">),</span>
+                <span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span><span class="s">&quot;website&quot;</span><span class="p">,</span> <span class="s">&quot;https://bob.com&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Next time you authenticate, your claims page will now show the additional claims.</p>
+<p>Feel free to add more claims - and also more scopes. The <code class="docutils literal notranslate"><span class="pre">Scope</span></code> property on the OpenID Connect
+middleware is where you configure which scopes will be sent to IdentityServer during authentication.</p>
+<p>It is also noteworthy, that the retrieval of claims for tokens is an extensibility point - <code class="docutils literal notranslate"><span class="pre">IProfileService</span></code>.
+Since we are using <code class="docutils literal notranslate"><span class="pre">AddTestUsers</span></code>, the <code class="docutils literal notranslate"><span class="pre">TestUserProfileService</span></code> is used by default.
+You can inspect the source code <a class="reference external" href="https://github.com/IdentityServer/IdentityServer4/blob/dev/src/Test/TestUserProfileService.cs">here</a>
+to see how it works.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="4_external_authentication.html" class="btn btn-neutral float-right" title="Adding Support for External Authentication" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="2_resource_owner_passwords.html" class="btn btn-neutral" title="Protecting an API using Passwords" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Brock Allen &amp; Dominick Baier
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

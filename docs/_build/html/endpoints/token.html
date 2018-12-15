@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Token Endpoint &mdash; DeckOfCards 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DeckOfCards
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/terminology.html">The Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/specs.html">Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/packaging.html">Packaging and Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/support.html">Support and Consulting Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/test.html">Demo Server and Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeckOfCards</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Token Endpoint</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/endpoints/token.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="token-endpoint">
+<h1>Token Endpoint<a class="headerlink" href="#token-endpoint" title="Permalink to this headline">¶</a></h1>
+<p>The token endpoint can be used to programmatically request tokens.
+It supports the <code class="docutils literal notranslate"><span class="pre">password</span></code>, <code class="docutils literal notranslate"><span class="pre">authorization_code</span></code>, <code class="docutils literal notranslate"><span class="pre">client_credentials</span></code>, <code class="docutils literal notranslate"><span class="pre">refresh_token</span></code> and <code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:grant-type:device_code</span></code> grant types.
+Furthermore the token endpoint can be extended to support extension grant types.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">IdentityServer supports a subset of the OpenID Connect and OAuth 2.0 token request parameters. For a full list, see <a class="reference external" href="http://openid.net/specs/openid-connect-core-1_0.html#TokenRequest">here</a>.</p>
+</div>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">client_id</span></code></dt>
+<dd>client identifier (required)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">client_secret</span></code></dt>
+<dd>client secret either in the post body, or as a basic authentication header. Optional.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">grant_type</span></code></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">authorization_code</span></code>, <code class="docutils literal notranslate"><span class="pre">client_credentials</span></code>, <code class="docutils literal notranslate"><span class="pre">password</span></code>, <code class="docutils literal notranslate"><span class="pre">refresh_token</span></code>, <code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:grant-type:device_code</span></code> or custom</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">scope</span></code></dt>
+<dd>one or more registered scopes. If not specified, a token for all explicitly allowed scopes will be issued.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">redirect_uri</span></code></dt>
+<dd>required for the <code class="docutils literal notranslate"><span class="pre">authorization_code</span></code> grant type</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">code</span></code></dt>
+<dd>the authorization code (required for <code class="docutils literal notranslate"><span class="pre">authorization_code</span></code> grant type)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">code_verifier</span></code></dt>
+<dd>PKCE proof key</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">username</span></code></dt>
+<dd>resource owner username (required for <code class="docutils literal notranslate"><span class="pre">password</span></code> grant type)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">password</span></code></dt>
+<dd>resource owner password (required for <code class="docutils literal notranslate"><span class="pre">password</span></code> grant type)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">acr_values</span></code></dt>
+<dd><p class="first">allows passing in additional authentication related information for the <code class="docutils literal notranslate"><span class="pre">password</span></code> grant type - identityserver special cases the following proprietary acr_values:</p>
+<blockquote class="last">
+<div><p><code class="docutils literal notranslate"><span class="pre">idp:name_of_idp</span></code> bypasses the login/home realm screen and forwards the user directly to the selected identity provider (if allowed per client configuration)</p>
+<p><code class="docutils literal notranslate"><span class="pre">tenant:name_of_tenant</span></code> can be used to pass a tenant name to the token endpoint</p>
+</div></blockquote>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">refresh_token</span></code></dt>
+<dd>the refresh token (required for <code class="docutils literal notranslate"><span class="pre">refresh_token</span></code> grant type)</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">device_code</span></code></dt>
+<dd>the device code (required for <code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:grant-type:device_code</span></code> grant type)</dd>
+</dl>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="p">/</span><span class="n">connect</span><span class="p">/</span><span class="n">token</span>
+
+    <span class="n">client_id</span><span class="p">=</span><span class="n">client1</span><span class="p">&amp;</span>
+    <span class="n">client_secret</span><span class="p">=</span><span class="n">secret</span><span class="p">&amp;</span>
+    <span class="n">grant_type</span><span class="p">=</span><span class="n">authorization_code</span><span class="p">&amp;</span>
+    <span class="n">code</span><span class="p">=</span><span class="n">hdh922</span><span class="p">&amp;</span>
+    <span class="n">redirect_uri</span><span class="p">=</span><span class="n">https</span><span class="p">:</span><span class="c1">//myapp.com/callback</span>
+</pre></div>
+</div>
+<p>(Form-encoding removed and line breaks added for readability)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can use the <a class="reference external" href="https://github.com/IdentityModel/IdentityModel2">IdentityModel</a> client library to programmatically access the token endpoint from .NET code. For more information check the IdentityModel <a class="reference external" href="https://identitymodel.readthedocs.io/en/latest/client/token.html">docs</a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
