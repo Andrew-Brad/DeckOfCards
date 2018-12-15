@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Serilog;
 using Microsoft.Extensions.Configuration;
 using AB.Extensions;
-using StructureMap.AspNetCore;
+using Lamar.Microsoft.DependencyInjection;
+using Lamar;
+using MediatR;
+using AutoMapper;
 
 namespace DeckOfCards.WebApi
 {
@@ -39,14 +42,17 @@ namespace DeckOfCards.WebApi
          */
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
+            ServiceRegistry registry = CreateLamarIocContainer();
+
             return new WebHostBuilder()
                 .UseKestrel(x => x.AddServerHeader = false) // more stuff for kestrel options and HTTPS: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.1&tabs=aspnetcore2x#endpoint-configuration
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseLamar(registry)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     //you can clear, add, or override some configuration here:
                     IHostingEnvironment env = hostingContext.HostingEnvironment;
-                    config                    
+                    config
                         .AddJsonFile($"Configuration/appsettings.json", optional: false, reloadOnChange: true)
                         .AddJsonFile($"Configuration/appsettings.{env.EnvironmentName}.json", optional: false, reloadOnChange: true)
                         .AddJsonFile($"Configuration/aws-sns-settings.json", optional: false, reloadOnChange: true)
@@ -71,10 +77,36 @@ namespace DeckOfCards.WebApi
                 .UseDefaultServiceProvider((context, options) =>
                 {
                     options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
-                })                
+                })
                 .UseSerilog()
-                .UseStructureMap()                
                 .UseStartup<Startup>();
+        }
+
+        private static ServiceRegistry CreateLamarIocContainer()
+        {
+            var registry = new ServiceRegistry();
+
+            // Due to the unique nature of how these libraries do DLL scanning, they only work with Lamar if used here
+            registry.AddAutoMapper();
+
+            // Mediatr + handlers
+            registry.AddMediatR();
+
+            registry.Scan(scanner =>
+            {
+                // old Structuremap fail at runtime, but they compile
+                //scanner.IncludeNamespace("ApiKickstart");
+                //scanner.LookForRegistries();
+                //scanner.AssembliesFromApplicationBaseDirectory();
+
+                scanner.TheCallingAssembly();
+                scanner.WithDefaultConventions();
+
+                // auto register the open generics for our handler classes (obsolete)
+                //scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));
+                //scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>)); // also: https://github.com/jbogard/MediatR/wiki
+            });
+            return registry;
         }
 
         public static LoggerConfiguration ConfigureSerilog(IConfiguration config, IHostingEnvironment env)
