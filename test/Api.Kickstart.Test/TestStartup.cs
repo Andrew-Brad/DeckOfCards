@@ -22,7 +22,7 @@ namespace DeckOfCards.Test
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             // First, take all the base registrations
-            base.ConfigureServices(services);
+            //base.ConfigureServices(services);
 
             // Then customize DI for unit testing requirements
 
