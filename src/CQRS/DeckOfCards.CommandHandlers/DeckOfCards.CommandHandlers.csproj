@@ -15,7 +15,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
     <PackageReference Include="Polly" Version="7.1.0" />
     <PackageReference Include="RavenDB.Client" Version="4.1.0" />
-    <PackageReference Include="Sieve" Version="2.1.5" />
+    <PackageReference Include="Sieve" Version="2.3.2" />
   </ItemGroup>
 
   <ItemGroup>

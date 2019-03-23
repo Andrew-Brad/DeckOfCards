@@ -26,7 +26,7 @@
     <PackageReference Include="Polly" Version="7.1.0" />
     <PackageReference Include="RavenDB.Client" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
-    <PackageReference Include="Sieve" Version="2.1.5" />
+    <PackageReference Include="Sieve" Version="2.3.2" />
 
     <PackageReference Include="AB.Extensions" Version="3.0.1" />
 
