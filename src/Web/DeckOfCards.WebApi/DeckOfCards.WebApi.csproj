@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.1.1" />
-    <PackageReference Include="Polly" Version="6.1.1" />
+    <PackageReference Include="Polly" Version="7.1.0" />
     <PackageReference Include="RavenDB.Client" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
     <PackageReference Include="Sieve" Version="2.1.5" />
