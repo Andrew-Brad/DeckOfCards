@@ -10,8 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="AB.Extensions" Version="3.0.1" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.0.29" />
-    <PackageReference Include="AWSSDK.SQS" Version="3.3.3.14" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.100.1" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.3.100.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
