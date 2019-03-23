@@ -8,9 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="AB.Extensions" Version="3.0.1" />
-    <PackageReference Include="Bogus" Version="22.3.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-    <PackageReference Include="Moq" Version="4.10.0" />
+    <PackageReference Include="Bogus" Version="26.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Moq" Version="4.10.1" />
     <PackageReference Include="RavenDB.Embedded" Version="4.1.2" />
     <PackageReference Include="RavenDB.TestDriver" Version="4.1.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
