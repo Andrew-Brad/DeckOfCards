@@ -1,16 +1,10 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
-using DeckOfCards.Test.Fixtures;
-using static DeckOfCards.Test.TestConstants;
 using Newtonsoft.Json.Linq;
 using Xunit;
-using Raven.Client.Documents;
-using Raven.Client.ServerWide.Operations;
-using Raven.Client.ServerWide;
+using DeckOfCards.Test.Fixtures;
+using static DeckOfCards.Test.TestConstants;
 
 namespace DeckOfCards.Test
 {
@@ -22,8 +16,6 @@ namespace DeckOfCards.Test
         public AcceptHeaderTests(IntegrationTestServerFixture fixture)//runs once per unit test
         {
             this._sharedTestServerFixture = fixture;
-
-            CreateDatabase();
         }
 
         [Fact]
@@ -33,7 +25,7 @@ namespace DeckOfCards.Test
             var client = new HttpClient();
             client.BaseAddress = HostingUri;
             // Act
-            var response = await client.GetAsync("/api/v1/cards/templates?rank=king&suit=hearts");
+            var response = await client.GetAsync("/api/v1/health");
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             // Assert
@@ -48,7 +40,7 @@ namespace DeckOfCards.Test
             client.BaseAddress = HostingUri;
             client.SetAcceptHeaderToSomethingStrange();
             // Act
-            var response = await client.GetAsync("/api/v1/cards/templates?rank=king&suit=hearts");
+            var response = await client.GetAsync("/api/v1/health");
             //Assert
             Assert.Equal(System.Net.HttpStatusCode.NotAcceptable, response.StatusCode);
         }
@@ -60,26 +52,26 @@ namespace DeckOfCards.Test
             var client = new HttpClient();
             client.BaseAddress = HostingUri;
             // Act
-            var response = await client.GetAsync("/api/v1/cards/templates?rank=king&suit=hearts");
+            var response = await client.GetAsync("/api/v1/health");
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             // Assert
             JObject.Parse(responseString);
         }
 
-        [Fact]
-        public async Task Api_Should_Return_Xml_For_Xml_Accept_Header()
-        {
-            //Arrange
-            var client = new HttpClient();
-            client.BaseAddress = HostingUri;
-            // Act
-            client.SetAcceptHeaderToXml();
-            var response = await client.GetAsync("/api/v1/cards/templates?rank=king&suit=hearts");
-            response.EnsureSuccessStatusCode();
-            var responseString = await response.Content.ReadAsStringAsync();
-            var xmlDoc = XDocument.Parse(responseString);
-        }
+        //[Fact]
+        //public async Task Api_Should_Return_Xml_For_Xml_Accept_Header()
+        //{
+        //    //Arrange
+        //    var client = new HttpClient();
+        //    client.BaseAddress = HostingUri;
+        //    // Act
+        //    client.SetAcceptHeaderToXml();
+        //    var response = await client.GetAsync("/api/v1/health");
+        //    response.EnsureSuccessStatusCode();
+        //    var responseString = await response.Content.ReadAsStringAsync();
+        //    var xmlDoc = XDocument.Parse(responseString);
+        //}
 
         //[Theory]
         //[InlineData(-1)]
@@ -90,32 +82,5 @@ namespace DeckOfCards.Test
         //    var result = 1 / value;
         //    Assert.True(result > 0);
         //}
-
-        private void CreateDatabase()
-        {
-            DeleteDatabase();
-            // Fresh database:
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
-            {
-                var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                if (_sharedTestServerFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
-                {
-                    store.Maintenance.Server.Send(new CreateDatabaseOperation(new DatabaseRecord("Cards")));
-                }
-            }
-        }
-
-        private void DeleteDatabase()
-        {
-            // Remove everything from database:
-            using (var serviceScope = _sharedTestServerFixture.server.Services.CreateScope())
-            {
-                var store = serviceScope.ServiceProvider.GetService<IDocumentStore>();
-                if (_sharedTestServerFixture.server.Services.GetRequiredService<IHostingEnvironment>().IsDevelopment())
-                {
-                    store.Maintenance.Server.Send(new DeleteDatabasesOperation("Cards", hardDelete: true));
-                }
-            }
-        }
     }
 }

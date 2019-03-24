@@ -59,13 +59,16 @@ namespace DeckOfCards.WebApi
             //TODO: Many ways to do this now with 2.0 - https://github.com/RSuter/NSwag/blob/master/src/NSwag.Sample.NETCore20/Startup.cs
             if (bool.Parse(config["EnableSwagger"]))
             {
-                app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, s =>
-                {
-                    s.GeneratorSettings.DefaultPropertyNameHandling = NJsonSchema.PropertyNameHandling.CamelCase;
-                    s.GeneratorSettings.AddMissingPathParameters = true;//needed due to known issues with [HttpGet] attributes with default routes/controller route attributes
-                    s.GeneratorSettings.Title = $"Cards Api - {env.EnvironmentName}";
-                    s.GeneratorSettings.Description = "The Cards Api enables you to progammatically create and manage decks of cards.";
-                });
+                app.UseSwagger();
+                app.UseSwaggerUi3();
+
+                //app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, s =>
+                //{
+                //    s.GeneratorSettings.DefaultPropertyNameHandling = NJsonSchema.PropertyNameHandling.CamelCase;
+                //    s.GeneratorSettings.AddMissingPathParameters = true;//needed due to known issues with [HttpGet] attributes with default routes/controller route attributes
+                //    s.GeneratorSettings.Title = $"Cards Api - {env.EnvironmentName}";
+                //    s.GeneratorSettings.Description = "The Cards Api enables you to progammatically create and manage decks of cards.";
+                //});
             }
             logger.LogTrace("Swagger configuration complete.");
             return app;

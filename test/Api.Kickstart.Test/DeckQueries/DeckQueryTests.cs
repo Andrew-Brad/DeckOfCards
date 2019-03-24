@@ -81,20 +81,20 @@ namespace DeckOfCards.Test.DeckQueries
         //    Assert.True(responseObject["result"]["cardName"].ToString().Length > 3);
         //}
 
-        [Fact]
-        public async Task Get_Nonexistent_Deck_Id_Returns_400()
-        {
-            // Arrange
-            string nonexistentId = Guid.NewGuid().ToString();
+        //[Fact]
+        //public async Task Get_Nonexistent_Deck_Id_Returns_400()
+        //{
+        //    // Arrange
+        //    string nonexistentId = Guid.NewGuid().ToString();
 
-            // Act
-            var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{nonexistentId}");
-            string responseString = await response.Content.ReadAsStringAsync();
+        //    // Act
+        //    var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{nonexistentId}");
+        //    string responseString = await response.Content.ReadAsStringAsync();
 
-            // Assert
-            Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
-            JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
-        }
+        //    // Assert
+        //    Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+        //    JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
+        //}
 
         [Fact]
         public async Task Insanely_Long_String_Does_Not_Pass_Validation() // is someone trying to hack us?

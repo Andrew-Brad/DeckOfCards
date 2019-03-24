@@ -9,6 +9,8 @@ using Lamar.Microsoft.DependencyInjection;
 using Lamar;
 using MediatR;
 using AutoMapper;
+using DeckOfCards.Queries;
+using DeckOfCards.QueryHandlers;
 
 namespace DeckOfCards.WebApi
 {
@@ -46,6 +48,11 @@ namespace DeckOfCards.WebApi
 
             return new WebHostBuilder()
                 .UseKestrel(x => x.AddServerHeader = false) // more stuff for kestrel options and HTTPS: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.1&tabs=aspnetcore2x#endpoint-configuration
+                .ConfigureKestrel((context, options) =>
+                {
+                    // Set properties and call methods on options
+                    //options.add
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseLamar(registry)
                 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -89,9 +96,7 @@ namespace DeckOfCards.WebApi
             // Due to the unique nature of how these libraries do DLL scanning, they only work with Lamar if used here
             registry.AddAutoMapper();
 
-            // Mediatr + handlers
-            registry.AddMediatR();
-
+            // Mediatr works best when configured directly with your IoC container
             registry.Scan(scanner =>
             {
                 // old Structuremap fail at runtime, but they compile
@@ -102,10 +107,17 @@ namespace DeckOfCards.WebApi
                 scanner.TheCallingAssembly();
                 scanner.WithDefaultConventions();
 
-                // auto register the open generics for our handler classes (obsolete)
-                //scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));
-                //scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>)); // also: https://github.com/jbogard/MediatR/wiki
+                // auto register the open generics for our handler classes - https://github.com/wooderz/MediatR/wiki
+                scanner.AssemblyContainingType<CardTemplateQueryHandler>(); // todo: improve assembly targeting logic
+                scanner.AssemblyContainingType<NewDeckOfCardsCommandHandler>(); // todo: improve assembly targeting logic
+                scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<>)); // Handlers with no response
+                scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>)); // Handlers with a response
+                scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>)); // also: https://github.com/jbogard/MediatR/wiki
             });
+
+            registry.For<IMediator>().Use<Mediator>().Scoped();
+            registry.For<ServiceFactory>().Use(ctx => ctx.GetInstance);
+
             return registry;
         }
 

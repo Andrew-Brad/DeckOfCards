@@ -7,8 +7,8 @@
   <ItemGroup>
     <PackageReference Include="AB.Extensions" Version="3.0.1" />
     <PackageReference Include="Ardalis.SmartEnum" Version="1.0.5" />
-    <PackageReference Include="MediatR" Version="4.1.0" />
-    <PackageReference Include="Sieve" Version="2.1.5" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
+    <PackageReference Include="Sieve" Version="2.3.2" />
   </ItemGroup>
 
   <ItemGroup>

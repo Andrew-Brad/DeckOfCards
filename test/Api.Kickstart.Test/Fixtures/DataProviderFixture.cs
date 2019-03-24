@@ -6,6 +6,7 @@ using Bogus;
 using Xunit;
 using System.Threading.Tasks;
 using Raven.Client.Documents;
+using Bogus.DataSets;
 
 namespace DeckOfCards.Test.Fixtures
 {
@@ -31,7 +32,7 @@ namespace DeckOfCards.Test.Fixtures
                     f.PickRandomParam(RanksEnumeration.List.ToArray()),
                     f.PickRandomParam(SuitsEnumeration.List.ToArray())
                     ))
-                .RuleFor(o => o.ImageUrl, f => f.Image.Cats());
+                .RuleFor(o => o.ImageUrl, f => f.Image.LoremPixelUrl(LoremPixelCategory.Cats));
 
             //.StrictMode(false) // can ensure all properties covered by rules
 
