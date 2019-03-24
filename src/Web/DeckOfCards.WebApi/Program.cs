@@ -48,6 +48,11 @@ namespace DeckOfCards.WebApi
 
             return new WebHostBuilder()
                 .UseKestrel(x => x.AddServerHeader = false) // more stuff for kestrel options and HTTPS: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.1&tabs=aspnetcore2x#endpoint-configuration
+                .ConfigureKestrel((context, options) =>
+                {
+                    // Set properties and call methods on options
+                    //options.add
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseLamar(registry)
                 .ConfigureAppConfiguration((hostingContext, config) =>

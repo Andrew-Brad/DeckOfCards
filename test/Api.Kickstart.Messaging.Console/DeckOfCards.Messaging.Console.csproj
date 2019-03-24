@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-ApiKickstart-9c9e22fb-27d7-4783-99d8-6d7253dbf01b</UserSecretsId>
     <!--Solves the static Main compiler error by forcing Roslyn and C Sharp to 7.1 - https://github.com/dotnet/sdk/issues/1395-->
     <LangVersion>7.1</LangVersion>

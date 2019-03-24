@@ -74,7 +74,7 @@ namespace DeckOfCards.WebApi
             var mvcBuilder = services.AddMvc();
             mvcBuilder.AddMvcOptions(options => options.OutputFormatters.Add(new Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter(new System.Xml.XmlWriterSettings() { NamespaceHandling = System.Xml.NamespaceHandling.OmitDuplicates, Async = true, OmitXmlDeclaration = false })));//TODO: configure removal of namespacing in the resulting xml
             mvcBuilder.AddMvcOptions(options => options.ReturnHttpNotAcceptable = true);
-            mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1); // required for certain features like [ApiController]
+            mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_2); // required for certain features like [ApiController]
             //var jsonFormatter = mvcBuilder.
 
 
