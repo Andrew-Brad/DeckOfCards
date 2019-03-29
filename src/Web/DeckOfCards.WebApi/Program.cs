@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using AB.Extensions;
 using Lamar.Microsoft.DependencyInjection;
 using Lamar;
 using MediatR;
 using Serilog;
-using AB.Extensions;
-using System.Reflection;
 
 namespace DeckOfCards.WebApi
 {
