@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using AB.Extensions;
 using Lamar.Microsoft.DependencyInjection;
 using Lamar;
-using MediatR;
 using Serilog;
 
 namespace DeckOfCards.WebApi
@@ -41,32 +40,30 @@ namespace DeckOfCards.WebApi
          */
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            ServiceRegistry registry = CreateLamarIocContainer();
+            ServiceRegistry registry = IoC.CreateLamarIocContainer();
 
             return new WebHostBuilder()
-                .UseKestrel(x => x.AddServerHeader = false) // more stuff for kestrel options and HTTPS: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.1&tabs=aspnetcore2x#endpoint-configuration
+                .UseKestrel() // more stuff for kestrel options and HTTPS: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.1&tabs=aspnetcore2x#endpoint-configuration
                 .ConfigureKestrel((context, options) =>
                 {
                     // Set properties and call methods on options
-                    //options.add
+                    options.AddServerHeader = false;
                 })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseLamar(registry)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    //you can clear, add, or override some configuration here:
+                    // Configuration keys are "last in wins"
                     IHostingEnvironment env = hostingContext.HostingEnvironment;
                     config
                         .AddJsonFile($"Configuration/appsettings.json", optional: false, reloadOnChange: true)
                         .AddJsonFile($"Configuration/appsettings.{env.EnvironmentName}.json", optional: false, reloadOnChange: true)
                         .AddJsonFile($"Configuration/aws-sns-settings.json", optional: false, reloadOnChange: true)
-                        .AddUserSecrets("aspnet-ApiKickstart-9c9e22fb-27d7-4783-99d8-6d7253dbf01b")
                         .AddEnvironmentVariables();
 
-                    // Configuration keys are "last in wins"
                     if (env.IsDevelopment())
                     {
-                        var appAssembly = System.Reflection.Assembly.Load(new System.Reflection.AssemblyName(env.ApplicationName));
+                        var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
                         if (appAssembly != null) config.AddUserSecrets(appAssembly, optional: true);
                     }
 
@@ -84,40 +81,6 @@ namespace DeckOfCards.WebApi
                 })
                 .UseSerilog()
                 .UseStartup<Startup>();
-        }
-
-        private static ServiceRegistry CreateLamarIocContainer()
-        {
-            var registry = new ServiceRegistry();
-
-            registry.Scan(scanner =>
-            {
-                // old Structuremap calls fail at runtime, but they compile
-                //scanner.IncludeNamespace("ApiKickstart");
-                //scanner.LookForRegistries();
-                //scanner.AssembliesFromApplicationBaseDirectory();
-
-                scanner.TheCallingAssembly();
-                scanner.WithDefaultConventions();
-
-                //scanner.Assembly(Assembly.Load(nameof(DeckOfCards.QueryHandlers)));
-                //scanner.Assembly(Assembly.Load(nameof(DeckOfCards.CommandHandlers)));
-                scanner.Assembly(Assembly.Load("DeckOfCards.QueryHandlers")); // todo: improve assembly targeting logic
-                scanner.Assembly(Assembly.Load("DeckOfCards.CommandHandlers"));
-                //scanner.AssemblyContainingType<CardTemplateQueryHandler>(); 
-                //scanner.AssemblyContainingType<NewDeckOfCardsCommandHandler>(); // todo: improve assembly targeting logic
-
-                // auto register the open generics for our handler classes - https://github.com/wooderz/MediatR/wiki
-                scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<>)); // Handlers with no response
-                scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>)); // Handlers with a response
-                scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
-            });
-
-            // Mediatr works best when configured directly with your IoC container - https://github.com/jbogard/MediatR/wiki
-            registry.For<IMediator>().Use<Mediator>().Scoped();
-            registry.For<ServiceFactory>().Use(ctx => ctx.GetInstance);
-
-            return registry;
         }
 
         public static LoggerConfiguration ConfigureSerilog(IConfiguration config, IHostingEnvironment env)
