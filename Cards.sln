@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{E29A12
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.QueryHandlers", "src\CQRS\DeckOfCards.QueryHandlers\DeckOfCards.QueryHandlers.csproj", "{6D7FACC9-2084-4E39-8748-C76A3D78506A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Test", "test\Api.Kickstart.Test\DeckOfCards.Test.csproj", "{861846A9-2BA2-4BC6-A824-11F247AA59C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.Test", "test\Cards.Test\DeckOfCards.Test.csproj", "{861846A9-2BA2-4BC6-A824-11F247AA59C0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckOfCards.CommandHandlers", "src\CQRS\DeckOfCards.CommandHandlers\DeckOfCards.CommandHandlers.csproj", "{C0C4E557-71E4-485C-ABE7-2A68A5718976}"
 EndProject
