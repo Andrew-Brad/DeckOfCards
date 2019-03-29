@@ -77,6 +77,7 @@ namespace DeckOfCards.WebApi
             mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_2); // required for certain features like [ApiController]
             //var jsonFormatter = mvcBuilder.
 
+            services.AddAutoMapper();
 
             // Swagger
             services.AddSwaggerDocument();
