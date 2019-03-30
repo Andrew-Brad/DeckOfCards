@@ -40,7 +40,7 @@ namespace DeckOfCards.WebApi
          */
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            ServiceRegistry registry = IoC.CreateLamarIocContainer();
+            ServiceRegistry registry = StartupExtensions.CreateLamarIocContainer();
 
             return new WebHostBuilder()
                 .UseKestrel() // more stuff for kestrel options and HTTPS: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.1&tabs=aspnetcore2x#endpoint-configuration
