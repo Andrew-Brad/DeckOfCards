@@ -9,7 +9,7 @@ using System.Threading;
 using DeckOfCards.DomainEvents;
 using AutoMapper;
 
-namespace DeckOfCards.QueryHandlers
+namespace DeckOfCards.CommandHandlers
 {
     public class DeprecateWidgetCommandHandler : IRequestHandler<DeprecateWidgetCommand, DeprecateWidgetCommandResult>
     {

@@ -13,7 +13,7 @@ using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
 using System.Collections.Generic;
 
-namespace DeckOfCards.QueryHandlers
+namespace DeckOfCards.CommandHandlers
 {
     public class NewDeckOfCardsCommandHandler : IRequestHandler<NewDeckOfCardsCommand, NewDeckOfCardsCommandResult>
     {
