@@ -12,7 +12,7 @@ using DeckOfCards.DomainEvents;
 using Polly.Registry;
 using DeckOfCards.CQRS;
 
-namespace DeckOfCards.QueryHandlers
+namespace DeckOfCards.CommandHandlers
 {
     public class WidgetDeprecatedAwsSnsNotificationHandler : INotificationHandler<WidgetDeprecatedV1Event>
     {

@@ -1,54 +1,62 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Reflection;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
-using NSwag.AspNetCore;
-using System.Reflection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using Lamar;
+using MediatR;
+using Newtonsoft.Json;
+using NSwag.AspNetCore;
 using Polly.Registry;
 using Polly;
+using Raven.Client.Documents;
 using Sieve.Models;
 using Sieve.Services;
-using Amazon.SimpleNotificationService.Model;
-using Raven.Client.Documents;
-using Newtonsoft.Json;
-using DeckOfCards.DataModel.JsonContractResolvers;
-using System.Net.Sockets;
 using DeckOfCards.Domain;
 using DeckOfCards.Persistence;
+using DeckOfCards.DataModel.JsonContractResolvers;
 
 namespace DeckOfCards.WebApi
 {
     public static class StartupExtensions
     {
-        //public static Container BuildStructureMapContainer(this IServiceCollection services)
-        //{
-        //    var container = new Container();
-        //    container.Configure(config =>
-        //    {
-        //        // Register stuff in container
-        //        config.Scan(scanner =>
-        //        {
-        //            //scanner.IncludeNamespace("ApiKickstart");
-        //            scanner.WithDefaultConventions();
-        //            scanner.LookForRegistries();
-        //            scanner.AssembliesFromApplicationBaseDirectory();
+        public static ServiceRegistry CreateLamarIocContainer()
+        {
+            var registry = new ServiceRegistry();
+            registry.Scan(scanner =>
+            {
+                // old Structuremap calls fail at runtime, but they compile
+                //scanner.IncludeNamespace("ApiKickstart");
+                //scanner.LookForRegistries();
+                //scanner.AssembliesFromApplicationBaseDirectory();
+                //scanner.TheCallingAssembly();
+                scanner.WithDefaultConventions();
 
-        //            // auto register the open generics for our handler classes:
-        //            scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>)); // http://structuremap.github.io/generics/#sec1
-        //            scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>)); // also: https://github.com/jbogard/MediatR/wiki
+                //scanner.Assembly(Assembly.Load(nameof(DeckOfCards.QueryHandlers)));
+                //scanner.Assembly(Assembly.Load(nameof(DeckOfCards.CommandHandlers)));
+                scanner.Assembly(Assembly.Load("DeckOfCards.QueryHandlers")); // todo: improve assembly targeting logic
+                scanner.Assembly(Assembly.Load("DeckOfCards.CommandHandlers"));
+                //scanner.AssemblyContainingType<CardTemplateQueryHandler>(); 
+                //scanner.AssemblyContainingType<NewDeckOfCardsCommandHandler>(); // todo: improve assembly targeting logic
 
-        //        });
-        //        config.Populate(services);
-        //    });
+                // auto register the open generics for our handler classes - https://github.com/wooderz/MediatR/wiki
+                scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<>)); // Handlers with no response
+                scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>)); // Handlers with a response
+                scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
+            });
 
-        //    return container;
-        //}
+            // Mediatr works best when configured directly with your IoC container - https://github.com/jbogard/MediatR/wiki
+            registry.For<IMediator>().Use<Mediator>().Scoped();
+            registry.For<ServiceFactory>().Use(ctx => ctx.GetInstance);
+            return registry;
+        }
 
         public static IApplicationBuilder AddCustomSwagger(this IApplicationBuilder app)
         {

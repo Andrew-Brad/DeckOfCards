@@ -3,7 +3,7 @@
   <!-- https://stackoverflow.com/questions/1452962/list-of-msbuild-built-in-variables/1453023#1453023 -->
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>aspnet-ApiKickstart-9c9e22fb-27d7-4783-99d8-6d7253dbf01b</UserSecretsId>
+    <UserSecretsId>aspnet-Cards-4E7A6DD8-DC11-493F-BAE0-E2ACF23F2C8F</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

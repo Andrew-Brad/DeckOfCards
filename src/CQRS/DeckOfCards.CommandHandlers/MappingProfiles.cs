@@ -3,9 +3,8 @@ using DeckOfCards.Commands;
 using DeckOfCards.Domain;
 using DeckOfCards.DomainEvents;
 using AutoMapper;
-using System;
 
-namespace DeckOfCards.WebApi.ViewModels
+namespace DeckOfCards.CommandHandlers
 {
     /// <summary>
     /// This Automapper profile will be scanned by the IoC container and the maps will be auto-registered.
