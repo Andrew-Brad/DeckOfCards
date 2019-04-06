@@ -83,8 +83,7 @@ namespace DeckOfCards.Kickstart.Test
                 _sharedTestServerFixture.server.Services.GetRequiredService<IMapper>(),
                 _sharedTestServerFixture.server.Services.GetRequiredService<ISieveProcessor>(),
                 _sharedTestServerFixture.server.Services.GetRequiredService<IOptions<SieveOptions>>(),
-                _sharedTestServerFixture.server.Services.GetRequiredService<IReadOnlyPolicyRegistry<string>>(),
-                _sharedTestServerFixture.server.Services.GetRequiredService<IMemoryCache>()
+                _sharedTestServerFixture.server.Services.GetRequiredService<IReadOnlyPolicyRegistry<string>>()
                 );
 
             // Act
