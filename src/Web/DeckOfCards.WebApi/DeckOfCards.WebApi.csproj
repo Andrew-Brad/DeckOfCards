@@ -43,8 +43,8 @@
 
 
     <PackageReference Include="MediatR" Version="6.0.0" />
-    <PackageReference Include="NSwag.Annotations" Version="12.0.17" />
-    <PackageReference Include="NSwag.AspNetCore" Version="12.0.17" />
+    <PackageReference Include="NSwag.Annotations" Version="12.1.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="12.1.0" />
 
 
 

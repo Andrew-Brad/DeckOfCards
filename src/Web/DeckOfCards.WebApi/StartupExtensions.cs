@@ -22,6 +22,7 @@ using Sieve.Services;
 using DeckOfCards.Domain;
 using DeckOfCards.Persistence;
 using DeckOfCards.DataModel.JsonContractResolvers;
+using NSwag.SwaggerGeneration.WebApi;
 
 namespace DeckOfCards.WebApi
 {
@@ -58,28 +59,47 @@ namespace DeckOfCards.WebApi
             return registry;
         }
 
-        public static IApplicationBuilder AddCustomSwagger(this IApplicationBuilder app)
+        public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
         {
-            var config = app.ApplicationServices.GetRequiredService<IConfiguration>();
-            var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
-            var logger = app.ApplicationServices.GetRequiredService<ILogger<Startup>>();
+            var di = services.BuildServiceProvider();
+            var appConfig = di.GetRequiredService<IConfiguration>();
+            var env = di.GetRequiredService<IHostingEnvironment>();
+            var logger = di.GetRequiredService<ILogger<Startup>>();
             logger.LogTrace("Beginning DI registration for Swagger...");
-            //TODO: Many ways to do this now with 2.0 - https://github.com/RSuter/NSwag/blob/master/src/NSwag.Sample.NETCore20/Startup.cs
-            if (bool.Parse(config["EnableSwagger"]))
+            if (bool.Parse(appConfig["EnableSwagger"]))
             {
-                app.UseSwagger();
-                app.UseSwaggerUi3();
-
-                //app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, s =>
-                //{
-                //    s.GeneratorSettings.DefaultPropertyNameHandling = NJsonSchema.PropertyNameHandling.CamelCase;
-                //    s.GeneratorSettings.AddMissingPathParameters = true;//needed due to known issues with [HttpGet] attributes with default routes/controller route attributes
-                //    s.GeneratorSettings.Title = $"Cards Api - {env.EnvironmentName}";
-                //    s.GeneratorSettings.Description = "The Cards Api enables you to progammatically create and manage decks of cards.";
-                //});
+                services.AddSwaggerDocument(config =>
+                {
+                    config.PostProcess = document =>
+                    {
+                        document.Info.Version = "v1";
+                        document.Info.Title = "Deck of Cards API";
+                        document.Info.Description = "A simple ASP.NET Core web API";
+                        
+                        //document.Info.TermsOfService = "None";
+                        document.Info.Contact = new NSwag.SwaggerContact
+                        {
+                            Name = "Andrew Brad",                            
+                            Url = "www.changingrequirements.com"
+                        };
+                        document.Info.License = new NSwag.SwaggerLicense
+                        {
+                            Name = "MIT",
+                            Url = "https://github.com/Andrew-Brad/DeckOfCards/blob/master/LICENSE"
+                        };
+                    };
+                });
             }
             logger.LogTrace("Swagger configuration complete.");
-            return app;
+            return services;
+        }
+
+        private static SwaggerUi3Settings<WebApiToSwaggerGeneratorSettings> ConfigureSwagger()
+        {
+            var swaggerSettings = new SwaggerUi3Settings<WebApiToSwaggerGeneratorSettings>();
+            swaggerSettings.EnableTryItOut = false;
+            swaggerSettings.ServerUrl = "http://lol.com";
+            return swaggerSettings;
         }
 
         /// <summary>
@@ -168,7 +188,7 @@ namespace DeckOfCards.WebApi
         public static IServiceCollection AddSortFilterPaging(this IServiceCollection services)
         {
             IConfiguration config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-            ILogger logger = services.BuildServiceProvider().GetRequiredService<ILogger<Startup>>();
+
             // Sieve:
             services.AddScoped<ISieveProcessor,SieveProcessor>();
             services.Configure<SieveOptions>(config.GetSection("Sieve"));
