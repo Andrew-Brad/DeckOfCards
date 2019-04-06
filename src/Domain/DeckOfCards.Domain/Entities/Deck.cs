@@ -31,20 +31,22 @@ namespace DeckOfCards.Domain
 
         /// <summary>
         /// Create a standard 52 card deck. Assumes the world where only 4 suits exist.
-        /// This is a naive form of a creation profile - we use for loops instead of deck creation criteria.
-        /// This may get refactored into a deck factory or strategy of some sort.
+        /// This is a naive form of a creation profile - we use loops instead of deck creation criteria.
+        /// This may get refactored into a deck factory or strategy json config of some sort.
         /// </summary>
         public static Deck Standard52CardDeck(IList<CardTemplate> cardPool)
         {
+            // fails due to object equality instead of rank == rank custom
             List<CardTemplate> standardCards = new List<CardTemplate>();
-            for (int s = 0; s < SuitsEnumeration.List.Count; s++)
+            foreach (var suit in SuitsEnumeration.List)
             {
-                for (int r = 0; r < RanksEnumeration.List.Count; r++)
-                {                    
+                foreach (var rank in RanksEnumeration.List)
+                {
                     CardTemplate logicalCard = cardPool
-                        .Single(x => x.Rank == RanksEnumeration.List[r] && x.Suit == SuitsEnumeration.List[s]);
+                        .Single(x => x.Rank == rank
+                        && x.Suit == suit);
                     standardCards.Add(logicalCard);
-                }
+                }                
             }
 
             var deck = new Deck(standardCards);

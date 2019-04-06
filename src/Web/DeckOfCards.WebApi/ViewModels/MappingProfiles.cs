@@ -19,8 +19,8 @@ namespace DeckOfCards.WebApi.ViewModels
             //    .ForMember(dest => dest.ResultsPerPage, opt => opt.MapFrom(src => src.ResultsPerPage));
 
             CreateMap<GetCardTemplateViewModel, CardTemplateQuery>()
-                .ForMember(dest => dest.Rank, opt => opt.MapFrom(src => RanksEnumeration.FromName(src.Rank)))
-                .ForMember(dest => dest.Suit, opt => opt.MapFrom(src => SuitsEnumeration.FromName(src.Suit)));
+                .ForMember(dest => dest.Rank, opt => opt.MapFrom(src => RanksEnumeration.FromName(src.Rank, true)))
+                .ForMember(dest => dest.Suit, opt => opt.MapFrom(src => SuitsEnumeration.FromName(src.Suit, true)));
 
 
             CreateMap<GetWidgetsViewModelV2, CardTemplateQuery>();

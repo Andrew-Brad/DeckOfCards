@@ -1,10 +1,14 @@
-﻿using DeckOfCards.QueryResults;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using DeckOfCards.QueryResults;
 using Ardalis.SmartEnum;
 
 namespace DeckOfCards.Queries
 {
-    public class EnumerationQueryResult<TEnum,TValue> : QueryResultBase where TEnum : SmartEnum<TEnum,TValue>
+    public class EnumerationQueryResult<TEnum,TValue> : QueryResultBase 
+        where TEnum : SmartEnum<TEnum,TValue>
+        where TValue : IEquatable<TValue>, IComparable<TValue>
     {
         public List<TEnum> Enumeration { get; set; }
 
@@ -12,7 +16,7 @@ namespace DeckOfCards.Queries
         {
             return new EnumerationQueryResult<TEnum,TValue>()
             {
-                Enumeration = SmartEnum<TEnum,TValue>.List,
+                Enumeration = SmartEnum<TEnum,TValue>.List.ToList(),
                 ResultStatus = CQRS.QueryResultStatus.SuccessfullyProcessed
             };
         }
