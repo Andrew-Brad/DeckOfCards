@@ -4,15 +4,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MediatR;
-using AB.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using AutoMapper;
-using AB.Middleware.HttpRequestLogging;
 using Lamar;
-using DeckOfCards.Commands;
-using DeckOfCards.CommandResults;
+using AB.Extensions;
+using AB.Middleware.HttpRequestLogging;
+
 
 namespace DeckOfCards.WebApi
 {
@@ -31,33 +29,7 @@ namespace DeckOfCards.WebApi
             _environment = hostingEnvironment;
         }
 
-        public void Configure(IApplicationBuilder app, IApplicationLifetime appLifetime)
-        {
-            _logger.LogDebug("Configure method entered.");
-
-            // order matters with UseMiddleware()!
-            app.UseMiddleware<HttpRequestSummaryLoggingMiddleware>();
-
-            if (_environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseMvc();
-
-            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.) (NOTE: Doesn't work with versioning...https://github.com/NSwag/NSwag/issues/655)
-            app.AddCustomSwagger();
-
-            _logger.LogInformation("Startup initialization completed for {environment}.", _environment.EnvironmentName);
-        }
-
-        // Take in Lamar's ServiceRegistry instead of IServiceCollection
-        // as your argument, but fear not, it implements IServiceCollection as well
+        // Take in Lamar's ServiceRegistry instead of IServiceCollection (it implements IServiceCollection)
         public void ConfigureContainer(ServiceRegistry services)
         {
             _logger.LogDebug("ConfigureServices method entered.");
@@ -80,7 +52,7 @@ namespace DeckOfCards.WebApi
             services.AddAutoMapper();
 
             // Swagger
-            services.AddSwaggerDocument();
+            services.AddCustomSwagger();
 
             // In memory cache
             services.AddMemoryCache();
@@ -106,6 +78,30 @@ namespace DeckOfCards.WebApi
 
             // Generic sorting/filtering/paging
             services.AddSortFilterPaging();
+        }
+
+        public void Configure(IApplicationBuilder app, IApplicationLifetime appLifetime)
+        {
+            _logger.LogDebug("Configure method entered.");
+
+            app.UseMiddleware<HttpRequestSummaryLoggingMiddleware>();
+
+            if (_environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUi3();
+
+            _logger.LogInformation("Startup initialization completed for {environment}.", _environment.EnvironmentName);
         }
     }
 }
