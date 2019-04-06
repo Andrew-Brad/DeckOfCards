@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DeckOfCards.Test.Fixtures;
 using static DeckOfCards.Test.TestConstants;
 using static DeckOfCards.Test.TestExtensions;
 using Newtonsoft.Json.Linq;
 using Xunit;
-using DeckOfCards.Domain;
-using Microsoft.Extensions.Configuration;
 
 namespace DeckOfCards.Test
 {
@@ -50,15 +49,16 @@ namespace DeckOfCards.Test
         public async Task Create_Deck_No_Post_Body_Returns_201_With_Default_52_Card_Deck()
         {
             // Arrange
+            int expectedNumberOfCards = 52;
 
             // Act
             var response = await _integrationTestServerFixture.HttpClient.PostAsync($"/api/v1/decks", null);
+            string responseString = await response.Content.ReadAsStringAsync();
+            JObject responseObject = JObject.Parse(responseString);
 
             // Assert
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-            string responseString = await response.Content.ReadAsStringAsync();
-            JObject responseObject = JObject.Parse(responseString);
-            Assert.Equal(52, responseObject["result"]["cards"].Children().Count());
+            Assert.Equal(expectedNumberOfCards, responseObject["result"]["cards"].Children().Count());
         }
     }
 }
