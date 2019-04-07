@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using DeckOfCards.Test.Fixtures;
@@ -56,30 +55,25 @@ namespace DeckOfCards.Test.DeckQueries
 
             // Act
             var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{_fakeDataFixture.Standard52CardDeck.Id}");
+            JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-            JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
         }
 
-        //[Fact]
-        //public async Task Get_0_Card_Deck_Id_Returns_200()
-        //{
-        //    // Arrange
-        //    const string expectedCardRank = "king";
-        //    const string expectedCardSuit = "hearts";
+        [Fact]
+        public async Task Get_0_Card_Deck_Id_Returns_200()
+        {
+            // Arrange
+            await _fakeDataFixture.SeedZeroCardDeck(_db.Datastore);
 
-        //    // Act
-        //    var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/cards/templates?rank={expectedCardRank}&suit={expectedCardSuit}");
-        //    string responseString = await response.Content.ReadAsStringAsync();
+            // Act
+            var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{_fakeDataFixture.ZeroCardDeck.Id}");
+            JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
 
-        //    // Assert
-        //    Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-        //    JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
-        //    Assert.Equal(expectedCardRank, responseObject["result"]["rank"].ToString(), ignoreCase: true);
-        //    Assert.Equal(expectedCardSuit, responseObject["result"]["suit"].ToString(), ignoreCase: true);
-        //    Assert.True(responseObject["result"]["cardName"].ToString().Length > 3);
-        //}
+            // Assert
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
 
         //[Fact]
         //public async Task Get_Nonexistent_Deck_Id_Returns_400()

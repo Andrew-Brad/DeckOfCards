@@ -9,20 +9,19 @@ using DeckOfCards.Queries;
 using AutoMapper;
 using MediatR;
 using Raven.Client.Documents;
-using System.Linq;
 
 namespace DeckOfCards.QueryHandlers
 {
     public class DeckOfCardsQueryHandler : IRequestHandler<DeckOfCardsQuery, NewDeckOfCardsQueryResult>
     {
         private readonly ILogger<DeckOfCardsQueryHandler> _logger;
-        private readonly IDocumentStore _context;
+        private readonly IDocumentStore _db;
         private readonly IMapper _mapper;
 
-        public DeckOfCardsQueryHandler(ILogger<DeckOfCardsQueryHandler> logger, IDocumentStore context, IMapper mapper)
+        public DeckOfCardsQueryHandler(ILogger<DeckOfCardsQueryHandler> logger, IDocumentStore docStore, IMapper mapper)
         {
             _logger = logger;
-            _context = context;
+            _db = docStore;
             _mapper = mapper;
         }
 
@@ -31,11 +30,10 @@ namespace DeckOfCards.QueryHandlers
             var queryResult = new NewDeckOfCardsQueryResult();
             try
             {
-                using (var session = _context.OpenAsyncSession())
+                using (var session = _db.OpenAsyncSession())
                 {
                     var deck = await session
                         .LoadAsync<Deck>(query.DeckId);
-
 
 
 

@@ -23,6 +23,7 @@ namespace DeckOfCards.Domain
         private Deck(IList<CardTemplate> cards)
         {
             _cards = new List<PlayingCard>();
+            if (cards == null) return;
             foreach (var card in cards)
             {
                 _cards.Add(new PlayingCard(Guid.NewGuid().ToString(), card));
@@ -60,7 +61,7 @@ namespace DeckOfCards.Domain
 
         public static Deck FromCards(IList<PlayingCard> cards)
         {
-            return new Deck(cards.Select(x => x.Template).ToList());
+            return new Deck(cards?.Select(x => x.Template).ToList());
         }
 
         /// <summary>
