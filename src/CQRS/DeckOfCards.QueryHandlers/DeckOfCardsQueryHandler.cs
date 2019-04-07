@@ -12,7 +12,7 @@ using Raven.Client.Documents;
 
 namespace DeckOfCards.QueryHandlers
 {
-    public class DeckOfCardsQueryHandler : IRequestHandler<DeckOfCardsQuery, NewDeckOfCardsQueryResult>
+    public class DeckOfCardsQueryHandler : IRequestHandler<DeckOfCardsQuery, DeckOfCardsQueryResult>
     {
         private readonly ILogger<DeckOfCardsQueryHandler> _logger;
         private readonly IDocumentStore _db;
@@ -25,9 +25,9 @@ namespace DeckOfCards.QueryHandlers
             _mapper = mapper;
         }
 
-        public async Task<NewDeckOfCardsQueryResult> Handle(DeckOfCardsQuery query, CancellationToken cancellationToken)
+        public async Task<DeckOfCardsQueryResult> Handle(DeckOfCardsQuery query, CancellationToken cancellationToken)
         {
-            var queryResult = new NewDeckOfCardsQueryResult();
+            var queryResult = new DeckOfCardsQueryResult();
             try
             {
                 using (var session = _db.OpenAsyncSession())
@@ -53,7 +53,7 @@ namespace DeckOfCards.QueryHandlers
             finally
             {
                 //log
-                _logger.LogDebug("{queryResult} has completed. {widget} returned.", nameof(NewDeckOfCardsQueryResult), queryResult.Deck);
+                _logger.LogDebug("{queryResult} has completed. {widget} returned.", nameof(DeckOfCardsQueryResult), queryResult.Deck);
             }
             return queryResult;
         }
