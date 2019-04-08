@@ -38,7 +38,8 @@ namespace DeckOfCards.WebApi.View
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Card.ImageUrl));
 
             CreateMap<DeckOfCardsQueryResult, GetDeckByIdView>()
-                    .ForMember(dest => dest.Cards, opt => opt.MapFrom(src => src.Deck));
+                .ForMember(dest => dest.DeckId, opt => opt.MapFrom(src => src.Deck.Id))
+                .ForMember(dest => dest.Cards, opt => opt.MapFrom(src => src.Deck)); // resuse above mapping
 
             CreateMap<NewDeckOfCardsCommandResult, NewDeckView>()
                 .ForMember(dest => dest.Cards, opt => opt.MapFrom(src => src.Deck));

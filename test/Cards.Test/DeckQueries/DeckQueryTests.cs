@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DeckOfCards.Test.Fixtures;
 using static DeckOfCards.Test.TestConstants;
 using static DeckOfCards.Test.TestExtensions;
 using Newtonsoft.Json.Linq;
 using Xunit;
-using DeckOfCards.Domain;
-using Microsoft.Extensions.Configuration;
-using System.Linq;
 
 namespace DeckOfCards.Test.DeckQueries
 {
@@ -39,7 +37,9 @@ namespace DeckOfCards.Test.DeckQueries
             // Seed the traditional 52 card deck templates
             await _fakeDataFixture.SeedCardTemplates(_db.Datastore);
 
-            // Seed some sample deck data
+            // Deck Data
+            await _fakeDataFixture.SeedValidDeck(_db.Datastore);
+            await _fakeDataFixture.SeedZeroCardDeck(_db.Datastore);
         }
 
         public async Task DisposeAsync()
@@ -51,28 +51,29 @@ namespace DeckOfCards.Test.DeckQueries
         public async Task Get_Existing_Deck_Id_Returns_200()
         {
             // Arrange
-            await _fakeDataFixture.SeedValidDeck(_db.Datastore);
+            string id = _fakeDataFixture.Standard52CardDeck.Id;
 
             // Act
-            var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{_fakeDataFixture.Standard52CardDeck.Id}");
+            var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{id}");
             JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(id, responseObject["result"]["deckId"].ToString());
         }
 
         [Fact]
         public async Task Get_0_Card_Deck_Id_Returns_200()
         {
             // Arrange
-            await _fakeDataFixture.SeedZeroCardDeck(_db.Datastore);
-
+            string id = _fakeDataFixture.ZeroCardDeck.Id;
             // Act
-            var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{_fakeDataFixture.ZeroCardDeck.Id}");
+            var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{id}");
             JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(id, responseObject["result"]["deckId"].ToString());
         }
 
         [Fact]
@@ -87,6 +88,7 @@ namespace DeckOfCards.Test.DeckQueries
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
+            // todo - what's expected in the payload?
         }
 
         [Fact]
@@ -97,11 +99,10 @@ namespace DeckOfCards.Test.DeckQueries
 
             // Act
             var response = await _sharedTestServerFixture.HttpClient.GetAsync($"/api/v1/decks/{maliciousId}");
-            string responseString = await response.Content.ReadAsStringAsync();
+            JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
 
             // Assert
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
-            JObject responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
         }
     }
 }
