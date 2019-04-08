@@ -49,12 +49,12 @@ namespace DeckOfCards.WebApi.Controllers
 
         // GET api/v1/decks/123
         [HttpGet("{DeckId}")]
-        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, typeof(ApiResponse<DeckByIdView>), Description = "Look up a deck of cards by its unique Id.")]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, typeof(ApiResponse<GetDeckByIdView>), Description = "Look up a deck of cards by its unique Id.")]
         public async Task<IActionResult> GetDeckOfCardsById(GetDeckByIdViewModel model)
         {
             var request = new DeckOfCardsQuery() { DeckId = model.DeckId };
-            NewDeckOfCardsQueryResult result = await _mediator.Send(request);
-            return this.ReturnObjectResult<DeckByIdView, IQueryResult>(result, _mapper);
+            DeckOfCardsQueryResult result = await _mediator.Send(request);
+            return this.ReturnObjectResult<GetDeckByIdView, IQueryResult>(result, _mapper);
         }
     }
 }

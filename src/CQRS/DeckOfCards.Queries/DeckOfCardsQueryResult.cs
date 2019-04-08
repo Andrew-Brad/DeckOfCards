@@ -2,7 +2,7 @@
 
 namespace DeckOfCards.QueryResults
 {
-    public class NewDeckOfCardsQueryResult : QueryResultBase
+    public class DeckOfCardsQueryResult : QueryResultBase
     {
         public Deck Deck { get; set; }
     }   

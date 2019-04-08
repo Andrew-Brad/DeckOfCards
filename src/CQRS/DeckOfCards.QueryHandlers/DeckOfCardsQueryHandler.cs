@@ -9,33 +9,31 @@ using DeckOfCards.Queries;
 using AutoMapper;
 using MediatR;
 using Raven.Client.Documents;
-using System.Linq;
 
 namespace DeckOfCards.QueryHandlers
 {
-    public class DeckOfCardsQueryHandler : IRequestHandler<DeckOfCardsQuery, NewDeckOfCardsQueryResult>
+    public class DeckOfCardsQueryHandler : IRequestHandler<DeckOfCardsQuery, DeckOfCardsQueryResult>
     {
         private readonly ILogger<DeckOfCardsQueryHandler> _logger;
-        private readonly IDocumentStore _context;
+        private readonly IDocumentStore _db;
         private readonly IMapper _mapper;
 
-        public DeckOfCardsQueryHandler(ILogger<DeckOfCardsQueryHandler> logger, IDocumentStore context, IMapper mapper)
+        public DeckOfCardsQueryHandler(ILogger<DeckOfCardsQueryHandler> logger, IDocumentStore docStore, IMapper mapper)
         {
             _logger = logger;
-            _context = context;
+            _db = docStore;
             _mapper = mapper;
         }
 
-        public async Task<NewDeckOfCardsQueryResult> Handle(DeckOfCardsQuery query, CancellationToken cancellationToken)
+        public async Task<DeckOfCardsQueryResult> Handle(DeckOfCardsQuery query, CancellationToken cancellationToken)
         {
-            var queryResult = new NewDeckOfCardsQueryResult();
+            var queryResult = new DeckOfCardsQueryResult();
             try
             {
-                using (var session = _context.OpenAsyncSession())
+                using (var session = _db.OpenAsyncSession())
                 {
                     var deck = await session
                         .LoadAsync<Deck>(query.DeckId);
-
 
 
 
@@ -55,7 +53,7 @@ namespace DeckOfCards.QueryHandlers
             finally
             {
                 //log
-                _logger.LogDebug("{queryResult} has completed. {widget} returned.", nameof(NewDeckOfCardsQueryResult), queryResult.Deck);
+                _logger.LogDebug("{queryResult} has completed. {widget} returned.", nameof(DeckOfCardsQueryResult), queryResult.Deck);
             }
             return queryResult;
         }

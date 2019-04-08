@@ -23,6 +23,7 @@ namespace DeckOfCards.Test.Fixtures
         public readonly Faker<CardTemplate> InvalidCardProvider;
         public readonly List<CardTemplate> CardTemplates;
         public readonly Deck Standard52CardDeck;
+        public readonly Deck ZeroCardDeck;
 
         public DataProviderFixture()
         {
@@ -49,6 +50,7 @@ namespace DeckOfCards.Test.Fixtures
             }
 
             Standard52CardDeck = Deck.Standard52CardDeck(CardTemplates);
+            ZeroCardDeck = Deck.FromCards(null);
 
             InvalidCardProvider = new Faker<CardTemplate>()
                 .StrictMode(false) // can ensure all properties covered by rules
@@ -83,6 +85,19 @@ namespace DeckOfCards.Test.Fixtures
             using (var session = datastore.OpenAsyncSession())
             {
                 await session.StoreAsync(Standard52CardDeck);
+                await session.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Populate the datastore with a 0 card deck.
+        /// </summary>
+        /// <returns></returns>
+        public async Task SeedZeroCardDeck(IDocumentStore datastore)
+        {
+            using (var session = datastore.OpenAsyncSession())
+            {
+                await session.StoreAsync(ZeroCardDeck);
                 await session.SaveChangesAsync();
             }
         }
