@@ -291,7 +291,7 @@ __pycache__/
 /src/Web/DeckOfCards.WebApi/Logs
 
 # VS Code
-.vscode
+.vscode/
 
 
 
